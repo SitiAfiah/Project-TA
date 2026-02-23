@@ -1,998 +1,1373 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <title>Fitness - Fitness Website Template</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Index - Constructo Bootstrap Template</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+  <!-- Favicons -->
+  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+  <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
-        <!-- Icon Font Stylesheet -->
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
-        <!-- Libraries Stylesheet -->
-        <link rel="stylesheet" href="{{ asset('assets/lib/animate/animate.min.css') }}"/>
-        <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
 
+  <!-- Main CSS File -->
+  <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
 
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+  <!-- =======================================================
+  * Template Name: Constructo
+  * Template URL: https://bootstrapmade.com/constructo-bootstrap-construction-template/
+  * Updated: Aug 30 2025 with Bootstrap v5.3.8
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
 
-        <!-- Template Stylesheet -->
-        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-    </head>
+<body class="index-page">
 
-    <body>
+  <header id="header" class="header sticky-top">
 
-        <!-- Spinner Start -->
-        {{-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        </div> --}}
-        <!-- Spinner End -->
-
-        <!-- Navbar & Hero Start -->
-        <div class="container-fluid header-top">
-            <div class="nav-shaps-2"></div>
-            <div class="container d-flex align-items-center">
-                <div class="d-flex align-items-center h-100">
-                    <a href="#" class="navbar-brand" style="height: 125px;">
-                        <h1 class="text-primary mb-0"><i class="fas fa-hand-rock me-2"></i> Fitness</h1>
-                        <!-- <img src="img/logo.png" alt="Logo"> -->
-                    </a>
-                </div>
-                <div class="w-100 h-100">
-                    <div class="topbar px-0 py-2 d-none d-lg-block" style="height: 45px;">
-                        <div class="row gx-0 align-items-center">
-                            <div class="col-lg-8 text-center text-lg-center mb-lg-0">
-                                <div class="d-flex flex-wrap">
-                                    <div class="pe-4">
-                                        <a href="mailto:example@gmail.com" class="text-muted small"><i class="fas fa-envelope text-primary me-2"></i>example@gmail.com</a>
-                                    </div>
-                                    <div class="pe-0">
-                                        <a href="mailto:example@gmail.com" class="text-muted small"><i class="fa fa-clock text-primary me-2"></i>Mon - Sat: 8.00 am-7.00 pm</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 text-center text-lg-end">
-                                <div class="d-flex justify-content-end">
-                                    <div class="d-flex align-items-center small">
-                                        <a href="#" class="login-btn text-body me-3 pe-3"> <span>Login</span></a>
-                                        <a href="#" class="text-body me-3"> Register</a>
-                                    </div>
-                                    <div class="d-flex pe-3">
-                                        <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-twitter"></i></a>
-                                        <a class="btn p-0 text-primary me-3" href="#"><i class="fab fa-instagram"></i></a>
-                                        <a class="btn p-0 text-primary me-0" href="#"><i class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nav-bar px-0 py-lg-0" style="height: 80px;">
-                        <nav class="navbar navbar-expand-lg navbar-light d-flex justify-content-lg-end">
-                            <a href="#" class="navbar-brand-2">
-                                <h1 class="text-primary mb-0"><i class="fas fa-hand-rock me-2"></i> Fitness</h1>
-                                <!-- <img src="img/logo.png" alt="Logo"> -->
-                            </a>
-                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                                <span class="fa fa-bars"></span>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarCollapse">
-                                <div class="navbar-nav mx-0 mx-lg-auto">
-                                    <a href="index.html" class="nav-item nav-link active">Home</a>
-                                    <a href="about.html" class="nav-item nav-link">About</a>
-                                    <a href="course.html" class="nav-item nav-link">Courses</a>
-                                    <a href="blog.html" class="nav-item nav-link">Blogs</a>
-                                    <div class="nav-item dropdown">
-                                        <a href="#" class="nav-link" data-bs-toggle="dropdown">
-                                            <span class="dropdown-toggle">Pages</span>
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            <a href="feature.html" class="dropdown-item">Our Features</a>
-                                            <a href="team.html" class="dropdown-item">Our team</a>
-                                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                                            <a href="404.html" class="dropdown-item">404 Page</a>
-                                        </div>
-                                    </div>
-                                    <a href="contact.html" class="nav-item nav-link">Contact</a>
-                                    <div class="nav-btn ps-3">
-                                        <button class="btn-search btn btn-primary btn-md-square mt-2 mt-lg-0 mb-4 mb-lg-0 flex-shrink-0" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></button>
-                                        <a href="#" class="btn btn-primary py-2 px-4 ms-0 ms-lg-3"> <span>Get Quote</span></a>
-                                    </div>
-                                    <div class="nav-shaps-1"></div>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+    <div class="topbar d-flex align-items-center dark-background">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <div class="contact-info d-flex align-items-center">
+          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">mpcabangjember@gmail.com</a></i>
+          <i class="bi bi-phone d-flex align-items-center ms-4"><span>081776198245</span></i>
         </div>
-        <!-- Navbar & Hero End -->
-
-        <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center bg-primary">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="btn bg-light border nput-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="social-links d-none d-md-flex align-items-center">
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
         </div>
-        <!-- Modal Search End -->
+      </div>
+    </div><!-- End Top Bar -->
 
+    <div class="branding d-flex align-items-cente">
 
-        <!-- Carousel Start -->
-        <div class="header-carousel owl-carousel overflow-hidden bg-dark">
-            <div class="header-carousel-item hero-section">
-                <div class="hero-bg-half-1"></div>
-                <div class="carousel-caption">
-                    <div class="container">
-                        <div class="row g-4 align-items-center">
-                            <div class="col-lg-7 animated fadeInLeft">
-                                <div class="text-sm-center text-md-start">
-                                    <h4 class="text-primary text-uppercase fw-bold mb-4">Wellcome to our fitness Center</h4>
-                                    <h1 class="display-1 text-white mb-4">The best gym center is now in your city</h1>
-                                    <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy...
-                                    </p>
-                                    <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
-                                        <a class="btn btn-dark py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i> <span>Watch Video</span></a>
-                                        <a class="btn btn-primary py-3 px-4 px-md-5 ms-2" href="#"><span>Learn More</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="index.html" class="logo d-flex align-items-center">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="{{ asset('assets/img/logo.webp') }}" alt=""> -->
+          <h1 class="sitename">TapakMP</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li class="dropdown"><a href="#"><span>More Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="service-details.html">Service Details</a></li>
+                <li><a href="project-details.html">Project Details</a></li>
+                <li><a href="quote.html">Quote Form</a></li>
+                <li><a href="terms.html">Terms</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="404.html">404</a></li>
+              </ul>
+            </li>
+            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li><a href="#">Dropdown 1</a></li>
+                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <ul>
+                    <li><a href="#">Deep Dropdown 1</a></li>
+                    <li><a href="#">Deep Dropdown 2</a></li>
+                    <li><a href="#">Deep Dropdown 3</a></li>
+                    <li><a href="#">Deep Dropdown 4</a></li>
+                    <li><a href="#">Deep Dropdown 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Dropdown 2</a></li>
+                <li><a href="#">Dropdown 3</a></li>
+                <li><a href="#">Dropdown 4</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+      </div>
+
+    </div>
+
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <div class="hero-content" data-aos="fade-right" data-aos-delay="200">
+              <span class="subtitle">Excellence in Construction</span>
+              <h1>Building Tomorrow's Landmarks Today</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et purus a odio finibus bibendum in sit amet leo. Mauris feugiat at orci maximus feugiat.</p>
+
+              <div class="hero-buttons">
+                <a href="#" class="btn-primary">Request a Quote</a>
+                <a href="#" class="btn-secondary">Our Projects</a>
+              </div>
+
+              <div class="trust-badges">
+                <div class="badge-item">
+                  <i class="bi bi-building-check"></i>
+                  <div class="badge-text">
+                    <span class="count">25+</span>
+                    <span class="label">Years Experience</span>
+                  </div>
                 </div>
+                <div class="badge-item">
+                  <i class="bi bi-trophy"></i>
+                  <div class="badge-text">
+                    <span class="count">500+</span>
+                    <span class="label">Projects Completed</span>
+                  </div>
+                </div>
+                <div class="badge-item">
+                  <i class="bi bi-people"></i>
+                  <div class="badge-text">
+                    <span class="count">300+</span>
+                    <span class="label">Satisfied Clients</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="header-carousel-item hero-section">
-                <div class="hero-bg-half-2"></div>
-                <div class="carousel-caption">
-                    <div class="container">
-                        <div class="row g-4 align-items-center">
-                            <div class="col-lg-7 animated fadeInLeft">
-                                <div class="text-sm-center text-md-start">
-                                    <h4 class="text-primary text-uppercase fw-bold mb-4">Wellcome to our fitness Center</h4>
-                                    <h1 class="display-2 text-white mb-4">Stay healthy by exercising at the best gym center</h1>
-                                    <p class="mb-5 fs-5">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy...
-                                    </p>
-                                    <div class="d-flex justify-content-center justify-content-md-start flex-shrink-0 mb-4">
-                                        <a class="btn btn-dark py-3 px-4 px-md-5 me-2" href="#"><i class="fas fa-play-circle me-2"></i> <span>Watch Video</span></a>
-                                        <a class="btn btn-primary py-3 px-4 px-md-5 ms-2" href="#"><span>Learn More</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+            <div class="hero-image">
+              <img src="{{ asset('assets/img/construction/showcase-3.webp') }}" alt="Construction Project" class="img-fluid">
+              <div class="image-badge">
+                <span>ISO 9001:2015</span>
+                <p>Certified Construction</p>
+              </div>
             </div>
-        </div>
-        <!-- Carousel End -->
-
-        <!-- About Start -->
-        <div class="container-fluid about pt-5">
-            <div class="container pt-5">
-                <div class="row g-5">
-                    <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="about-content h-100">
-                            <h4 class="text-primary">About Fitness Center</h4>
-                            <h1 class="display-4 text-white mb-4">We are the best at fulfilling your potential and achieving your goals.</h1>
-                            <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. In impedit accusantium autem quaerat natus nesciunt veritatis fugiat dolor eaque fuga.</p>
-                            <div class="tab-class pb-4">
-                                <ul class="nav d-flex mb-2">
-                                    <li class="nav-item mb-3">
-                                        <a class="d-flex py-2 active" data-bs-toggle="pill" href="#tab-1">
-                                            <span style="width: 150px;">Our Mission</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item mb-3">
-                                        <a class="d-flex py-2 mx-3" data-bs-toggle="pill" href="#tab-2">
-                                            <span style="width: 150px;">Our Vision</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item mb-3">
-                                        <a class="d-flex py-2" data-bs-toggle="pill" href="#tab-3">
-                                            <span style="width: 150px;">Our Goal</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div id="tab-1" class="tab-pane fade show p-0 active">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="d-flex align-items-center border-top border-bottom py-4">
-                                                    <span class="fas fa-rocket text-white fa-4x me-4"></span>
-                                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="tab-2" class="tab-pane fade show p-0">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="d-flex align-items-center border-top border-bottom py-4">
-                                                    <span class="fas fa-rocket text-white fa-4x me-4"></span>
-                                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="tab-3" class="tab-pane fade show p-0">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="d-flex align-items-center border-top border-bottom py-4">
-                                                    <span class="fas fa-rocket text-white fa-4x me-4"></span>
-                                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row g-4 align-items-center">
-                                <div class="col-sm-6">
-                                    <a href="#" class="btn btn-primary py-3 px-5"> <span>Make Appointment</span></a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="d-flex flex-shrink-0 ps-4">
-                                        <a href="#" class="btn btn-light btn-lg-square position-relative wow tada" data-wow-delay=".9s">
-                                            <i class="fa fa-phone-alt fa-2x"></i>
-                                            <div class="position-absolute" style="top: 5px; right: 5px;">
-                                                <span><i class="fa fa-comment-dots text-dark"></i></span>
-                                            </div>
-                                        </a>
-                                        <div class="d-flex flex-column ms-3">
-                                            <span>Call to Our Experts</span>
-                                            <a href="tel:+ 0123 456 7890"><span class="text-white">Free: + 0123 456 7890</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="about-img h-100">
-                            <div class="about-img-inner d-flex justify-content-end h-100">
-                                <img src="{{ asset('assets/img/about-2.png') }}" class="img-fluid w-100" style="object-fit: cover;" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- About End -->
-
-        <!-- Fitness Goal start -->
-        <div class="container-fluid goal pt-5">
-            <div class="container pt-5">
-                <div class="row g-5">
-                    <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
-                        <div class="goal-content">
-                            <h4 class="text-primary">Fitness Goal</h4>
-                            <h1 class="display-4 mb-4">Complete your possibilities, Achieve Your Fitness Goals.</h1>
-                            <div class="goal-item d-flex p-4">
-                                <div class="d-flex me-4">
-                                    <div class="bg-primary d-inline p-3" style="width: 80px; height: 80px;">
-                                        <img src="img/icon-1.png" class="img-fluid" alt="">
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4>Free Fitness Training</h4>
-                                    <p class="text-white mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore est harum</p>
-                                </div>
-                            </div>
-                            <div class="goal-item d-flex p-4 mb-4">
-                                <div class="d-flex me-4">
-                                    <div class="bg-primary d-inline p-3" style="width: 80px; height: 80px;">
-                                        <img src="img/icon-6.png" class="img-fluid" alt="">
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4>Cardio and Strength</h4>
-                                    <p class="text-white mb-0">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore est harum</p>
-                                </div>
-                            </div>
-                            <div class="ms-1">
-                                <a href="#" class="btn btn-primary py-3 px-5 ms-2"> <span>Read Details</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.2s">
-                        <div class="h-100">
-                            <img src="img/fitness-goal-banner.png" class="img-fluid h-100" style="object-fit: cover;" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Fitness Goal End -->
-
-        <!-- Features Start -->
-        <div class="container-fluid feature bg-light py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-primary"> Why choose us?</h4>
-                    <h1 class="display-4 mb-4">Out Our Highlights Below</h1>
-                    <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-                    </p>
-                </div>
-                <div class="feature-carousel owl-carousel">
-                    <div class="feature-item wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="feature-img">
-                            <img src="img/feature-1.jpg" class="img-fluid w-100"  alt="">
-                        </div>
-                        <div class="feature-content p-4">
-                            <h4 class="mb-3">Work Your Butt Off</h4>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur obcaecati voluptatum,
-                            </p>
-                            <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                        </div>
-                    </div>
-                    <div class="feature-item wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="feature-img">
-                            <img src="img/feature-2.jpg" class="img-fluid w-100"  alt="">
-                        </div>
-                        <div class="feature-content p-4">
-                            <h4 class="mb-3">Get In The groove</h4>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur obcaecati voluptatum,
-                            </p>
-                            <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                        </div>
-                    </div>
-                    <div class="feature-item wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="feature-img">
-                            <img src="img/feature-3.jpg" class="img-fluid w-100"  alt="">
-                        </div>
-                        <div class="feature-content p-4">
-                            <h4 class="mb-3">It's more Than A Game</h4>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur obcaecati voluptatum,
-                            </p>
-                            <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-img">
-                            <img src="img/feature-4.jpg" class="img-fluid w-100"  alt="">
-                        </div>
-                        <div class="feature-content p-4">
-                            <h4 class="mb-3">Get Fit Don't Quit</h4>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur obcaecati voluptatum,
-                            </p>
-                            <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="feature-shaps"></div>
-            </div>
-        </div>
-        <!-- Features End -->
-
-
-        <!-- Courses Start -->
-        <div class="container-fluid courses overflow-hidden py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-primary"> Our Courses</h4>
-                    <h1 class="display-4 text-white mb-4">Out Our Highlights Below</h1>
-                    <p class="text-white mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-                    </p>
-                </div>
-                <div class="row gy-4 gx-0 justify-content-center">
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="courses-item">
-                            <div class="courses-item-inner p-4">
-                                <div class="d-flex justify-content-between mb-4">
-                                    <div class="courses-icon-img p-3">
-                                        <img src="img/icon-1.png" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="data-info d-flex flex-column">
-                                        <div class="courses-trainer d-flex align-items-center mb-1">
-                                            <div class="me-2" style="width: 25px; height: 25px;">
-                                                <img src="img/testimonial-3.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <p class="mb-0">Paul Flavius</p>
-                                        </div>
-                                        <div class="courses-date">
-                                            <p class="mb-1">Date: Saturday</p>
-                                            <p class="mb-0">Time: 06.00 - 07.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="d-inline-block h4 mb-3"> Gym Fitness Class</a>
-                                <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque tempora illo placeat.
-                                </p>
-                                <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="courses-item">
-                            <div class="courses-item-inner p-4">
-                                <div class="d-flex justify-content-between mb-4">
-                                    <div class="courses-icon-img p-3">
-                                        <img src="img/icon-2.png" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="data-info d-flex flex-column">
-                                        <div class="courses-trainer d-flex align-items-center mb-1">
-                                            <div class="me-2" style="width: 25px; height: 25px;">
-                                                <img src="img/testimonial-3.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <p class="mb-0">Paul Flavius</p>
-                                        </div>
-                                        <div class="courses-date">
-                                            <p class="mb-1">Date: Saturday</p>
-                                            <p class="mb-0">Time: 06.00 - 07.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="d-inline-block h4 mb-3"> Power Lifting Class</a>
-                                <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque tempora illo placeat.
-                                </p>
-                                <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="courses-item">
-                            <div class="courses-item-inner p-4">
-                                <div class="d-flex justify-content-between mb-4">
-                                    <div class="courses-icon-img p-3">
-                                        <img src="img/icon-3.png" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="data-info d-flex flex-column">
-                                        <div class="courses-trainer d-flex align-items-center mb-1">
-                                            <div class="me-2" style="width: 25px; height: 25px;">
-                                                <img src="img/testimonial-3.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <p class="mb-0">Paul Flavius</p>
-                                        </div>
-                                        <div class="courses-date">
-                                            <p class="mb-1">Date: Saturday</p>
-                                            <p class="mb-0">Time: 06.00 - 07.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="d-inline-block h4 mb-3"> Body Building Class</a>
-                                <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque tempora illo placeat.
-                                </p>
-                                <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="courses-item">
-                            <div class="courses-item-inner p-4">
-                                <div class="d-flex justify-content-between mb-4">
-                                    <div class="courses-icon-img p-3">
-                                        <img src="img/icon-4.png" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="data-info d-flex flex-column">
-                                        <div class="courses-trainer d-flex align-items-center mb-1">
-                                            <div class="me-2" style="width: 25px; height: 25px;">
-                                                <img src="img/testimonial-3.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <p class="mb-0">Paul Flavius</p>
-                                        </div>
-                                        <div class="courses-date">
-                                            <p class="mb-1">Date: Saturday</p>
-                                            <p class="mb-0">Time: 06.00 - 07.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="d-inline-block h4 mb-3"> Aerobics & Skipping Class</a>
-
-                                <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque tempora illo placeat.
-                                </p>
-                                <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="courses-item">
-                            <div class="courses-item-inner p-4">
-                                <div class="d-flex justify-content-between mb-4">
-                                    <div class="courses-icon-img p-3">
-                                        <img src="img/icon-5.png" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="data-info d-flex flex-column">
-                                        <div class="courses-trainer d-flex align-items-center mb-1">
-                                            <div class="me-2" style="width: 25px; height: 25px;">
-                                                <img src="img/testimonial-3.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <p class="mb-0">Paul Flavius</p>
-                                        </div>
-                                        <div class="courses-date">
-                                            <p class="mb-1">Date: Saturday</p>
-                                            <p class="mb-0">Time: 06.00 - 07.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="d-inline-block h4 mb-3"> Boxing Class</a>
-                                <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque tempora illo placeat.
-                                </p>
-                                <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="courses-item">
-                            <div class="courses-item-inner p-4">
-                                <div class="d-flex justify-content-between mb-4">
-                                    <div class="courses-icon-img p-3">
-                                        <img src="img/icon-6.png" class="img-fluid" alt="">
-                                    </div>
-                                    <div class="data-info d-flex flex-column">
-                                        <div class="courses-trainer d-flex align-items-center mb-1">
-                                            <div class="me-2" style="width: 25px; height: 25px;">
-                                                <img src="img/testimonial-3.jpg" class="img-fluid" alt="">
-                                            </div>
-                                            <p class="mb-0">Paul Flavius</p>
-                                        </div>
-                                        <div class="courses-date">
-                                            <p class="mb-1">Date: Saturday</p>
-                                            <p class="mb-0">Time: 06.00 - 07.00</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="d-inline-block h4 mb-3"> Cardio Class</a>
-                                <p class="mb-4">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque tempora illo placeat.
-                                </p>
-                                <a href="#" class="btn btn-primary py-2 px-4"> <span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.2s">
-                        <a href="#" class="btn btn-primary py-3 px-5"> <span>More Courses</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Courses End -->
-
-        <!-- Blog Start -->
-        <div class="container-fluid blog py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-primary">  Our Blogs</h4>
-                    <h1 class="display-4 mb-4">Check out our latest stories</h1>
-                    <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-                    </p>
-                </div>
-                <div class="blog-carousel owl-carousel">
-                    <div class="blog-item wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="blog-img p-4 pb-0">
-                            <a href="#">
-                                <img src="img/feature-4.jpg" class="img-fluid w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="blog-content p-4">
-                            <div class="blog-comment d-flex justify-content-between py-2 px-3 mb-4">
-                                <div class="small"><span class="fa fa-user text-primary me-2"></span> Martin.C</div>
-                                <div class="small"><span class="fa fa-calendar text-primary me-2"></span> 30 Dec 2025</div>
-                            </div>
-                            <a href="#" class="h4 d-inline-block mb-3">Full Body Home Workout</a>
-                            <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta impedit eligendi? Quibusdam, laudantium.</p>
-                            <a href="#" class="btn btn-dark py-2 px-4 ms-2"> <span class="me-2">Read More</span>  <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="blog-item wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="blog-img p-4 pb-0">
-                            <a href="#">
-                                <img src="img/feature-3.jpg" class="img-fluid w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="blog-content p-4">
-                            <div class="blog-comment d-flex justify-content-between py-2 px-3 mb-4">
-                                <div class="small"><span class="fa fa-user text-primary me-2"></span> Martin.C</div>
-                                <div class="small"><span class="fa fa-calendar text-primary me-2"></span> 30 Dec 2025</div>
-                            </div>
-                            <a href="#" class="h4 d-inline-block mb-3">31-Day Fitness Calendar</a>
-                            <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta impedit eligendi? Quibusdam, laudantium.</p>
-                            <a href="#" class="btn btn-dark py-2 px-4 ms-2"> <span class="me-2">Read More</span>  <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="blog-item wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="blog-img p-4 pb-0">
-                            <a href="#">
-                                <img src="img/feature-2.jpg" class="img-fluid w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="blog-content p-4">
-                            <div class="blog-comment d-flex justify-content-between py-2 px-3 mb-4">
-                                <div class="small"><span class="fa fa-user text-primary me-2"></span> Martin.C</div>
-                                <div class="small"><span class="fa fa-calendar text-primary me-2"></span> 30 Dec 2025</div>
-                            </div>
-                            <a href="#" class="h4 d-inline-block mb-3">At Home Ab Workout</a>
-                            <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta impedit eligendi? Quibusdam, laudantium.</p>
-                            <a href="#" class="btn btn-dark py-2 px-4 ms-2"> <span class="me-2">Read More</span>  <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="blog-item">
-                        <div class="blog-img p-4 pb-0">
-                            <a href="#">
-                                <img src="img/feature-1.jpg" class="img-fluid w-100" alt="">
-                            </a>
-                        </div>
-                        <div class="blog-content p-4">
-                            <div class="blog-comment d-flex justify-content-between py-2 px-3 mb-4">
-                                <div class="small"><span class="fa fa-user text-primary me-2"></span> Martin.C</div>
-                                <div class="small"><span class="fa fa-calendar text-primary me-2"></span> 30 Dec 2025</div>
-                            </div>
-                            <a href="#" class="h4 d-inline-block mb-3">Full Body Home Workout</a>
-                            <p class="mb-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eius libero soluta impedit eligendi? Quibusdam, laudantium.</p>
-                            <a href="#" class="btn btn-dark py-2 px-4 ms-2"> <span class="me-2">Read More</span>  <i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Blog End -->
-
-        <!-- Explore Fitness Start -->
-        <div class="container-fluid explore py-5 wow zoomIn" data-wow-delay="0.2s">
-            <div class="container py-5 text-center">
-                <h1 class="display-1 text-white mb-0"> Explore Fitness Center</h1>
-                <a class="btn btn-primary py-3 px-4 px-md-5 me-2" href="https://www.youtube.com/embed/DWRcNpR6Kdc"><i class="fas fa-play-circle me-2"></i> <span>Watch Video</span></a>
-            </div>
-        </div>
-        <!-- Explore Fitness End -->
-
-
-        <!-- Team Start -->
-        <div class="container-fluid team py-5">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-primary">Our Trainer</h4>
-                    <h1 class="display-4 mb-4">Meet Our Amazing Team</h1>
-                    <p class="mb-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur adipisci facilis cupiditate recusandae aperiam temporibus corporis itaque quis facere, numquam, ad culpa deserunt sint dolorem autem obcaecati, ipsam mollitia hic.
-                    </p>
-                </div>
-                <div class="row gy-5 gy-lg-4 gx-4">
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/team-1.jpg" class="img-fluid w-100" alt="Image">
-                                <div class="team-icon">
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-instagram"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h4>Trainer Name</h4>
-                                <p class="mb-0">Profession</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.4s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/team-2.jpg" class="img-fluid w-100" alt="Image">
-                                <div class="team-icon">
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-instagram"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h4>Trainer Name</h4>
-                                <p class="mb-0">Profession</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.6s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/team-3.jpg" class="img-fluid w-100" alt="Image">
-                                <div class="team-icon">
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-instagram"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h4>Trainer Name</h4>
-                                <p class="mb-0">Profession</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3 wow fadeInUp" data-wow-delay="0.8s">
-                        <div class="team-item">
-                            <div class="team-img">
-                                <img src="img/team-4.jpg" class="img-fluid w-100" alt="Image">
-                                <div class="team-icon">
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-facebook-f"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-instagram"></i></a>
-                                    <a href="#" class="btn btn-primary btn-sm-square"><i class="fab fa-linkedin-in"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content">
-                                <h4>Trainer Name</h4>
-                                <p class="mb-0">Profession</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Team End -->
-
-        <!-- Testimonial Start -->
-        <div class="container-fluid testimonial bg-dark py-5" style="margin-bottom: 90px;">
-            <div class="container py-5">
-                <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
-                    <h4 class="text-primary">Testimonial</h4>
-                    <h1 class="display-4 text-white">What Our Customers Are Saying</h1>
-                </div>
-                <div class="testimonial-carousel owl-carousel wow fadeInUp" data-wow-delay="0.2s">
-                    <div class="testimonial-item mx-auto" style="max-width: 900px;">
-                        <span class="fa fa-quote-left fa-3x quote-icon"></span>
-                        <div class="testimonial-img mb-4">
-                            <img src="img/testimonial-1.jpg" class="img-fluid" alt="Image">
-                        </div>
-                        <p class="fs-4 text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quasi deleniti ratione similique eaque blanditiis fugit voluptas ex officiis expedita repellat doloribus veniam delectus tempore, laudantium, aliquam ad? Rem, accusantium?
-                        </p>
-                        <div class="d-block">
-                            <h4 class="text-white">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
-                            <div class="d-flex">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item mx-auto" style="max-width: 900px;">
-                        <span class="fa fa-quote-left fa-3x quote-icon"></span>
-                        <div class="testimonial-img mb-4">
-                            <img src="img/testimonial-2.jpg" class="img-fluid" alt="Image">
-                        </div>
-                        <p class="fs-4 text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quasi deleniti ratione similique eaque blanditiis fugit voluptas ex officiis expedita repellat doloribus veniam delectus tempore, laudantium, aliquam ad? Rem, accusantium?
-                        </p>
-                        <div class="d-block">
-                            <h4 class="text-white">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
-                            <div class="d-flex">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="testimonial-item mx-auto" style="max-width: 900px;">
-                        <span class="fa fa-quote-left fa-3x quote-icon"></span>
-                        <div class="testimonial-img mb-4">
-                            <img src="img/testimonial-3.jpg" class="img-fluid" alt="Image">
-                        </div>
-                        <p class="fs-4 text-white mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero quasi deleniti ratione similique eaque blanditiis fugit voluptas ex officiis expedita repellat doloribus veniam delectus tempore, laudantium, aliquam ad? Rem, accusantium?
-                        </p>
-                        <div class="d-block">
-                            <h4 class="text-white">Client Name</h4>
-                            <p class="m-0 pb-3">Profession</p>
-                            <div class="d-flex">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-white"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Testimonial End -->
-
-
-        <!-- Footer Start -->
-        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-            <div class="container py-5">
-                <div class="row g-5 mb-5 align-items-center">
-                    <div class="col-lg-7">
-                        <div class="position-relative d-flex" style="transform: skew(18deg);">
-                            <input class="form-control border-0 w-100 py-3 pe-5" type="text" placeholder="Email address to Subscribe">
-                            <button type="button" class="btn-primary py-2 px-4 ms-3"> <span>Subscribe</span></button>
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
-                            <a class="btn btn-primary btn-md-square me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-md-square me-3" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-primary btn-md-square me-3" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="btn btn-primary btn-md-square me-0" href=""><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-5">
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item">
-                            <h4 class="text-white mb-4"><i class="fas fa-hand-rock text-primary me-2"></i> Fitness</h4>
-                            <p class="mb-0">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item">
-                            <h4 class="text-white mb-4">Quick Links</h4>
-                            <a href="#"> Home</a>
-                            <a href="#"> About us</a>
-                            <a href="#"> Our Courses</a>
-                            <a href="#"> Our Features</a>
-                            <a href="#"> Our Blog & news</a>
-                            <a href="#"> Testimonial</a>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item">
-                            <h4 class="text-white mb-4"> Contact Info</h4>
-                            <div class="row g-2">
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <i class="fas fa-map-marker-alt text-primary me-2"></i>
-                                        <div>
-                                            <h5 class="text-white mb-2">Address</h5>
-                                            <p class="mb-0">123 street New York</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <i class="fas fa-envelope text-primary me-2"></i>
-                                        <div>
-                                            <h5 class="text-white mb-2">Mail Us</h5>
-                                            <p class="mb-0">info@example.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="d-flex">
-                                        <i class="fa fa-phone-alt text-primary me-2"></i>
-                                        <div>
-                                            <h5 class="text-white mb-2">Telephone</h5>
-                                            <p class="mb-0">(+012) 3456 7890 123</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-6 col-xl-3">
-                        <div class="footer-item">
-                            <h4 class="text-white mb-4">Recent Work</h4>
-                            <div class="row g-2">
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-9.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-10.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-11.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-12.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-1.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-2.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-3.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-4.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-5.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-6.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-7.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="footer-item-img">
-                                        <a href="#"><img src="img/work-8.jpg" class="img-fluid" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
-
-
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright py-4">
-            <div class="container">
-                <div class="row g-4 align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-md-0">
-                        <span class="text-body"><a href="#" class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right reserved.</span>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end text-body">
-                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>
-                        Distributed By <a href="https://themewagon.com/">ThemeWagon</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Copyright End -->
-
-
-        <!-- Back to Top -->
-        <div class="back-to-top">
-            <a href="#" class="btn"><i class="fa fa-arrow-up"></i></a>
+          </div>
         </div>
 
+      </div>
 
-        <!-- JavaScript Libraries -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/wow/wow.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    </section><!-- /Hero Section -->
 
+    <!-- About Section -->
+    <section id="about" class="about section">
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
-    </body>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <div class="about-content" data-aos="fade-right" data-aos-delay="200">
+              <h2>Building Excellence Since 1995</h2>
+              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin gravida tortor in magna feugiat, quis faucibus libero commodo. Maecenas semper lacus vel leo ultrices, vel tempus lectus varius.</p>
+              <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla facilisi. Duis cursus nisi eu orci laoreet, vel molestie enim ullamcorper. Phasellus at convallis neque, id vehicula magna.</p>
+
+              <div class="achievement-boxes row g-4 mt-4">
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+                  <div class="achievement-box">
+                    <h3>25+</h3>
+                    <p>Years Experience</p>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+                  <div class="achievement-box">
+                    <h3>500+</h3>
+                    <p>Projects Completed</p>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="500">
+                  <div class="achievement-box">
+                    <h3>100%</h3>
+                    <p>Client Satisfaction</p>
+                  </div>
+                </div>
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="600">
+                  <div class="achievement-box">
+                    <h3>48</h3>
+                    <p>Team Members</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="certifications mt-5" data-aos="fade-up" data-aos-delay="700">
+                <h5>Certifications &amp; Partnerships</h5>
+                <div class="row g-3 align-items-center">
+                  <div class="col-4 col-md-3">
+                    <img src="{{ asset('assets/img/construction/badge-4.webp') }}" alt="Certification" class="img-fluid">
+                  </div>
+                  <div class="col-4 col-md-3">
+                    <img src="{{ asset('assets/img/construction/badge-3.webp') }}" alt="Certification" class="img-fluid">
+                  </div>
+                  <div class="col-4 col-md-3">
+                    <img src="{{ asset('assets/img/construction/badge-5.webp') }}" alt="Certification" class="img-fluid">
+                  </div>
+                </div>
+              </div>
+
+              <div class="cta-container mt-5" data-aos="fade-up" data-aos-delay="800">
+                <a href="about.html" class="btn btn-primary">Learn More About Us</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="about-image position-relative" data-aos="fade-left" data-aos-delay="200">
+              <img src="{{ asset('assets/img/construction/project-3.webp') }}" alt="Construction Team" class="img-fluid main-image rounded">
+              <div class="image-overlay">
+                <img src="{{ asset('assets/img/construction/project-7.webp') }}" alt="Construction Project" class="img-fluid rounded">
+              </div>
+              <div class="experience-badge" data-aos="zoom-in" data-aos-delay="500">
+                <span>25+</span>
+                <p>Years of Experience</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+
+      <!-- Section Title -->
+      <div class="container section-title">
+        <h2>Services</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="bi bi-building"></i>
+              </div>
+              <h3>Commercial Construction</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+              <div class="service-features">
+                <span><i class="bi bi-check-circle"></i> Office Buildings</span>
+                <span><i class="bi bi-check-circle"></i> Retail Spaces</span>
+                <span><i class="bi bi-check-circle"></i> Warehouses</span>
+              </div>
+              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-card featured">
+              <div class="service-badge">Most Requested</div>
+              <div class="service-icon">
+                <i class="bi bi-house"></i>
+              </div>
+              <h3>Residential Construction</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.</p>
+              <div class="service-features">
+                <span><i class="bi bi-check-circle"></i> Custom Homes</span>
+                <span><i class="bi bi-check-circle"></i> Renovations</span>
+                <span><i class="bi bi-check-circle"></i> Additions</span>
+              </div>
+              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="bi bi-gear"></i>
+              </div>
+              <h3>Industrial Construction</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id tellus quis risus vehicula vehicula ut turpis.</p>
+              <div class="service-features">
+                <span><i class="bi bi-check-circle"></i> Manufacturing</span>
+                <span><i class="bi bi-check-circle"></i> Processing Plants</span>
+                <span><i class="bi bi-check-circle"></i> Storage Facilities</span>
+              </div>
+              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div><!-- End Service Item -->
+        </div>
+
+        <div class="row mt-5">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-image-block">
+              <img src="{{ asset('assets/img/construction/project-1.webp') }}" alt="Construction Services" class="img-fluid">
+            </div>
+          </div>
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-list-block">
+              <h3>Additional Services</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+
+              <div class="service-list">
+                <div class="service-list-item" data-aos="fade-up" data-aos-delay="100">
+                  <div class="service-list-icon">
+                    <i class="bi bi-rulers"></i>
+                  </div>
+                  <div class="service-list-content">
+                    <h4>Architectural Design</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae imperdiet neque.</p>
+                  </div>
+                </div><!-- End Service List Item -->
+
+                <div class="service-list-item" data-aos="fade-up" data-aos-delay="200">
+                  <div class="service-list-icon">
+                    <i class="bi bi-calendar-check"></i>
+                  </div>
+                  <div class="service-list-content">
+                    <h4>Project Management</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lacinia dui lectus.</p>
+                  </div>
+                </div><!-- End Service List Item -->
+
+                <div class="service-list-item" data-aos="fade-up" data-aos-delay="300">
+                  <div class="service-list-icon">
+                    <i class="bi bi-tools"></i>
+                  </div>
+                  <div class="service-list-content">
+                    <h4>Renovation &amp; Remodeling</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in nulla ut magna.</p>
+                  </div>
+                </div><!-- End Service List Item -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-container text-center mt-5" data-aos="fade-up" data-aos-delay="300">
+          <h3>Ready to Start Your Construction Project?</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
+          <a href="#" class="btn btn-cta">Request a Free Quote</a>
+        </div>
+
+      </div>
+
+    </section><!-- /Services Section -->
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects section">
+
+      <!-- Section Title -->
+      <div class="container section-title">
+        <h2>Projects</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="projects-grid">
+
+          <div class="project-item" data-aos="zoom-in" data-aos-delay="100">
+            <div class="project-content">
+              <div class="project-header">
+                <span class="project-category">Commercial</span>
+                <span class="project-status completed">Completed</span>
+              </div>
+              <h3 class="project-title">Metropolitan Office Tower</h3>
+              <div class="project-details">
+                <div class="project-info">
+                  <p>Innovative glass facade design with sustainable energy systems and modern workspace solutions.</p>
+                  <div class="project-specs">
+                    <span class="spec-item">
+                      <i class="bi bi-building"></i>
+                      32 Floors
+                    </span>
+                    <span class="spec-item">
+                      <i class="bi bi-calendar-check"></i>
+                      24 Months
+                    </span>
+                  </div>
+                </div>
+                <div class="project-location">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>New York, NY</span>
+                </div>
+              </div>
+              <a href="project-details.html" class="project-link">
+                <span>View Project</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="{{ asset('assets/img/construction/project-2.webp') }}" alt="Metropolitan Office Tower" class="img-fluid">
+              <div class="project-badge">
+                <i class="bi bi-award"></i>
+              </div>
+            </div>
+          </div><!-- End Project Item -->
+
+          <div class="project-item" data-aos="zoom-in" data-aos-delay="200">
+            <div class="project-content">
+              <div class="project-header">
+                <span class="project-category">Residential</span>
+                <span class="project-status in-progress">In Progress</span>
+              </div>
+              <h3 class="project-title">Riverside Luxury Homes</h3>
+              <div class="project-details">
+                <div class="project-info">
+                  <p>Premium residential development featuring eco-friendly materials and smart home integration.</p>
+                  <div class="project-specs">
+                    <span class="spec-item">
+                      <i class="bi bi-house"></i>
+                      24 Units
+                    </span>
+                    <span class="spec-item">
+                      <i class="bi bi-calendar-check"></i>
+                      18 Months
+                    </span>
+                  </div>
+                </div>
+                <div class="project-location">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>Portland, OR</span>
+                </div>
+              </div>
+              <a href="project-details.html" class="project-link">
+                <span>View Project</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="{{ asset('assets/img/construction/project-6.webp') }}" alt="Riverside Luxury Homes" class="img-fluid">
+              <div class="project-badge">
+                <i class="bi bi-tools"></i>
+              </div>
+            </div>
+          </div><!-- End Project Item -->
+
+          <div class="project-item" data-aos="zoom-in" data-aos-delay="300">
+            <div class="project-content">
+              <div class="project-header">
+                <span class="project-category">Infrastructure</span>
+                <span class="project-status completed">Completed</span>
+              </div>
+              <h3 class="project-title">Highway Bridge Reconstruction</h3>
+              <div class="project-details">
+                <div class="project-info">
+                  <p>Major infrastructure upgrade enhancing traffic flow and ensuring structural safety standards.</p>
+                  <div class="project-specs">
+                    <span class="spec-item">
+                      <i class="bi bi-rulers"></i>
+                      2.5 Miles
+                    </span>
+                    <span class="spec-item">
+                      <i class="bi bi-calendar-check"></i>
+                      36 Months
+                    </span>
+                  </div>
+                </div>
+                <div class="project-location">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>Dallas, TX</span>
+                </div>
+              </div>
+              <a href="project-details.html" class="project-link">
+                <span>View Project</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="{{ asset('assets/img/construction/project-10.webp') }}" alt="Highway Bridge Reconstruction" class="img-fluid">
+              <div class="project-badge">
+                <i class="bi bi-gear"></i>
+              </div>
+            </div>
+          </div><!-- End Project Item -->
+
+          <div class="project-item" data-aos="zoom-in" data-aos-delay="100">
+            <div class="project-content">
+              <div class="project-header">
+                <span class="project-category">Healthcare</span>
+                <span class="project-status completed">Completed</span>
+              </div>
+              <h3 class="project-title">Children's Medical Facility</h3>
+              <div class="project-details">
+                <div class="project-info">
+                  <p>Specialized pediatric center with family-friendly design and advanced medical technology integration.</p>
+                  <div class="project-specs">
+                    <span class="spec-item">
+                      <i class="bi bi-hospital"></i>
+                      8 Floors
+                    </span>
+                    <span class="spec-item">
+                      <i class="bi bi-calendar-check"></i>
+                      28 Months
+                    </span>
+                  </div>
+                </div>
+                <div class="project-location">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>Boston, MA</span>
+                </div>
+              </div>
+              <a href="project-details.html" class="project-link">
+                <span>View Project</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="{{ asset('assets/img/construction/project-4.webp') }}" alt="Children's Medical Facility" class="img-fluid">
+              <div class="project-badge">
+                <i class="bi bi-heart-pulse"></i>
+              </div>
+            </div>
+          </div><!-- End Project Item -->
+
+          <div class="project-item" data-aos="zoom-in" data-aos-delay="200">
+            <div class="project-content">
+              <div class="project-header">
+                <span class="project-category">Educational</span>
+                <span class="project-status planning">Planning</span>
+              </div>
+              <h3 class="project-title">Innovation Campus Center</h3>
+              <div class="project-details">
+                <div class="project-info">
+                  <p>Modern learning facility with flexible spaces designed for collaborative education and research.</p>
+                  <div class="project-specs">
+                    <span class="spec-item">
+                      <i class="bi bi-mortarboard"></i>
+                      5 Buildings
+                    </span>
+                    <span class="spec-item">
+                      <i class="bi bi-calendar-check"></i>
+                      42 Months
+                    </span>
+                  </div>
+                </div>
+                <div class="project-location">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>San Francisco, CA</span>
+                </div>
+              </div>
+              <a href="project-details.html" class="project-link">
+                <span>View Project</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="{{ asset('assets/img/construction/project-8.webp') }}" alt="Innovation Campus Center" class="img-fluid">
+              <div class="project-badge">
+                <i class="bi bi-lightbulb"></i>
+              </div>
+            </div>
+          </div><!-- End Project Item -->
+
+          <div class="project-item" data-aos="zoom-in" data-aos-delay="300">
+            <div class="project-content">
+              <div class="project-header">
+                <span class="project-category">Industrial</span>
+                <span class="project-status completed">Completed</span>
+              </div>
+              <h3 class="project-title">Green Energy Plant</h3>
+              <div class="project-details">
+                <div class="project-info">
+                  <p>Sustainable power generation facility incorporating renewable energy and efficient production systems.</p>
+                  <div class="project-specs">
+                    <span class="spec-item">
+                      <i class="bi bi-lightning"></i>
+                      150MW
+                    </span>
+                    <span class="spec-item">
+                      <i class="bi bi-calendar-check"></i>
+                      30 Months
+                    </span>
+                  </div>
+                </div>
+                <div class="project-location">
+                  <i class="bi bi-geo-alt-fill"></i>
+                  <span>Denver, CO</span>
+                </div>
+              </div>
+              <a href="project-details.html" class="project-link">
+                <span>View Project</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+            <div class="project-visual">
+              <img src="{{ asset('assets/img/construction/project-12.webp') }}" alt="Green Energy Plant" class="img-fluid">
+              <div class="project-badge">
+                <i class="bi bi-leaf"></i>
+              </div>
+            </div>
+          </div><!-- End Project Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Projects Section -->
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="testimonials-slider swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": 1,
+              "spaceBetween": 30,
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-slide" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-header">
+                  <div class="stars-rating">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                  </div>
+                  <div class="quote-icon">
+                    <i class="bi bi-quote"></i>
+                  </div>
+                </div>
+                <div class="testimonial-body">
+                  <p>"Outstanding service quality and innovative solutions have completely transformed our business processes, resulting in enhanced productivity and exceptional customer satisfaction throughout our organization."</p>
+                </div>
+                <div class="testimonial-footer">
+                  <div class="author-info">
+                    <img src="{{ asset('assets/img/person/person-f-12.webp') }}" alt="Author" class="author-avatar">
+                    <div class="author-details">
+                      <h4>Sophia Martinez</h4>
+                      <span class="role">Operations Director</span>
+                      <span class="company">TechVision Corp</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-slide" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-header">
+                  <div class="stars-rating">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                  </div>
+                  <div class="quote-icon">
+                    <i class="bi bi-quote"></i>
+                  </div>
+                </div>
+                <div class="testimonial-body">
+                  <p>"Professional expertise and dedicated support have significantly improved our project delivery timelines while maintaining exceptional quality standards across all our initiatives."</p>
+                </div>
+                <div class="testimonial-footer">
+                  <div class="author-info">
+                    <img src="{{ asset('assets/img/person/person-m-14.webp') }}" alt="Author" class="author-avatar">
+                    <div class="author-details">
+                      <h4>Michael Anderson</h4>
+                      <span class="role">Project Manager</span>
+                      <span class="company">InnovateTech Ltd</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-slide">
+              <div class="testimonial-slide" data-aos="fade-up" data-aos-delay="400">
+                <div class="testimonial-header">
+                  <div class="stars-rating">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                  </div>
+                  <div class="quote-icon">
+                    <i class="bi bi-quote"></i>
+                  </div>
+                </div>
+                <div class="testimonial-body">
+                  <p>"Strategic collaboration and innovative thinking have enabled remarkable digital transformation, leading to increased efficiency and measurable business growth results."</p>
+                </div>
+                <div class="testimonial-footer">
+                  <div class="author-info">
+                    <img src="{{ asset('assets/img/person/person-f-11.webp') }}" alt="Author" class="author-avatar">
+                    <div class="author-details">
+                      <h4>Jennifer Wilson</h4>
+                      <span class="role">Digital Strategy Lead</span>
+                      <span class="company">FutureScope Inc</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="swiper-navigation-wrapper">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Testimonials Section -->
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications section">
+
+      <!-- Section Title -->
+      <div class="container section-title">
+        <h2>Certified &amp; Trusted</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row align-items-center mb-5 content">
+          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
+            <h2>Industry Certifications &amp; Excellence</h2>
+            <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta dapibus.</p>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
+            <div class="badge-highlight">
+              <img src="{{ asset('assets/img/construction/badge-5.webp') }}" alt="Quality Excellence Badge" class="img-fluid">
+              <div class="badge-content">
+                <h4>Premier Contractor Status</h4>
+                <p>Recognized by the state board for outstanding quality and safety standards</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="certification-grid" data-aos="fade-up" data-aos-delay="400">
+
+          <div class="cert-card" data-aos="flip-left" data-aos-delay="100">
+            <div class="cert-icon">
+              <img src="{{ asset('assets/img/construction/badge-1.webp') }}" alt="ISO 9001" class="img-fluid">
+            </div>
+            <div class="cert-details">
+              <h5>ISO 9001:2015</h5>
+              <span class="cert-category">Quality Management</span>
+              <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Sed porttitor lectus nibh.</p>
+            </div>
+          </div>
+
+          <div class="cert-card" data-aos="flip-left" data-aos-delay="200">
+            <div class="cert-icon">
+              <img src="{{ asset('assets/img/construction/badge-2.webp') }}" alt="OSHA" class="img-fluid">
+            </div>
+            <div class="cert-details">
+              <h5>OSHA 30-Hour</h5>
+              <span class="cert-category">Safety Standards</span>
+              <p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus vestibulum.</p>
+            </div>
+          </div>
+
+          <div class="cert-card" data-aos="flip-left" data-aos-delay="300">
+            <div class="cert-icon">
+              <img src="{{ asset('assets/img/construction/badge-3.webp') }}" alt="Licensed" class="img-fluid">
+            </div>
+            <div class="cert-details">
+              <h5>State Licensed</h5>
+              <span class="cert-category">Legal Compliance</span>
+              <p>Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam.</p>
+            </div>
+          </div>
+
+          <div class="cert-card" data-aos="flip-left" data-aos-delay="400">
+            <div class="cert-icon">
+              <img src="{{ asset('assets/img/construction/badge-4.webp') }}" alt="Green Building" class="img-fluid">
+            </div>
+            <div class="cert-details">
+              <h5>LEED Certified</h5>
+              <span class="cert-category">Sustainable Building</span>
+              <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
+            </div>
+          </div>
+
+          <div class="cert-card" data-aos="flip-left" data-aos-delay="500">
+            <div class="cert-icon">
+              <img src="{{ asset('assets/img/construction/badge-6.webp') }}" alt="Insurance" class="img-fluid">
+            </div>
+            <div class="cert-details">
+              <h5>Fully Insured</h5>
+              <span class="cert-category">Risk Management</span>
+              <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+            </div>
+          </div>
+
+          <div class="cert-card" data-aos="flip-left" data-aos-delay="600">
+            <div class="cert-icon">
+              <img src="{{ asset('assets/img/construction/badge-7.webp') }}" alt="Training" class="img-fluid">
+            </div>
+            <div class="cert-details">
+              <h5>Skills Certified</h5>
+              <span class="cert-category">Professional Training</span>
+              <p>Quisque velit nisi, pretium ut lacinia in, elementum id enim mauris blandit.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="achievements-banner" data-aos="zoom-in" data-aos-delay="700">
+          <div class="row text-center">
+            <div class="col-lg-3 col-sm-6">
+              <div class="achievement-item">
+                <i class="bi bi-award"></i>
+                <h3>15+</h3>
+                <p>Industry Awards</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="achievement-item">
+                <i class="bi bi-shield-check"></i>
+                <h3>Zero</h3>
+                <p>Safety Incidents</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="achievement-item">
+                <i class="bi bi-clock-history"></i>
+                <h3>18</h3>
+                <p>Years Experience</p>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+              <div class="achievement-item">
+                <i class="bi bi-people"></i>
+                <h3>350+</h3>
+                <p>Satisfied Clients</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Certifications Section -->
+
+    <!-- Team Section -->
+    <section id="team" class="team section">
+
+      <!-- Section Title -->
+      <div class="container section-title">
+        <h2>Team</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-card featured">
+              <div class="team-header">
+                <div class="team-image">
+                  <img src="{{ asset('assets/img/construction/team-1.webp') }}" class="img-fluid" alt="">
+                  <div class="experience-badge">15+ Years</div>
+                </div>
+                <div class="team-info">
+                  <h4>Marcus Thompson</h4>
+                  <span class="position">Project Manager</span>
+                  <div class="contact-info">
+                    <a href="mailto:marcus@example.com"><i class="bi bi-envelope"></i> marcus@example.com</a>
+                    <a href="tel:+1555123456"><i class="bi bi-telephone"></i> +1 (555) 123-456</a>
+                  </div>
+                </div>
+              </div>
+              <div class="team-details">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="credentials">
+                  <div class="cred-item">
+                    <i class="bi bi-award"></i>
+                    <span>PMP Certified</span>
+                  </div>
+                  <div class="cred-item">
+                    <i class="bi bi-shield-check"></i>
+                    <span>OSHA 30</span>
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-facebook"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Featured Team Member -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="team-card featured">
+              <div class="team-header">
+                <div class="team-image">
+                  <img src="{{ asset('assets/img/construction/team-2.webp') }}" class="img-fluid" alt="">
+                  <div class="experience-badge">12+ Years</div>
+                </div>
+                <div class="team-info">
+                  <h4>Sarah Rodriguez</h4>
+                  <span class="position">Site Supervisor</span>
+                  <div class="contact-info">
+                    <a href="mailto:sarah@example.com"><i class="bi bi-envelope"></i> sarah@example.com</a>
+                    <a href="tel:+1555123457"><i class="bi bi-telephone"></i> +1 (555) 123-457</a>
+                  </div>
+                </div>
+              </div>
+              <div class="team-details">
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <div class="credentials">
+                  <div class="cred-item">
+                    <i class="bi bi-person-badge"></i>
+                    <span>Licensed Contractor</span>
+                  </div>
+                  <div class="cred-item">
+                    <i class="bi bi-tools"></i>
+                    <span>Site Management</span>
+                  </div>
+                </div>
+                <div class="social-links">
+                  <a href="#"><i class="bi bi-linkedin"></i></a>
+                  <a href="#"><i class="bi bi-twitter-x"></i></a>
+                  <a href="#"><i class="bi bi-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Featured Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="team-card compact">
+              <div class="member-photo">
+                <img src="{{ asset('assets/img/construction/team-3.webp') }}" class="img-fluid" alt="">
+                <div class="hover-overlay">
+                  <div class="overlay-content">
+                    <h5>David Chen</h5>
+                    <span>Lead Engineer</span>
+                    <div class="quick-contact">
+                      <a href="#"><i class="bi bi-envelope"></i></a>
+                      <a href="#"><i class="bi bi-telephone"></i></a>
+                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="member-summary">
+                <h5>David Chen</h5>
+                <span>Lead Engineer</span>
+                <div class="skills">
+                  <span class="skill-tag">PE License</span>
+                  <span class="skill-tag">LEED AP</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Compact Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="team-card compact">
+              <div class="member-photo">
+                <img src="{{ asset('assets/img/construction/team-4.webp') }}" class="img-fluid" alt="">
+                <div class="hover-overlay">
+                  <div class="overlay-content">
+                    <h5>Lisa Johnson</h5>
+                    <span>Safety Coordinator</span>
+                    <div class="quick-contact">
+                      <a href="#"><i class="bi bi-envelope"></i></a>
+                      <a href="#"><i class="bi bi-telephone"></i></a>
+                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="member-summary">
+                <h5>Lisa Johnson</h5>
+                <span>Safety Coordinator</span>
+                <div class="skills">
+                  <span class="skill-tag">CSP Certified</span>
+                  <span class="skill-tag">Safety Expert</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Compact Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-card compact">
+              <div class="member-photo">
+                <img src="{{ asset('assets/img/construction/team-5.webp') }}" class="img-fluid" alt="">
+                <div class="hover-overlay">
+                  <div class="overlay-content">
+                    <h5>Robert Martinez</h5>
+                    <span>Equipment Operator</span>
+                    <div class="quick-contact">
+                      <a href="#"><i class="bi bi-envelope"></i></a>
+                      <a href="#"><i class="bi bi-telephone"></i></a>
+                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="member-summary">
+                <h5>Robert Martinez</h5>
+                <span>Equipment Operator</span>
+                <div class="skills">
+                  <span class="skill-tag">Heavy Equipment</span>
+                  <span class="skill-tag">10+ Years</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Compact Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="team-card compact">
+              <div class="member-photo">
+                <img src="{{ asset('assets/img/construction/team-6.webp') }}" class="img-fluid" alt="">
+                <div class="hover-overlay">
+                  <div class="overlay-content">
+                    <h5>Emily Davis</h5>
+                    <span>Quality Control Specialist</span>
+                    <div class="quick-contact">
+                      <a href="#"><i class="bi bi-envelope"></i></a>
+                      <a href="#"><i class="bi bi-telephone"></i></a>
+                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="member-summary">
+                <h5>Emily Davis</h5>
+                <span>Quality Control Specialist</span>
+                <div class="skills">
+                  <span class="skill-tag">Quality Assurance</span>
+                  <span class="skill-tag">Certified</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Compact Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="team-card compact">
+              <div class="member-photo">
+                <img src="{{ asset('assets/img/construction/team-7.webp') }}" class="img-fluid" alt="">
+                <div class="hover-overlay">
+                  <div class="overlay-content">
+                    <h5>James Wilson</h5>
+                    <span>Foreman</span>
+                    <div class="quick-contact">
+                      <a href="#"><i class="bi bi-envelope"></i></a>
+                      <a href="#"><i class="bi bi-telephone"></i></a>
+                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="member-summary">
+                <h5>James Wilson</h5>
+                <span>Foreman</span>
+                <div class="skills">
+                  <span class="skill-tag">Supervisor</span>
+                  <span class="skill-tag">Leadership</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Compact Team Member -->
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="team-card compact">
+              <div class="member-photo">
+                <img src="{{ asset('assets/img/construction/team-8.webp') }}" class="img-fluid" alt="">
+                <div class="hover-overlay">
+                  <div class="overlay-content">
+                    <h5>Amanda Taylor</h5>
+                    <span>Estimator</span>
+                    <div class="quick-contact">
+                      <a href="#"><i class="bi bi-envelope"></i></a>
+                      <a href="#"><i class="bi bi-telephone"></i></a>
+                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="member-summary">
+                <h5>Amanda Taylor</h5>
+                <span>Estimator</span>
+                <div class="skills">
+                  <span class="skill-tag">Cost Professional</span>
+                  <span class="skill-tag">Analytics</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- End Compact Team Member -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Team Section -->
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section light-background">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-5 align-items-center">
+
+          <div class="col-lg-6">
+            <div class="cta-hero-content" data-aos="fade-right" data-aos-delay="200">
+              <div class="badge-wrapper">
+                <span class="cta-badge">
+                  <i class="bi bi-shield-check"></i>
+                  Licensed &amp; Bonded Since 2008
+                </span>
+              </div>
+
+              <h2>Transform Your Space with Expert Construction Services</h2>
+              <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Mauris viverra veniam sit amet lacus cursus venenatis. Donec auctor blandit quam, ac sollicitudin eros convallis vel.</p>
+
+              <div class="feature-highlights">
+                <div class="highlight-item">
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Free project consultation and detailed estimates</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>Comprehensive insurance coverage for all projects</span>
+                </div>
+                <div class="highlight-item">
+                  <i class="bi bi-check-circle-fill"></i>
+                  <span>24/7 emergency response and support services</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="cta-form-section" data-aos="fade-left" data-aos-delay="300">
+              <div class="form-container">
+                <div class="form-header">
+                  <h3>Request Your Free Quote</h3>
+                  <p>Get started with your next construction project today</p>
+                </div>
+
+                <form action="forms/get-a-quote.php" method="post" class="php-email-form">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Your Email" required="">
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required="">
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <select name="type" class="form-control" required="">
+                          <option value="">Select Project Type</option>
+                          <option value="residential">Residential Construction</option>
+                          <option value="commercial">Commercial Building</option>
+                          <option value="renovation">Renovation &amp; Remodeling</option>
+                          <option value="industrial">Industrial Projects</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <textarea name="message" class="form-control" rows="4" placeholder="Project Details" required=""></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your quote request has been sent. Thank you!</div>
+
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                      <i class="bi bi-send"></i>
+                      Send Quote Request
+                    </button>
+
+                    <div class="contact-alternative">
+                      <span>Or call us directly:</span>
+                      <a href="tel:+15558921567" class="phone-link">
+                        <i class="bi bi-telephone-fill"></i>
+                        +1 (555) 892-1567
+                      </a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <div class="trust-indicators" data-aos="fade-up" data-aos-delay="400">
+                <div class="row g-3">
+                  <div class="col-4">
+                    <div class="trust-item">
+                      <div class="trust-icon">
+                        <i class="bi bi-clock"></i>
+                      </div>
+                      <div class="trust-content">
+                        <span class="trust-number">24h</span>
+                        <span class="trust-label">Response Time</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="trust-item">
+                      <div class="trust-icon">
+                        <i class="bi bi-star-fill"></i>
+                      </div>
+                      <div class="trust-content">
+                        <span class="trust-number">4.9</span>
+                        <span class="trust-label">Customer Rating</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="trust-item">
+                      <div class="trust-icon">
+                        <i class="bi bi-hammer"></i>
+                      </div>
+                      <div class="trust-content">
+                        <span class="trust-number">350+</span>
+                        <span class="trust-label">Projects Done</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Call To Action Section -->
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">MyWebsite</span>
+          </a>
+          <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Product Management</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>A108 Adam Street</p>
+          <p>New York, NY 535022</p>
+          <p>United States</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+          <p><strong>Email:</strong> <span>info@example.com</span></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Constructo</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | <a href="https://bootstrapmade.com/tools/">DevTools</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
+  <script src="{{ asset('assets/vendor/aos/aos.js') }}"></script>
+  <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
+  <script src="{{ asset('assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+
+  <!-- Main JS File -->
+  <script src="{{ asset('assets/js/main.js') }}"></script>
+
+</body>
 
 </html>

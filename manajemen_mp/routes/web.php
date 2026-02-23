@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/index', function () {
+    return view('layout.app');
+});
+
+Route::get('/p', function () {
+    return view('user.user');
+});
