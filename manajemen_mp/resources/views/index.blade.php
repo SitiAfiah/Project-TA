@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - Constructo Bootstrap Template</title>
+  <title>TapakMP</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -66,38 +66,10 @@
         <nav id="navmenu" class="navmenu">
           <ul>
             <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="team.html">Team</a></li>
-            <li class="dropdown"><a href="#"><span>More Pages</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="service-details.html">Service Details</a></li>
-                <li><a href="project-details.html">Project Details</a></li>
-                <li><a href="quote.html">Quote Form</a></li>
-                <li><a href="terms.html">Terms</a></li>
-                <li><a href="privacy.html">Privacy</a></li>
-                <li><a href="404.html">404</a></li>
-              </ul>
-            </li>
-            <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-              <ul>
-                <li><a href="#">Dropdown 1</a></li>
-                <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                  <ul>
-                    <li><a href="#">Deep Dropdown 1</a></li>
-                    <li><a href="#">Deep Dropdown 2</a></li>
-                    <li><a href="#">Deep Dropdown 3</a></li>
-                    <li><a href="#">Deep Dropdown 4</a></li>
-                    <li><a href="#">Deep Dropdown 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Dropdown 2</a></li>
-                <li><a href="#">Dropdown 3</a></li>
-                <li><a href="#">Dropdown 4</a></li>
-              </ul>
-            </li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about.html">Tentang</a></li>
+            <li><a href="services.html">Fitur Utama</a></li>
+            <li><a href="projects.html">Panduan</a></li>
+            <li><a href="contact.html">Kontak</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -118,13 +90,13 @@
         <div class="row align-items-center">
           <div class="col-lg-6">
             <div class="hero-content" data-aos="fade-right" data-aos-delay="200">
-              <span class="subtitle">Excellence in Construction</span>
-              <h1>Building Tomorrow's Landmarks Today</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam et purus a odio finibus bibendum in sit amet leo. Mauris feugiat at orci maximus feugiat.</p>
+              <span class="subtitle">PPS Betako Merpati Putih Cabang Jember</span>
+              <h1>Langkah Baru Tata Kelola PPS Betako Merpati Putih Cabang Jember.</h1>
+              <p>Membangun organisasi yang lebih tertib, transparan, dan terintegrasi melalui TapakMP.</p>
 
               <div class="hero-buttons">
-                <a href="#" class="btn-primary">Request a Quote</a>
-                <a href="#" class="btn-secondary">Our Projects</a>
+                <a href="#" class="btn-primary">Masuk Sistem</a>
+                <a href="#" class="btn-secondary">Jadwal Latihan</a>
               </div>
 
               <div class="trust-badges">
@@ -138,15 +110,15 @@
                 <div class="badge-item">
                   <i class="bi bi-trophy"></i>
                   <div class="badge-text">
-                    <span class="count">500+</span>
-                    <span class="label">Projects Completed</span>
+                    <span class="count">300+</span>
+                    <span class="label">Anggota Aktif</span>
                   </div>
                 </div>
                 <div class="badge-item">
                   <i class="bi bi-people"></i>
                   <div class="badge-text">
-                    <span class="count">300+</span>
-                    <span class="label">Satisfied Clients</span>
+                    <span class="count">12+</span>
+                    <span class="label">Kolat Aktif</span>
                   </div>
                 </div>
               </div>
@@ -155,10 +127,10 @@
 
           <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
             <div class="hero-image">
-              <img src="{{ asset('assets/img/construction/showcase-3.webp') }}" alt="Construction Project" class="img-fluid">
+              <img src="{{ asset('assets/img/construction/mpfoto.jpeg') }}" alt="fotoMP" class="img-fluid">
               <div class="image-badge">
-                <span>ISO 9001:2015</span>
-                <p>Certified Construction</p>
+                <span></span>
+                <p>Pewaris Tradisi Bangsa</p>
               </div>
             </div>
           </div>
@@ -176,54 +148,36 @@
         <div class="row align-items-center g-5">
           <div class="col-lg-6">
             <div class="about-content" data-aos="fade-right" data-aos-delay="200">
-              <h2>Building Excellence Since 1995</h2>
-              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin gravida tortor in magna feugiat, quis faucibus libero commodo. Maecenas semper lacus vel leo ultrices, vel tempus lectus varius.</p>
-              <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla facilisi. Duis cursus nisi eu orci laoreet, vel molestie enim ullamcorper. Phasellus at convallis neque, id vehicula magna.</p>
-
+              <h2>Melestarikan Tradisi, Membentuk Karakter Bangsa</h2>
+              <p class="lead">PPS Betako Merpati Putih Cabang Jember terus berkomitmen untuk mencetak pesilat yang tangguh secara fisik dan mental.
+                Seiring dengan perkembangan zaman, kami menghadirkan TapakMP sebagai langkah nyata digitalisasi organisasi untuk mempermudah manajemen
+                anggota dan transparansi keuangan di seluruh wilayah Jember</p>
+              <p>Melalui sistem ini, setiap anggota dan pengurus dapat saling terintegrasi dalam satu platform yang akurat. Kami percaya bahwa tata kelola
+                yang tertib adalah fondasi utama untuk mencapai prestasi yang lebih tinggi, baik di tingkat daerah maupun nasional.</p>
               <div class="achievement-boxes row g-4 mt-4">
-                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
-                  <div class="achievement-box">
-                    <h3>25+</h3>
-                    <p>Years Experience</p>
-                  </div>
-                </div>
                 <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
                   <div class="achievement-box">
-                    <h3>500+</h3>
-                    <p>Projects Completed</p>
+                    <h3>300+</h3>
+                    <p>Anggota Aktif</p>
                   </div>
                 </div>
                 <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="500">
                   <div class="achievement-box">
                     <h3>100%</h3>
-                    <p>Client Satisfaction</p>
+                    <p>Warisan Asli</p>
                   </div>
                 </div>
                 <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="600">
                   <div class="achievement-box">
-                    <h3>48</h3>
-                    <p>Team Members</p>
+                    <h3>12</h3>
+                    <p>Kelompok Latihan</p>
                   </div>
                 </div>
               </div>
 
-              <div class="certifications mt-5" data-aos="fade-up" data-aos-delay="700">
-                <h5>Certifications &amp; Partnerships</h5>
-                <div class="row g-3 align-items-center">
-                  <div class="col-4 col-md-3">
-                    <img src="{{ asset('assets/img/construction/badge-4.webp') }}" alt="Certification" class="img-fluid">
-                  </div>
-                  <div class="col-4 col-md-3">
-                    <img src="{{ asset('assets/img/construction/badge-3.webp') }}" alt="Certification" class="img-fluid">
-                  </div>
-                  <div class="col-4 col-md-3">
-                    <img src="{{ asset('assets/img/construction/badge-5.webp') }}" alt="Certification" class="img-fluid">
-                  </div>
-                </div>
-              </div>
 
               <div class="cta-container mt-5" data-aos="fade-up" data-aos-delay="800">
-                <a href="about.html" class="btn btn-primary">Learn More About Us</a>
+                <a href="about.html" class="btn btn-primary">Akses Ruang Anggota</a>
               </div>
             </div>
           </div>
@@ -251,8 +205,8 @@
 
       <!-- Section Title -->
       <div class="container section-title">
-        <h2>Services</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        <h2>Fitur Utama</h2>
+        <p>Fitur utama dari website ni merupakan sebagai berikut : </p>
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -263,31 +217,29 @@
               <div class="service-icon">
                 <i class="bi bi-building"></i>
               </div>
-              <h3>Commercial Construction</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+              <h3>Manajemen Kenaggotaan</h3>
+              <p>Kelola data profil seluruh pesilat Merpati Putih Cabang Jember secara digital untuk memudahkan koordinasi antar kelompok latihan (Kolat).</p>
               <div class="service-features">
-                <span><i class="bi bi-check-circle"></i> Office Buildings</span>
-                <span><i class="bi bi-check-circle"></i> Retail Spaces</span>
-                <span><i class="bi bi-check-circle"></i> Warehouses</span>
+                <span><i class="bi bi-check-circle"></i> Profil Digital Anggota</span>
+                <span><i class="bi bi-check-circle"></i> Update Status Keanggotaan</span>
+                <span><i class="bi bi-check-circle"></i> Informasi Kolat Asal</span>
               </div>
-              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
             <div class="service-card featured">
-              <div class="service-badge">Most Requested</div>
+              <div class="service-badge">Transparasi Keuangan</div>
               <div class="service-icon">
                 <i class="bi bi-house"></i>
               </div>
-              <h3>Residential Construction</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.</p>
+              <h3>Laporan Keuangan</h3>
+              <p>Pantau pergerakan iuran dan kas organisasi secara transparan. Memastikan pengelolaan dana cabang terdokumentasi dengan baik.</p>
               <div class="service-features">
-                <span><i class="bi bi-check-circle"></i> Custom Homes</span>
-                <span><i class="bi bi-check-circle"></i> Renovations</span>
-                <span><i class="bi bi-check-circle"></i> Additions</span>
+                <span><i class="bi bi-check-circle"></i> Catatan Iuran SPP</span>
+                <span><i class="bi bi-check-circle"></i> Rekapitulasi Kas Cabang</span>
+                <span><i class="bi bi-check-circle"></i> Laporan Dana Masuk dan Keluar</span>
               </div>
-              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -296,72 +248,16 @@
               <div class="service-icon">
                 <i class="bi bi-gear"></i>
               </div>
-              <h3>Industrial Construction</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id tellus quis risus vehicula vehicula ut turpis.</p>
+              <h3>Presensi Latihan Rutin</h3>
+              <p>Sistem absensi digital untuk mencatat kehadiran anggota di setiap sesi latihan guna memantau keaktifan pesilat di tiap Kolat.</p>
               <div class="service-features">
-                <span><i class="bi bi-check-circle"></i> Manufacturing</span>
-                <span><i class="bi bi-check-circle"></i> Processing Plants</span>
-                <span><i class="bi bi-check-circle"></i> Storage Facilities</span>
+                <span><i class="bi bi-check-circle"></i> Input Kehadiran Cepat</span>
+                <span><i class="bi bi-check-circle"></i> Rekap Absensi Bulanan</span>
+                <span><i class="bi bi-check-circle"></i> Pantau Keaktifan Anggota</span>
               </div>
-              <a href="service-details.html" class="service-link">Learn More <i class="bi bi-arrow-right"></i></a>
             </div>
           </div><!-- End Service Item -->
         </div>
-
-        <div class="row mt-5">
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="service-image-block">
-              <img src="{{ asset('assets/img/construction/project-1.webp') }}" alt="Construction Services" class="img-fluid">
-            </div>
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-list-block">
-              <h3>Additional Services</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
-
-              <div class="service-list">
-                <div class="service-list-item" data-aos="fade-up" data-aos-delay="100">
-                  <div class="service-list-icon">
-                    <i class="bi bi-rulers"></i>
-                  </div>
-                  <div class="service-list-content">
-                    <h4>Architectural Design</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae imperdiet neque.</p>
-                  </div>
-                </div><!-- End Service List Item -->
-
-                <div class="service-list-item" data-aos="fade-up" data-aos-delay="200">
-                  <div class="service-list-icon">
-                    <i class="bi bi-calendar-check"></i>
-                  </div>
-                  <div class="service-list-content">
-                    <h4>Project Management</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lacinia dui lectus.</p>
-                  </div>
-                </div><!-- End Service List Item -->
-
-                <div class="service-list-item" data-aos="fade-up" data-aos-delay="300">
-                  <div class="service-list-icon">
-                    <i class="bi bi-tools"></i>
-                  </div>
-                  <div class="service-list-content">
-                    <h4>Renovation &amp; Remodeling</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in nulla ut magna.</p>
-                  </div>
-                </div><!-- End Service List Item -->
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="cta-container text-center mt-5" data-aos="fade-up" data-aos-delay="300">
-          <h3>Ready to Start Your Construction Project?</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi.</p>
-          <a href="#" class="btn btn-cta">Request a Free Quote</a>
-        </div>
-
-      </div>
 
     </section><!-- /Services Section -->
 
@@ -370,7 +266,7 @@
 
       <!-- Section Title -->
       <div class="container section-title">
-        <h2>Projects</h2>
+        <h2>Digitalisasi Administrasi Jember</h2>
         <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
       </div><!-- End Section Title -->
 
@@ -381,13 +277,12 @@
           <div class="project-item" data-aos="zoom-in" data-aos-delay="100">
             <div class="project-content">
               <div class="project-header">
-                <span class="project-category">Commercial</span>
-                <span class="project-status completed">Completed</span>
+                <span class="project-status completed">Pantau Real-Time</span>
               </div>
-              <h3 class="project-title">Metropolitan Office Tower</h3>
+              <h3 class="project-title">Dashboard</h3>
               <div class="project-details">
                 <div class="project-info">
-                  <p>Innovative glass facade design with sustainable energy systems and modern workspace solutions.</p>
+                  <p>Lihat total saldo kas dan jumlah anggota aktif secara instan melalui grafik yang informatif di halaman utama.</p>
                   <div class="project-specs">
                     <span class="spec-item">
                       <i class="bi bi-building"></i>
@@ -401,7 +296,7 @@
                 </div>
                 <div class="project-location">
                   <i class="bi bi-geo-alt-fill"></i>
-                  <span>New York, NY</span>
+                  <span>Pusat Kendali</span>
                 </div>
               </div>
               <a href="project-details.html" class="project-link">
