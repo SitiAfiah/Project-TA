@@ -24,3 +24,7 @@ Route::get('/index', function () {
 Route::get('/p', function () {
     return view('user.user');
 });
+
+Route::get('/anggota', function () {
+    return view('anggota.anggota');
+});

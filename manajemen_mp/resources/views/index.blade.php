@@ -265,774 +265,23 @@
     <section id="projects" class="projects section">
 
       <!-- Section Title -->
-      <div class="container section-title">
-        <h2>Digitalisasi Administrasi Jember</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
+      <!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="projects-grid">
-
-          <div class="project-item" data-aos="zoom-in" data-aos-delay="100">
-            <div class="project-content">
-              <div class="project-header">
-                <span class="project-status completed">Pantau Real-Time</span>
-              </div>
-              <h3 class="project-title">Dashboard</h3>
-              <div class="project-details">
-                <div class="project-info">
-                  <p>Lihat total saldo kas dan jumlah anggota aktif secara instan melalui grafik yang informatif di halaman utama.</p>
-                  <div class="project-specs">
-                    <span class="spec-item">
-                      <i class="bi bi-building"></i>
-                      32 Floors
-                    </span>
-                    <span class="spec-item">
-                      <i class="bi bi-calendar-check"></i>
-                      24 Months
-                    </span>
-                  </div>
-                </div>
-                <div class="project-location">
-                  <i class="bi bi-geo-alt-fill"></i>
-                  <span>Pusat Kendali</span>
-                </div>
-              </div>
-              <a href="project-details.html" class="project-link">
-                <span>View Project</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-            <div class="project-visual">
-              <img src="{{ asset('assets/img/construction/project-2.webp') }}" alt="Metropolitan Office Tower" class="img-fluid">
-              <div class="project-badge">
-                <i class="bi bi-award"></i>
-              </div>
-            </div>
-          </div><!-- End Project Item -->
-
-          <div class="project-item" data-aos="zoom-in" data-aos-delay="200">
-            <div class="project-content">
-              <div class="project-header">
-                <span class="project-category">Residential</span>
-                <span class="project-status in-progress">In Progress</span>
-              </div>
-              <h3 class="project-title">Riverside Luxury Homes</h3>
-              <div class="project-details">
-                <div class="project-info">
-                  <p>Premium residential development featuring eco-friendly materials and smart home integration.</p>
-                  <div class="project-specs">
-                    <span class="spec-item">
-                      <i class="bi bi-house"></i>
-                      24 Units
-                    </span>
-                    <span class="spec-item">
-                      <i class="bi bi-calendar-check"></i>
-                      18 Months
-                    </span>
-                  </div>
-                </div>
-                <div class="project-location">
-                  <i class="bi bi-geo-alt-fill"></i>
-                  <span>Portland, OR</span>
-                </div>
-              </div>
-              <a href="project-details.html" class="project-link">
-                <span>View Project</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-            <div class="project-visual">
-              <img src="{{ asset('assets/img/construction/project-6.webp') }}" alt="Riverside Luxury Homes" class="img-fluid">
-              <div class="project-badge">
-                <i class="bi bi-tools"></i>
-              </div>
-            </div>
-          </div><!-- End Project Item -->
-
-          <div class="project-item" data-aos="zoom-in" data-aos-delay="300">
-            <div class="project-content">
-              <div class="project-header">
-                <span class="project-category">Infrastructure</span>
-                <span class="project-status completed">Completed</span>
-              </div>
-              <h3 class="project-title">Highway Bridge Reconstruction</h3>
-              <div class="project-details">
-                <div class="project-info">
-                  <p>Major infrastructure upgrade enhancing traffic flow and ensuring structural safety standards.</p>
-                  <div class="project-specs">
-                    <span class="spec-item">
-                      <i class="bi bi-rulers"></i>
-                      2.5 Miles
-                    </span>
-                    <span class="spec-item">
-                      <i class="bi bi-calendar-check"></i>
-                      36 Months
-                    </span>
-                  </div>
-                </div>
-                <div class="project-location">
-                  <i class="bi bi-geo-alt-fill"></i>
-                  <span>Dallas, TX</span>
-                </div>
-              </div>
-              <a href="project-details.html" class="project-link">
-                <span>View Project</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-            <div class="project-visual">
-              <img src="{{ asset('assets/img/construction/project-10.webp') }}" alt="Highway Bridge Reconstruction" class="img-fluid">
-              <div class="project-badge">
-                <i class="bi bi-gear"></i>
-              </div>
-            </div>
-          </div><!-- End Project Item -->
-
-          <div class="project-item" data-aos="zoom-in" data-aos-delay="100">
-            <div class="project-content">
-              <div class="project-header">
-                <span class="project-category">Healthcare</span>
-                <span class="project-status completed">Completed</span>
-              </div>
-              <h3 class="project-title">Children's Medical Facility</h3>
-              <div class="project-details">
-                <div class="project-info">
-                  <p>Specialized pediatric center with family-friendly design and advanced medical technology integration.</p>
-                  <div class="project-specs">
-                    <span class="spec-item">
-                      <i class="bi bi-hospital"></i>
-                      8 Floors
-                    </span>
-                    <span class="spec-item">
-                      <i class="bi bi-calendar-check"></i>
-                      28 Months
-                    </span>
-                  </div>
-                </div>
-                <div class="project-location">
-                  <i class="bi bi-geo-alt-fill"></i>
-                  <span>Boston, MA</span>
-                </div>
-              </div>
-              <a href="project-details.html" class="project-link">
-                <span>View Project</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-            <div class="project-visual">
-              <img src="{{ asset('assets/img/construction/project-4.webp') }}" alt="Children's Medical Facility" class="img-fluid">
-              <div class="project-badge">
-                <i class="bi bi-heart-pulse"></i>
-              </div>
-            </div>
-          </div><!-- End Project Item -->
-
-          <div class="project-item" data-aos="zoom-in" data-aos-delay="200">
-            <div class="project-content">
-              <div class="project-header">
-                <span class="project-category">Educational</span>
-                <span class="project-status planning">Planning</span>
-              </div>
-              <h3 class="project-title">Innovation Campus Center</h3>
-              <div class="project-details">
-                <div class="project-info">
-                  <p>Modern learning facility with flexible spaces designed for collaborative education and research.</p>
-                  <div class="project-specs">
-                    <span class="spec-item">
-                      <i class="bi bi-mortarboard"></i>
-                      5 Buildings
-                    </span>
-                    <span class="spec-item">
-                      <i class="bi bi-calendar-check"></i>
-                      42 Months
-                    </span>
-                  </div>
-                </div>
-                <div class="project-location">
-                  <i class="bi bi-geo-alt-fill"></i>
-                  <span>San Francisco, CA</span>
-                </div>
-              </div>
-              <a href="project-details.html" class="project-link">
-                <span>View Project</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-            <div class="project-visual">
-              <img src="{{ asset('assets/img/construction/project-8.webp') }}" alt="Innovation Campus Center" class="img-fluid">
-              <div class="project-badge">
-                <i class="bi bi-lightbulb"></i>
-              </div>
-            </div>
-          </div><!-- End Project Item -->
-
-          <div class="project-item" data-aos="zoom-in" data-aos-delay="300">
-            <div class="project-content">
-              <div class="project-header">
-                <span class="project-category">Industrial</span>
-                <span class="project-status completed">Completed</span>
-              </div>
-              <h3 class="project-title">Green Energy Plant</h3>
-              <div class="project-details">
-                <div class="project-info">
-                  <p>Sustainable power generation facility incorporating renewable energy and efficient production systems.</p>
-                  <div class="project-specs">
-                    <span class="spec-item">
-                      <i class="bi bi-lightning"></i>
-                      150MW
-                    </span>
-                    <span class="spec-item">
-                      <i class="bi bi-calendar-check"></i>
-                      30 Months
-                    </span>
-                  </div>
-                </div>
-                <div class="project-location">
-                  <i class="bi bi-geo-alt-fill"></i>
-                  <span>Denver, CO</span>
-                </div>
-              </div>
-              <a href="project-details.html" class="project-link">
-                <span>View Project</span>
-                <i class="bi bi-arrow-right"></i>
-              </a>
-            </div>
-            <div class="project-visual">
-              <img src="{{ asset('assets/img/construction/project-12.webp') }}" alt="Green Energy Plant" class="img-fluid">
-              <div class="project-badge">
-                <i class="bi bi-leaf"></i>
-              </div>
-            </div>
-          </div><!-- End Project Item -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Projects Section -->
+    <!-- /Projects Section -->
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section">
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="testimonials-slider swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": 1,
-              "spaceBetween": 30,
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              },
-              "navigation": {
-                "nextEl": ".swiper-button-next",
-                "prevEl": ".swiper-button-prev"
-              }
-            }
-          </script>
-          <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-              <div class="testimonial-slide" data-aos="fade-up" data-aos-delay="200">
-                <div class="testimonial-header">
-                  <div class="stars-rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="quote-icon">
-                    <i class="bi bi-quote"></i>
-                  </div>
-                </div>
-                <div class="testimonial-body">
-                  <p>"Outstanding service quality and innovative solutions have completely transformed our business processes, resulting in enhanced productivity and exceptional customer satisfaction throughout our organization."</p>
-                </div>
-                <div class="testimonial-footer">
-                  <div class="author-info">
-                    <img src="{{ asset('assets/img/person/person-f-12.webp') }}" alt="Author" class="author-avatar">
-                    <div class="author-details">
-                      <h4>Sophia Martinez</h4>
-                      <span class="role">Operations Director</span>
-                      <span class="company">TechVision Corp</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-slide" data-aos="fade-up" data-aos-delay="300">
-                <div class="testimonial-header">
-                  <div class="stars-rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="quote-icon">
-                    <i class="bi bi-quote"></i>
-                  </div>
-                </div>
-                <div class="testimonial-body">
-                  <p>"Professional expertise and dedicated support have significantly improved our project delivery timelines while maintaining exceptional quality standards across all our initiatives."</p>
-                </div>
-                <div class="testimonial-footer">
-                  <div class="author-info">
-                    <img src="{{ asset('assets/img/person/person-m-14.webp') }}" alt="Author" class="author-avatar">
-                    <div class="author-details">
-                      <h4>Michael Anderson</h4>
-                      <span class="role">Project Manager</span>
-                      <span class="company">InnovateTech Ltd</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="swiper-slide">
-              <div class="testimonial-slide" data-aos="fade-up" data-aos-delay="400">
-                <div class="testimonial-header">
-                  <div class="stars-rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                  </div>
-                  <div class="quote-icon">
-                    <i class="bi bi-quote"></i>
-                  </div>
-                </div>
-                <div class="testimonial-body">
-                  <p>"Strategic collaboration and innovative thinking have enabled remarkable digital transformation, leading to increased efficiency and measurable business growth results."</p>
-                </div>
-                <div class="testimonial-footer">
-                  <div class="author-info">
-                    <img src="{{ asset('assets/img/person/person-f-11.webp') }}" alt="Author" class="author-avatar">
-                    <div class="author-details">
-                      <h4>Jennifer Wilson</h4>
-                      <span class="role">Digital Strategy Lead</span>
-                      <span class="company">FutureScope Inc</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="swiper-navigation-wrapper">
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-            <div class="swiper-button-next"></div>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section><!-- /Testimonials Section -->
+    <!-- /Testimonials Section -->
 
     <!-- Certifications Section -->
     <section id="certifications" class="certifications section">
 
       <!-- Section Title -->
-      <div class="container section-title">
-        <h2>Certified &amp; Trusted</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
+      <!-- End Section Title -->
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row align-items-center mb-5 content">
-          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
-            <h2>Industry Certifications &amp; Excellence</h2>
-            <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Pellentesque in ipsum id orci porta dapibus.</p>
-          </div>
-          <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
-            <div class="badge-highlight">
-              <img src="{{ asset('assets/img/construction/badge-5.webp') }}" alt="Quality Excellence Badge" class="img-fluid">
-              <div class="badge-content">
-                <h4>Premier Contractor Status</h4>
-                <p>Recognized by the state board for outstanding quality and safety standards</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="certification-grid" data-aos="fade-up" data-aos-delay="400">
-
-          <div class="cert-card" data-aos="flip-left" data-aos-delay="100">
-            <div class="cert-icon">
-              <img src="{{ asset('assets/img/construction/badge-1.webp') }}" alt="ISO 9001" class="img-fluid">
-            </div>
-            <div class="cert-details">
-              <h5>ISO 9001:2015</h5>
-              <span class="cert-category">Quality Management</span>
-              <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Sed porttitor lectus nibh.</p>
-            </div>
-          </div>
-
-          <div class="cert-card" data-aos="flip-left" data-aos-delay="200">
-            <div class="cert-icon">
-              <img src="{{ asset('assets/img/construction/badge-2.webp') }}" alt="OSHA" class="img-fluid">
-            </div>
-            <div class="cert-details">
-              <h5>OSHA 30-Hour</h5>
-              <span class="cert-category">Safety Standards</span>
-              <p>Curabitur non nulla sit amet nisl tempus convallis quis ac lectus vestibulum.</p>
-            </div>
-          </div>
-
-          <div class="cert-card" data-aos="flip-left" data-aos-delay="300">
-            <div class="cert-icon">
-              <img src="{{ asset('assets/img/construction/badge-3.webp') }}" alt="Licensed" class="img-fluid">
-            </div>
-            <div class="cert-details">
-              <h5>State Licensed</h5>
-              <span class="cert-category">Legal Compliance</span>
-              <p>Donec rutrum congue leo eget malesuada. Vestibulum ac diam sit amet quam.</p>
-            </div>
-          </div>
-
-          <div class="cert-card" data-aos="flip-left" data-aos-delay="400">
-            <div class="cert-icon">
-              <img src="{{ asset('assets/img/construction/badge-4.webp') }}" alt="Green Building" class="img-fluid">
-            </div>
-            <div class="cert-details">
-              <h5>LEED Certified</h5>
-              <span class="cert-category">Sustainable Building</span>
-              <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
-            </div>
-          </div>
-
-          <div class="cert-card" data-aos="flip-left" data-aos-delay="500">
-            <div class="cert-icon">
-              <img src="{{ asset('assets/img/construction/badge-6.webp') }}" alt="Insurance" class="img-fluid">
-            </div>
-            <div class="cert-details">
-              <h5>Fully Insured</h5>
-              <span class="cert-category">Risk Management</span>
-              <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
-            </div>
-          </div>
-
-          <div class="cert-card" data-aos="flip-left" data-aos-delay="600">
-            <div class="cert-icon">
-              <img src="{{ asset('assets/img/construction/badge-7.webp') }}" alt="Training" class="img-fluid">
-            </div>
-            <div class="cert-details">
-              <h5>Skills Certified</h5>
-              <span class="cert-category">Professional Training</span>
-              <p>Quisque velit nisi, pretium ut lacinia in, elementum id enim mauris blandit.</p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="achievements-banner" data-aos="zoom-in" data-aos-delay="700">
-          <div class="row text-center">
-            <div class="col-lg-3 col-sm-6">
-              <div class="achievement-item">
-                <i class="bi bi-award"></i>
-                <h3>15+</h3>
-                <p>Industry Awards</p>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="achievement-item">
-                <i class="bi bi-shield-check"></i>
-                <h3>Zero</h3>
-                <p>Safety Incidents</p>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="achievement-item">
-                <i class="bi bi-clock-history"></i>
-                <h3>18</h3>
-                <p>Years Experience</p>
-              </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-              <div class="achievement-item">
-                <i class="bi bi-people"></i>
-                <h3>350+</h3>
-                <p>Satisfied Clients</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-    </section><!-- /Certifications Section -->
+      <!-- /Certifications Section -->
 
     <!-- Team Section -->
-    <section id="team" class="team section">
-
-      <!-- Section Title -->
-      <div class="container section-title">
-        <h2>Team</h2>
-        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
-      </div><!-- End Section Title -->
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="team-card featured">
-              <div class="team-header">
-                <div class="team-image">
-                  <img src="{{ asset('assets/img/construction/team-1.webp') }}" class="img-fluid" alt="">
-                  <div class="experience-badge">15+ Years</div>
-                </div>
-                <div class="team-info">
-                  <h4>Marcus Thompson</h4>
-                  <span class="position">Project Manager</span>
-                  <div class="contact-info">
-                    <a href="mailto:marcus@example.com"><i class="bi bi-envelope"></i> marcus@example.com</a>
-                    <a href="tel:+1555123456"><i class="bi bi-telephone"></i> +1 (555) 123-456</a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-details">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <div class="credentials">
-                  <div class="cred-item">
-                    <i class="bi bi-award"></i>
-                    <span>PMP Certified</span>
-                  </div>
-                  <div class="cred-item">
-                    <i class="bi bi-shield-check"></i>
-                    <span>OSHA 30</span>
-                  </div>
-                </div>
-                <div class="social-links">
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-facebook"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Featured Team Member -->
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="team-card featured">
-              <div class="team-header">
-                <div class="team-image">
-                  <img src="{{ asset('assets/img/construction/team-2.webp') }}" class="img-fluid" alt="">
-                  <div class="experience-badge">12+ Years</div>
-                </div>
-                <div class="team-info">
-                  <h4>Sarah Rodriguez</h4>
-                  <span class="position">Site Supervisor</span>
-                  <div class="contact-info">
-                    <a href="mailto:sarah@example.com"><i class="bi bi-envelope"></i> sarah@example.com</a>
-                    <a href="tel:+1555123457"><i class="bi bi-telephone"></i> +1 (555) 123-457</a>
-                  </div>
-                </div>
-              </div>
-              <div class="team-details">
-                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <div class="credentials">
-                  <div class="cred-item">
-                    <i class="bi bi-person-badge"></i>
-                    <span>Licensed Contractor</span>
-                  </div>
-                  <div class="cred-item">
-                    <i class="bi bi-tools"></i>
-                    <span>Site Management</span>
-                  </div>
-                </div>
-                <div class="social-links">
-                  <a href="#"><i class="bi bi-linkedin"></i></a>
-                  <a href="#"><i class="bi bi-twitter-x"></i></a>
-                  <a href="#"><i class="bi bi-instagram"></i></a>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Featured Team Member -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="team-card compact">
-              <div class="member-photo">
-                <img src="{{ asset('assets/img/construction/team-3.webp') }}" class="img-fluid" alt="">
-                <div class="hover-overlay">
-                  <div class="overlay-content">
-                    <h5>David Chen</h5>
-                    <span>Lead Engineer</span>
-                    <div class="quick-contact">
-                      <a href="#"><i class="bi bi-envelope"></i></a>
-                      <a href="#"><i class="bi bi-telephone"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="member-summary">
-                <h5>David Chen</h5>
-                <span>Lead Engineer</span>
-                <div class="skills">
-                  <span class="skill-tag">PE License</span>
-                  <span class="skill-tag">LEED AP</span>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Compact Team Member -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="team-card compact">
-              <div class="member-photo">
-                <img src="{{ asset('assets/img/construction/team-4.webp') }}" class="img-fluid" alt="">
-                <div class="hover-overlay">
-                  <div class="overlay-content">
-                    <h5>Lisa Johnson</h5>
-                    <span>Safety Coordinator</span>
-                    <div class="quick-contact">
-                      <a href="#"><i class="bi bi-envelope"></i></a>
-                      <a href="#"><i class="bi bi-telephone"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="member-summary">
-                <h5>Lisa Johnson</h5>
-                <span>Safety Coordinator</span>
-                <div class="skills">
-                  <span class="skill-tag">CSP Certified</span>
-                  <span class="skill-tag">Safety Expert</span>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Compact Team Member -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="team-card compact">
-              <div class="member-photo">
-                <img src="{{ asset('assets/img/construction/team-5.webp') }}" class="img-fluid" alt="">
-                <div class="hover-overlay">
-                  <div class="overlay-content">
-                    <h5>Robert Martinez</h5>
-                    <span>Equipment Operator</span>
-                    <div class="quick-contact">
-                      <a href="#"><i class="bi bi-envelope"></i></a>
-                      <a href="#"><i class="bi bi-telephone"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="member-summary">
-                <h5>Robert Martinez</h5>
-                <span>Equipment Operator</span>
-                <div class="skills">
-                  <span class="skill-tag">Heavy Equipment</span>
-                  <span class="skill-tag">10+ Years</span>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Compact Team Member -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="team-card compact">
-              <div class="member-photo">
-                <img src="{{ asset('assets/img/construction/team-6.webp') }}" class="img-fluid" alt="">
-                <div class="hover-overlay">
-                  <div class="overlay-content">
-                    <h5>Emily Davis</h5>
-                    <span>Quality Control Specialist</span>
-                    <div class="quick-contact">
-                      <a href="#"><i class="bi bi-envelope"></i></a>
-                      <a href="#"><i class="bi bi-telephone"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="member-summary">
-                <h5>Emily Davis</h5>
-                <span>Quality Control Specialist</span>
-                <div class="skills">
-                  <span class="skill-tag">Quality Assurance</span>
-                  <span class="skill-tag">Certified</span>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Compact Team Member -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="team-card compact">
-              <div class="member-photo">
-                <img src="{{ asset('assets/img/construction/team-7.webp') }}" class="img-fluid" alt="">
-                <div class="hover-overlay">
-                  <div class="overlay-content">
-                    <h5>James Wilson</h5>
-                    <span>Foreman</span>
-                    <div class="quick-contact">
-                      <a href="#"><i class="bi bi-envelope"></i></a>
-                      <a href="#"><i class="bi bi-telephone"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="member-summary">
-                <h5>James Wilson</h5>
-                <span>Foreman</span>
-                <div class="skills">
-                  <span class="skill-tag">Supervisor</span>
-                  <span class="skill-tag">Leadership</span>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Compact Team Member -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="team-card compact">
-              <div class="member-photo">
-                <img src="{{ asset('assets/img/construction/team-8.webp') }}" class="img-fluid" alt="">
-                <div class="hover-overlay">
-                  <div class="overlay-content">
-                    <h5>Amanda Taylor</h5>
-                    <span>Estimator</span>
-                    <div class="quick-contact">
-                      <a href="#"><i class="bi bi-envelope"></i></a>
-                      <a href="#"><i class="bi bi-telephone"></i></a>
-                      <a href="#"><i class="bi bi-linkedin"></i></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="member-summary">
-                <h5>Amanda Taylor</h5>
-                <span>Estimator</span>
-                <div class="skills">
-                  <span class="skill-tag">Cost Professional</span>
-                  <span class="skill-tag">Analytics</span>
-                </div>
-              </div>
-            </div>
-          </div><!-- End Compact Team Member -->
-
-        </div>
-
-      </div>
-
-    </section><!-- /Team Section -->
+    <!-- /Team Section -->
 
     <!-- Call To Action Section -->
     <section id="call-to-action" class="call-to-action section light-background">
@@ -1046,25 +295,27 @@
               <div class="badge-wrapper">
                 <span class="cta-badge">
                   <i class="bi bi-shield-check"></i>
-                  Licensed &amp; Bonded Since 2008
+                  Terintegrasi & Aman Sejak 2026
                 </span>
               </div>
 
-              <h2>Transform Your Space with Expert Construction Services</h2>
-              <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Mauris viverra veniam sit amet lacus cursus venenatis. Donec auctor blandit quam, ac sollicitudin eros convallis vel.</p>
+              <h2>Siap Melangkah Bersama TapakMP?</h2>
+              <p>Pastikan data Anda atau Kelompok Latihan (Kolat)
+                Anda terdata secara resmi di Cabang Jember. Hubungi admin
+                kami jika Anda mengalamikendala akses atau ingin mendaftarkan akun baru.</p>
 
               <div class="feature-highlights">
                 <div class="highlight-item">
                   <i class="bi bi-check-circle-fill"></i>
-                  <span>Free project consultation and detailed estimates</span>
+                  <span>Bantuan pendaftaran akun anggota baru</span>
                 </div>
                 <div class="highlight-item">
                   <i class="bi bi-check-circle-fill"></i>
-                  <span>Comprehensive insurance coverage for all projects</span>
+                  <span>Dukungan teknis kendala <i>login</i> dan <i>password</i></span>
                 </div>
                 <div class="highlight-item">
                   <i class="bi bi-check-circle-fill"></i>
-                  <span>24/7 emergency response and support services</span>
+                  <span>Layanan panduan input data keuangan & absensi</span>
                 </div>
               </div>
             </div>
@@ -1074,63 +325,62 @@
             <div class="cta-form-section" data-aos="fade-left" data-aos-delay="300">
               <div class="form-container">
                 <div class="form-header">
-                  <h3>Request Your Free Quote</h3>
-                  <p>Get started with your next construction project today</p>
+                  <h3>Hubungi Admin Cabang</h3>
+                  <p>Lengkapi data di bawah untuk bantuan administrasi sistem</p>
                 </div>
 
                 <form action="forms/get-a-quote.php" method="post" class="php-email-form">
                   <div class="row g-3">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                        <input type="text" name="name" class="form-control" placeholder="Nama Lengkap" required="">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Your Email" required="">
+                        <input type="email" name="email" class="form-control" placeholder="Alamat Email Aktif" required="">
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <input type="tel" name="phone" class="form-control" placeholder="Phone Number" required="">
+                        <input type="tel" name="phone" class="form-control" placeholder="Nomor WhatsApp" required="">
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
                         <select name="type" class="form-control" required="">
-                          <option value="">Select Project Type</option>
-                          <option value="residential">Residential Construction</option>
-                          <option value="commercial">Commercial Building</option>
-                          <option value="renovation">Renovation &amp; Remodeling</option>
-                          <option value="industrial">Industrial Projects</option>
-                          <option value="other">Other</option>
+                          <option value="">Pilih Jenis Bantuan</option>
+                          <option value="residential">Pendaftaran akun baru</option>
+                          <option value="commercial">Masalah Login</option>
+                          <option value="renovation">Laporan Keuangan</option>
+                          <option value="other">Lainnya</option>
                         </select>
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <textarea name="message" class="form-control" rows="4" placeholder="Project Details" required=""></textarea>
+                        <textarea name="message" class="form-control" rows="4" placeholder="Detail Pesan atau Kendala" required=""></textarea>
                       </div>
                     </div>
                   </div>
 
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
-                  <div class="sent-message">Your quote request has been sent. Thank you!</div>
+                  <div class="sent-message">Kirim Pesan Sekarang!</div>
 
                   <div class="form-actions">
                     <button type="submit" class="btn btn-primary">
                       <i class="bi bi-send"></i>
-                      Send Quote Request
+                      Kirim Pesan
                     </button>
 
                     <div class="contact-alternative">
-                      <span>Or call us directly:</span>
-                      <a href="tel:+15558921567" class="phone-link">
-                        <i class="bi bi-telephone-fill"></i>
-                        +1 (555) 892-1567
-                      </a>
-                    </div>
+    <span>Atau hubungi kami secara langsung melalui:</span>
+    <a href="https://wa.me/6281617376290" class="phone-link" target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-whatsapp"></i>
+        +62 816-1737-6290
+    </a>
+</div>
                   </div>
                 </form>
               </div>
@@ -1143,8 +393,8 @@
                         <i class="bi bi-clock"></i>
                       </div>
                       <div class="trust-content">
-                        <span class="trust-number">24h</span>
-                        <span class="trust-label">Response Time</span>
+                        <span class="trust-number">08.00 - 17.00</span>
+                        <span class="trust-label">Respon Admin</span>
                       </div>
                     </div>
                   </div>
