@@ -36,6 +36,9 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  {{--  tambahan untuk pop up hapus --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -71,6 +74,31 @@
   <!-- Template Main JS File -->
   <script src="{{ asset('asset/js/main.js') }}"></script>
 
-</body>
+  {{-- untuk menampilkan detail --}}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    @stack('scripts')
+
+{{--  ini tambahan untuk pop up hapus --}}
+    ...
+  <script src="{{ asset('asset/js/main.js') }}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  @stack('scripts')
+
+  @if(session('success'))
+  <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Berhasil!',
+      text: "{{ session('success') }}",
+      showConfirmButton: false,
+      timer: 2000,
+      borderRadius: '20px'
+    });
+  </script>
+  @endif
+
+</body>
 </html>

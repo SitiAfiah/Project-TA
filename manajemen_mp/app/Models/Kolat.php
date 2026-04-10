@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Kolat extends Model
+{
+    use HasFactory;
+
+    // Tentukan nama tabel jika tidak otomatis jamak
+    protected $table = 'kolat';
+
+    // Daftarkan kolom yang boleh diisi (Mass Assignment)
+    protected $fillable = [
+        'nama_kolat',
+        'alamat_kolat',
+    ];
+
+    // Relasi: Satu Kolat memiliki banyak Anggota
+    public function anggota()
+    {
+        return $this->hasMany(Anggota::class, 'kolat_id');
+    }
+}
