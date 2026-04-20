@@ -16,6 +16,20 @@
         <p class="text-muted small">Lengkapi data identitas dan legalitas SK untuk Pelatih atau Pengurus.</p>
     </div>
 
+    <!-- TAMPILKAN ERROR VALIDASI -->
+    @if ($errors->any())
+    <div class="alert alert-danger border-0 shadow-sm mb-4" style="border-radius: 15px;">
+        <div class="d-flex">
+            <i class="icon-alert-circle me-2 mt-1"></i>
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li class="small">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
+
     <div class="row">
         <div class="col-md-12">
             <form action="{{ isset($anggota) ? route('anggota.update', $anggota->id) : route('anggota.store') }}"
@@ -23,6 +37,9 @@
                   enctype="multipart/form-data">
                 @csrf
                 @if(isset($anggota)) @method('PUT') @endif
+
+                <!-- INPUT HIDDEN UNTUK JABATAN (Penting untuk validasi Controller) -->
+                <input type="hidden" name="jabatan" id="jabatanHidden" value="{{ old('jabatan', $anggota->jabatan ?? '') }}">
 
                 <!-- CARD 1: INFORMASI PRIBADI -->
                 <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
@@ -34,24 +51,24 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Nama Lengkap</label>
                                 <input type="text" name="nama_lengkap" class="form-control {{ isset($anggota) ? 'bg-light' : '' }}"
-                                       value="{{ $anggota->nama_lengkap ?? '' }}"
+                                       value="{{ old('nama_lengkap', $anggota->nama_lengkap ?? '') }}"
                                        {{ isset($anggota) ? 'readonly' : '' }} required placeholder="Nama lengkap sesuai identitas">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">No. WhatsApp</label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-light border-end-0">+62</span>
-                                    <input type="number" name="no_hp" class="form-control" value="{{ $anggota->no_hp ?? '' }}" placeholder="81234567xxx" required>
+                                    <input type="number" name="no_hp" class="form-control" value="{{ old('no_hp', $anggota->no_hp ?? '') }}" placeholder="81234567xxx" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Tempat & Tanggal Lahir</label>
                                 <div class="row g-2">
                                     <div class="col-7">
-                                        <input type="text" name="tempat_lahir" class="form-control" value="{{ $anggota->tempat_lahir ?? '' }}" placeholder="Kota" required>
+                                        <input type="text" name="tempat_lahir" class="form-control" value="{{ old('tempat_lahir', $anggota->tempat_lahir ?? '') }}" placeholder="Kota" required>
                                     </div>
                                     <div class="col-5">
-                                        <input type="date" name="tgl_lahir" class="form-control" value="{{ $anggota->tgl_lahir ?? '' }}" required>
+                                        <input type="date" name="tgl_lahir" class="form-control" value="{{ old('tgl_lahir', $anggota->tgl_lahir ?? '') }}" required>
                                     </div>
                                 </div>
                             </div>
@@ -59,13 +76,13 @@
                                 <label class="form-label fw-bold">Jenis Kelamin</label>
                                 <select name="jenis_kelamin" class="form-select" required>
                                     <option value="" disabled selected>-- Pilih --</option>
-                                    <option value="L" {{ (isset($anggota) && $anggota->jenis_kelamin == 'L') ? 'selected' : '' }}>Laki-laki</option>
-                                    <option value="P" {{ (isset($anggota) && $anggota->jenis_kelamin == 'P') ? 'selected' : '' }}>Perempuan</option>
+                                    <option value="L" {{ old('jenis_kelamin', $anggota->jenis_kelamin ?? '') == 'L' ? 'selected' : '' }}>Laki-laki</option>
+                                    <option value="P" {{ old('jenis_kelamin', $anggota->jenis_kelamin ?? '') == 'P' ? 'selected' : '' }}>Perempuan</option>
                                 </select>
                             </div>
                             <div class="col-12">
                                 <label class="form-label fw-bold">Alamat Lengkap</label>
-                                <textarea name="alamat" class="form-control" rows="2" placeholder="Alamat lengkap domisili..." required>{{ $anggota->alamat ?? '' }}</textarea>
+                                <textarea name="alamat" class="form-control" rows="2" placeholder="Alamat lengkap domisili..." required>{{ old('alamat', $anggota->alamat ?? '') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -83,36 +100,36 @@
                                 <input type="text" class="form-control bg-light fw-bold text-primary" value="{{ $anggota->no_induk ?? 'JB-XXX (Otomatis)' }}" readonly>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label fw-bold">Jabatan</label>
+                                <label class="form-label fw-bold">Jabatan / Role</label>
                                 <select name="role_id" id="roleSelect" class="form-select border-primary" onchange="toggleSKFields()" required>
                                     <option value="" disabled selected>-- Pilih Jabatan --</option>
                                     @foreach($data_role as $role)
                                         <option value="{{ $role->id }}"
-                                            {{ (isset($anggota) && $anggota->role_id == $role->id) ? 'selected' : '' }}>
+                                            {{ old('role_id', $anggota->role_id ?? '') == $role->id ? 'selected' : '' }}>
                                             {{ $role->nama_role }}
                                         </option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label fw-bold">Status</label>
+                                <label class="form-label fw-bold">Status Keanggotaan</label>
                                 <select name="status" class="form-select" required>
-                                    <option value="Aktif" {{ (isset($anggota) && $anggota->status == 'Aktif') ? 'selected' : '' }}>Aktif</option>
-                                    <option value="Non-Aktif" {{ (isset($anggota) && $anggota->status == 'Non-Aktif') ? 'selected' : '' }}>Non-Aktif</option>
+                                    <option value="Aktif" {{ old('status', $anggota->status ?? '') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                    <option value="Non-Aktif" {{ old('status', $anggota->status ?? '') == 'Non-Aktif' ? 'selected' : '' }}>Non-Aktif</option>
                                 </select>
                             </div>
 
                             <!-- BOX SK (Legalitas) -->
                             <div id="boxSK" class="col-12 mt-3 p-4 bg-light rounded-4 border border-dashed border-danger" style="display: none;">
-                                <h6 class="text-danger fw-bold mb-3"><i class="bi bi-file-earmark-check me-2"></i>Data Legalitas (SK/Lisensi)</h6>
+                                <h6 class="text-danger fw-bold mb-3"><i class="icon-file-text me-2"></i>Data Legalitas (Khusus Pelatih/Pengurus)</h6>
                                 <div class="row g-3">
                                     <div class="col-md-4">
                                         <label class="form-label small fw-bold">Nomor SK</label>
-                                        <input type="text" name="no_sk" class="form-control" value="{{ $anggota->no_sk ?? '' }}">
+                                        <input type="text" name="no_sk" class="form-control" value="{{ old('no_sk', $anggota->no_sk ?? '') }}">
                                     </div>
                                     <div class="col-md-4">
-                                        <label class="form-label small fw-bold">Masa Berlaku</label>
-                                        <input type="date" name="masa_berlaku" class="form-control" value="{{ $anggota->masa_berlaku ?? '' }}">
+                                        <label class="form-label small fw-bold">Masa Berlaku SK</label>
+                                        <input type="date" name="masa_berlaku" class="form-control" value="{{ old('masa_berlaku', $anggota->masa_berlaku ?? '') }}">
                                     </div>
                                     <div class="col-md-4">
                                         <label class="form-label small fw-bold">Upload SK (Gambar)</label>
@@ -123,27 +140,27 @@
 
                             <div class="col-md-6 mt-4">
                                 <label class="form-label fw-bold">Asal Kolat</label>
-                               <select name="kolat_id" class="form-select" required>
-                            <option value="" disabled selected>-- Pilih Kolat --</option>
-                            @foreach($data_kolat as $k)
-                                <option value="{{ $k->id }}" {{ (isset($anggota) && $anggota->kolat_id == $k->id) ? 'selected' : '' }}>
-                                    Kolat {{ $k->nama_kolat }}
-                                </option>
-                            @endforeach
-                        </select>
+                                <select name="kolat_id" class="form-select" required>
+                                    <option value="" disabled selected>-- Pilih Kolat --</option>
+                                    @foreach($data_kolat as $k)
+                                        <option value="{{ $k->id }}" {{ old('kolat_id', $anggota->kolat_id ?? '') == $k->id ? 'selected' : '' }}>
+                                            Kolat {{ $k->nama_kolat }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-3 mt-4">
-                                <label class="form-label fw-bold">Tingkatan</label>
-                                <input type="text" name="tingkatan" class="form-control" value="{{ $anggota->tingkatan ?? '' }}" placeholder="Contoh: Balik I" required>
+                                <label class="form-label fw-bold">Tingkatan Sabuk</label>
+                                <input type="text" name="tingkatan" class="form-control" value="{{ old('tingkatan', $anggota->tingkatan ?? '') }}" placeholder="Contoh: Balik I" required>
                             </div>
                             <div class="col-md-3 mt-4">
                                 <label class="form-label fw-bold">Tanggal Gabung</label>
-                                <input type="date" name="tgl_gabung" class="form-control" value="{{ $anggota->tgl_gabung ?? '' }}" required>
+                                <input type="date" name="tgl_gabung" class="form-control" value="{{ old('tgl_gabung', $anggota->tgl_gabung ?? '') }}" required>
                             </div>
 
                             <div class="col-12 mt-4">
-                                <label class="form-label fw-bold text-danger"><i class="icon-heart me-2"></i>Catatan Medis</label>
-                                <textarea name="catatan_medis" class="form-control" rows="3" placeholder="Contoh: Riwayat asma atau cedera fisik.">{{ $anggota->catatan_medis ?? '' }}</textarea>
+                                <label class="form-label fw-bold text-danger"><i class="icon-heart me-2"></i>Catatan Medis (Opsional)</label>
+                                <textarea name="catatan_medis" class="form-control" rows="3" placeholder="Contoh: Riwayat asma atau cedera fisik.">{{ old('catatan_medis', $anggota->catatan_medis ?? '') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -167,51 +184,56 @@
 
 <script>
     function toggleSKFields() {
-        const jabatan = document.getElementById('jabatanSelect').value;
+        const roleSelect = document.getElementById('roleSelect');
         const boxSK = document.getElementById('boxSK');
-        if (jabatan === 'pelatih' || jabatan === 'pengurus') {
-            boxSK.style.display = 'block';
-        } else {
-            boxSK.style.display = 'none';
+        const jabatanHidden = document.getElementById('jabatanHidden');
+
+        if (roleSelect.selectedIndex > 0) {
+            // 1. Ambil teks asli dari dropdown (Pelatih/Pengurus/Anggota)
+            const selectedText = roleSelect.options[roleSelect.selectedIndex].text;
+            const textLower = selectedText.toLowerCase();
+
+            // 2. Isi hidden input 'jabatan' agar validasi di controller lolos
+            // Kita sesuaikan agar nilainya pas dengan validasi: pengurus, pelatih, anggota
+            if (textLower.includes('pelatih')) {
+                jabatanHidden.value = 'pelatih';
+                boxSK.style.display = 'block';
+            } else if (textLower.includes('pengurus')) {
+                jabatanHidden.value = 'pengurus';
+                boxSK.style.display = 'block';
+            } else {
+                jabatanHidden.value = 'anggota';
+                boxSK.style.display = 'none';
+            }
         }
     }
+
+    // Jalankan fungsi saat halaman selesai dimuat (penting untuk mode Edit & Old Value)
     document.addEventListener("DOMContentLoaded", function() {
         toggleSKFields();
     });
 </script>
 
 <style>
+    /* Styling agar input terlihat modern */
     .form-control, .form-select {
         border-radius: 10px;
         padding: 10px 15px;
+        border: 1px solid #dce1e7;
     }
     .form-control:focus, .form-select:focus {
         border-color: #0d6efd;
         box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
     }
-
-    /* Perbaikan Button Styling */
-    .btn-cancel {
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        border: 2px solid #6c757d;
-    }
-    .btn-cancel:hover {
-        background-color: #6c757d;
-        color: white;
-        transform: translateY(-2px);
-    }
-
     .btn-save {
         border-radius: 12px;
-        background: (45deg, #0d6efd, #004dc0);
+        background: linear-gradient(45deg, #0d6efd, #004dc0);
         border: none;
-        transition: all 0.3s ease;
+        color: white;
     }
-    .btn-save:hover {
-        transform: translateY(-2px);
-        /* box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4) !important; */
-        background:(45deg, #004dc0, #0d6efd);
+    .btn-cancel {
+        border-radius: 12px;
     }
+    .bg-light { background-color: #f8f9fa !important; }
 </style>
 @endsection

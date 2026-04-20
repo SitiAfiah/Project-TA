@@ -13,20 +13,11 @@ class Anggota extends Model
     protected $table = 'anggotas';
 
     protected $fillable = [
-        'no_induk',
-        'nama_lengkap',
-        'role_id',
-        'jenis_kelamin',
-        'tempat_lahir',
-        'tgl_lahir',
-        'no_hp',
-        'kolat_id',
-        'tingkatan',
-        'tgl_gabung',
-        'status',
-        'alamat',
-        'catatan_medis'
-    ];
+    'no_induk', 'nama_lengkap', 'role_id', 'jenis_kelamin',
+    'tempat_lahir', 'tgl_lahir', 'no_hp', 'kolat_id',
+    'tingkatan', 'tgl_gabung', 'status', 'alamat',
+    'catatan_medis', 'jabatan', 'no_sk', 'masa_berlaku', 'foto_sk'
+];
 
     public function kolat()
     {
@@ -38,4 +29,23 @@ class Anggota extends Model
     {
         return $this->belongsTo(Role::class, 'role_id');
     }
+
+    // Relasi: Mendapatkan riwayat kehadiran anggota
+public function riwayatPresensi()
+{
+    return $this->hasMany(Presensi::class, 'anggota_id');
+}
+
+// Relasi: Jika dia pelatih, mendapatkan semua jadwal tugasnya
+public function jadwalMelatih()
+{
+    return $this->hasMany(Jadwal::class, 'pelatih_id');
+}
+
+// Relasi: Jika dia pelatih, mendapatkan semua evaluasi dari murid
+public function evaluasiMasuk()
+{
+    return $this->hasMany(Penilaian::class, 'pelatih_id');
+}
+
 }

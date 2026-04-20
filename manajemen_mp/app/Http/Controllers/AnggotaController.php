@@ -12,9 +12,12 @@ class AnggotaController extends Controller
     // 1. Menampilkan Daftar Anggota
     public function anggota()
     {
-        // Menggunakan with('kolat') agar data relasi langsung terbawa (Eager Loading)
-        $data_anggota = Anggota::with(['kolat', 'role'])->get();
-        return view('anggota.anggota', compact('data_anggota'));
+        // Filter data: Ambil anggota yang relasi 'role'-nya bernama 'Anggota'
+    $data_anggota = Anggota::whereHas('role', function($query) {
+        $query->where('nama_role', 'Anggota');
+    })->with(['kolat', 'role'])->get();
+
+    return view('anggota.anggota', compact('data_anggota'));
     }
 
     // 2. Menampilkan Form Tambah
@@ -22,52 +25,55 @@ class AnggotaController extends Controller
     {
         // Ambil semua daftar kolat untuk ditampilkan di dropdown form
         $data_kolat = Kolat::all();
-        return view('anggota.anggotacreate', compact('data_kolat'));
+        $data_role = Role::all();
+
+        return view('anggota.anggotacreate', compact('data_kolat', 'data_role'));
     }
 
-    // 3. Menyimpan Anggota Baru
     public function store(Request $request)
-    {
-        // Validasi data
-        $request->validate([
-            'nama_lengkap' => 'required',
-            'jabatan'      => 'required|in:pengurus,pelatih,anggota',
-            'no_hp'        => 'required',
-            'role_id'     => 'required',
-            'kolat_id'     => 'required|exists:kolat,id', // Validasi ID kolat harus ada di tabel kolat
-        ]);
+{
+    // 1. Validasi diperbaiki (Hapus jabatan dari required karena kita isi manual)
+    $request->validate([
+        'nama_lengkap' => 'required',
+        'no_hp'        => 'required',
+        'role_id'      => 'required|exists:role,id', // pastikan nama tabel benar
+        'kolat_id'     => 'required|exists:kolat,id',
+        'jenis_kelamin'=> 'required',
+        'tempat_lahir' => 'required',
+        'tgl_lahir'    => 'required|date',
+        'tingkatan'    => 'required',
+        'tgl_gabung'   => 'required|date',
+    ]);
 
-        // Logika Membuat No Induk Otomatis (JB-001)
-        $terakhir = Anggota::orderBy('id', 'desc')->first();
+    // 2. Ambil nama role untuk mengisi kolom jabatan secara otomatis
+    $role = Role::find($request->role_id);
+    $nama_jabatan = strtolower($role->nama_role);
 
-        if (!$terakhir) {
-            $nomor_urut = "001";
-        } else {
-            // Ambil angka setelah "JB-" (JB-001 -> 001)
-            $nomor_terakhir = substr($terakhir->no_induk, 3);
-            $nomor_urut = sprintf("%03d", intval($nomor_terakhir) + 1);
-        }
+    // 3. Logika No Induk
+    $terakhir = Anggota::orderBy('id', 'desc')->first();
+    $nomor_urut = $terakhir ? sprintf("%03d", intval(substr($terakhir->no_induk, 3)) + 1) : "001";
+    $no_induk_baru = "JB-" . $nomor_urut;
 
-        $no_induk_baru = "JB-" . $nomor_urut;
+    // 4. Gabungkan semua data
+    $data = $request->all();
+    $data['no_induk'] = $no_induk_baru;
+    $data['jabatan'] = $nama_jabatan; // Mengisi kolom jabatan otomatis
 
-        // Gabungkan data input dengan No Induk otomatis
-        $data = $request->all();
-        $data['no_induk'] = $no_induk_baru;
+    // 5. Simpan (Pastikan fillable di Model sudah lengkap)
+    Anggota::create($data);
 
-        // Simpan ke database
-        Anggota::create($data);
-
-        return redirect()->route('anggota.anggota')
-            ->with('success', 'Anggota ' . $request->nama_lengkap . ' berhasil terdaftar dengan ID: ' . $no_induk_baru);
-    }
+    return redirect()->route('anggota.anggota')
+        ->with('success', 'Anggota berhasil terdaftar!');
+}
 
     // 4. Menampilkan Form Edit
     public function edit($id)
     {
         $anggota = Anggota::findOrFail($id);
         $data_kolat = Kolat::all(); // Ambil daftar kolat lagi untuk pilihan saat edit
+        $data_role = Role::all();
 
-        return view('anggota.editanggota', compact('anggota', 'data_kolat'));
+        return view('anggota.editanggota', compact('anggota', 'data_kolat', 'data_role'));
     }
 
     // 5. Update Data Anggota
@@ -89,4 +95,5 @@ class AnggotaController extends Controller
         return redirect()->route('anggota.anggota')
             ->with('success', 'Data ' . $anggota->nama_lengkap . ' Berhasil Diperbarui!');
     }
+    
 }
