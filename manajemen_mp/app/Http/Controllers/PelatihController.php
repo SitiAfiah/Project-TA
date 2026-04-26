@@ -75,7 +75,7 @@ class PelatihController extends Controller
     public function edit($id)
     {
         $pelatih = Anggota::findOrFail($id);
-        return view('pelatih.edit', compact('pelatih'));
+        return view('pelatih.editpelatih', compact('pelatih'));
     }
 
     public function update(Request $request, $id)

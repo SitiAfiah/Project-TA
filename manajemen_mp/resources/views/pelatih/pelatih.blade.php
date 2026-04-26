@@ -30,7 +30,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle main-table">
+                            <table class="table table-hover align-middle main-table text-center">
                                 <thead>
                                     <tr>
                                         <th width="60">No</th>
@@ -46,10 +46,10 @@
                                         <tr>
                                             <td class="text-muted small text-center">{{ $no + 1 }}</td>
                                             <td>
-                                                <div class="fw-bold text-dark text-start">{{ $item->nama_lengkap }}</div>
-                                                <small class="text-muted text-start d-block">ID: {{ $item->no_induk }}</small>
+                                                <div class="fw-bold text-dark text-start text-center">{{ $item->nama_lengkap }}</div>
+                                                <small class="text-muted text-start d-block text-center">ID: {{ $item->no_induk }}</small>
                                             </td>
-                                            <td class="text-start">
+                                            <td class="text-start text-center">
                                                 <div class="small fw-bold">{{ $item->no_sk }}</div>
                                                 <div class="text-muted" style="font-size: 11px;">Hingga: {{ \Carbon\Carbon::parse($item->masa_berlaku)->format('d M Y') }}</div>
                                             </td>

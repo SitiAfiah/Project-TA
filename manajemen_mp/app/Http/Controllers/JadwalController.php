@@ -13,11 +13,25 @@ class JadwalController extends Controller
 
     public function index()
     {
-        // Mengambil data jadwal beserta relasi kolat dan pelatih
-        $data_jadwal = Jadwal::with(['kolat', 'pelatih'])->orderBy('tanggal', 'desc')->get();
+        $data_jadwal = Jadwal::with(['kolat', 'pelatih'])
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('jam_mulai', 'desc')
+            ->get();
 
         return view('jadwal.jadwal', compact('data_jadwal'));
     }
+
+   public function konfirmasiSelesai($id)
+{
+    $jadwal = Jadwal::findOrFail($id);
+
+    // Kita paksa ubah status ke 'selesai'
+    $jadwal->status = 'selesai';
+    $jadwal->save();
+
+    return redirect()->route('jadwal.index')
+        ->with('success', 'Latihan ' . $jadwal->judul_kegiatan . ' telah dikonfirmasi selesai!');
+}
 
 
     public function create()
@@ -70,19 +84,21 @@ class JadwalController extends Controller
             $query->where('nama_role', 'Pelatih');
         })->get();
 
-        return view('jadwal.edit', compact('jadwal', 'data_kolat', 'data_pelatih'));
+        return view('jadwal.editjadwal', compact('jadwal', 'data_kolat', 'data_pelatih'));
     }
-
 
     public function update(Request $request, $id)
     {
         $jadwal = Jadwal::findOrFail($id);
 
-        $request->validate([
-            'judul_kegiatan' => 'required|string',
-            'kolat_id'       => 'required',
-            'pelatih_id'     => 'required',
-            'tanggal'        => 'required|date',
+       $request->validate([
+        'judul_kegiatan' => 'required|string|max:255',
+        'kolat_id'       => 'required|exists:kolat,id',
+        'pelatih_id'     => 'required|exists:anggotas,id',
+        'jenis'          => 'required|in:Rutin,Tambahan,Pengumuman',
+        'tanggal'        => 'required|date',
+        'jam_mulai'      => 'required',
+        'lokasi'         => 'required|string',
         ]);
 
         $jadwal->update($request->all());
@@ -100,4 +116,5 @@ class JadwalController extends Controller
         return redirect()->route('jadwal.index')
             ->with('success', 'Jadwal telah dihapus dari sistem.');
     }
+
 }

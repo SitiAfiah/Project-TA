@@ -4,6 +4,7 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KolatController;
 use App\Http\Controllers\PelatihController;
+use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -64,6 +65,7 @@ Route::put('/anggota/{id}', [AnggotaController::class, 'update'])->name('anggota
     //prefix diguakan untuk mengelompokkan route yang berhubungan dengan jadwal
     Route::prefix('jadwal')->group(function () {
     Route::get('/', [JadwalController::class, 'index'])->name('jadwal.index');
+    Route::post('/jadwal/{id}/konfirmasi', [JadwalController::class, 'konfirmasiSelesai'])->name('jadwal.konfirmasi');
     Route::get('/create', [JadwalController::class, 'create'])->name('jadwal.create');
     Route::get('/{id}/detail', [JadwalController::class, 'show'])->name('jadwal.show');
     Route::post('/store', [JadwalController::class, 'store'])->name('jadwal.store');
@@ -71,4 +73,15 @@ Route::put('/anggota/{id}', [AnggotaController::class, 'update'])->name('anggota
     Route::put('/{id}/update', [JadwalController::class, 'update'])->name('jadwal.update');
     Route::delete('/{id}/delete', [JadwalController::class, 'destroy'])->name('jadwal.destroy');
     });
+
+    // --- ROUTE PRESENSI (ABSENSI) ---
+Route::prefix('presensi')->name('presensi.')->group(function () {
+    Route::get('/', [PresensiController::class, 'index'])->name('index');
+    // Halaman daftar kehadiran (View Admin/Pelatih)
+    Route::get('/kehadiran/{jadwal_id}', [PresensiController::class, 'kehadiran'])->name('kehadiran');
+    // konfirmasi pelatih
+    Route::post('/konfirmasi/{presensi_id}', [PresensiController::class, 'konfirmasi'])->name('konfirmasi');
+    // Proses tambah presensi manual (Kasus Lupa HP)
+    Route::post('/tambah-manual', [PresensiController::class, 'storeManual'])->name('storeManual');
+});
 

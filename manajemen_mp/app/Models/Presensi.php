@@ -9,12 +9,14 @@ class Presensi extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'jadwal_id',
-        'anggota_id',
-        'status',
-        'keterangan',
-        'waktu_presensi'
-    ];
+    'jadwal_id',
+    'anggota_id',
+    'status',
+    'keterangan',
+    'waktu_presensi',
+    'is_verified', 
+    'verified_by'  
+];
 
     // Relasi: Presensi ini untuk jadwal yang mana?
     public function jadwal()
