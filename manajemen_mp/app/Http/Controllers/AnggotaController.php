@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Anggota;
 use App\Models\Kolat; // Import model Kolat
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AnggotaController extends Controller
 {
@@ -31,45 +35,73 @@ class AnggotaController extends Controller
     }
 
     public function store(Request $request)
-{
-    // 1. Validasi diperbaiki (Hapus jabatan dari required karena kita isi manual)
-    $request->validate([
-        'nama_lengkap' => 'required',
-        'no_hp'        => 'required',
-        'role_id'      => 'required|exists:role,id', // pastikan nama tabel benar
-        'kolat_id'     => 'required|exists:kolat,id',
-        'jenis_kelamin'=> 'required',
-        'tempat_lahir' => 'required',
-        'tgl_lahir'    => 'required|date',
-        'tingkatan'    => 'required',
-        'tgl_gabung'   => 'required|date',
-    ]);
+    {
+        $request->validate([
+            'email'         => 'required|email|unique:users,email',
+            'nama_lengkap'  => 'required',
+            'no_hp'         => 'required',
+            'role_id'       => 'required|exists:role,id',
+            'kolat_id'      => 'required|exists:kolat,id',
+            'jenis_kelamin' => 'required',
+            'tempat_lahir'  => 'required',
+            'tgl_lahir'     => 'required|date',
+            'tingkatan'     => 'required',
+            'tgl_gabung'    => 'required|date',
+        ]);
 
-    // 2. Ambil nama role untuk mengisi kolom jabatan secara otomatis
-    $role = Role::find($request->role_id);
-    $nama_jabatan = strtolower($role->nama_role);
+        DB::beginTransaction();
 
-    // 3. Logika No Induk
-    $terakhir = Anggota::orderBy('id', 'desc')->first();
-    $nomor_urut = $terakhir ? sprintf("%03d", intval(substr($terakhir->no_induk, 3)) + 1) : "001";
-    $no_induk_baru = "JB-" . $nomor_urut;
+        try {
+            // A. Buat Akun Login di tabel Users
+            $user = User::create([
+                'email'    => $request->email,
+                'password' => Hash::make('tapakmp123'), // Password default
+                'role_id'  => $request->role_id,
+            ]);
 
-    // 4. Gabungkan semua data
-    $data = $request->all();
-    $data['no_induk'] = $no_induk_baru;
-    $data['jabatan'] = $nama_jabatan; // Mengisi kolom jabatan otomatis
+            // B. Cari nama jabatan berdasarkan role
+            $role = Role::find($request->role_id);
+            $nama_jabatan = strtolower($role->nama_role);
 
-    // 5. Simpan (Pastikan fillable di Model sudah lengkap)
-    Anggota::create($data);
+            // C. Logika No Induk (JB-001)
+            $terakhir = Anggota::orderBy('id', 'desc')->first();
+            $nomor_urut = $terakhir ? sprintf("%03d", intval(substr($terakhir->no_induk, 3)) + 1) : "001";
+            $no_induk_baru = "JB-" . $nomor_urut;
 
-    return redirect()->route('anggota.anggota')
-        ->with('success', 'Anggota berhasil terdaftar!');
-}
+            // D. Simpan Profil di tabel Anggotas
+            Anggota::create([
+                'user_id'       => $user->id,
+                'no_induk'      => $no_induk_baru,
+                'nama_lengkap'  => $request->nama_lengkap,
+                'role_id'       => $request->role_id,
+                'jenis_kelamin' => $request->jenis_kelamin,
+                'tempat_lahir'  => $request->tempat_lahir,
+                'tgl_lahir'     => $request->tgl_lahir,
+                'no_hp'         => $request->no_hp,
+                'kolat_id'      => $request->kolat_id,
+                'tingkatan'     => $request->tingkatan,
+                'tgl_gabung'    => $request->tgl_gabung,
+                'alamat'        => $request->alamat,
+                'catatan_medis' => $request->catatan_medis,
+                'jabatan'       => $nama_jabatan,
+                'status'        => 'aktif', // Input admin otomatis aktif
+            ]);
+
+            DB::commit();
+            return redirect()->route('anggota.anggota')
+                ->with('success', 'Data berhasil ditambah! Password login: tapakmp123');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Gagal tambah anggota: " . $e->getMessage());
+            return back()->withInput()->with('error', 'Terjadi kesalahan sistem.');
+        }
+    }
 
     // 4. Menampilkan Form Edit
     public function edit($id)
     {
-        $anggota = Anggota::findOrFail($id);
+        $anggota = Anggota::with('user')->findOrFail($id);
         $data_kolat = Kolat::all(); // Ambil daftar kolat lagi untuk pilihan saat edit
         $data_role = Role::all();
 
@@ -80,20 +112,45 @@ class AnggotaController extends Controller
     public function update(Request $request, $id)
     {
         $anggota = Anggota::findOrFail($id);
+        $user = User::findOrFail($anggota->user_id);
 
         $request->validate([
-            'no_induk'     => 'required|unique:anggotas,no_induk,' . $id,
+            'email'        => 'required|email|unique:users,email,' . $user->id,
             'nama_lengkap' => 'required',
             'no_hp'        => 'required',
-            'jabatan'      => 'required|in:pengurus,pelatih,anggota',
+            'role_id'      => 'required|exists:role,id',
             'kolat_id'     => 'required|exists:kolat,id',
+            'status'       => 'required|in:aktif,Non-Aktif',
         ]);
 
-        // Update data menggunakan data yang sudah divalidasi
-        $anggota->update($request->all());
+        DB::beginTransaction();
 
-        return redirect()->route('anggota.anggota')
-            ->with('success', 'Data ' . $anggota->nama_lengkap . ' Berhasil Diperbarui!');
+        try {
+            // A. Update tabel User (email & role)
+            $user->update([
+                'email'   => $request->email,
+                'role_id' => $request->role_id
+            ]);
+
+            // B. Update jabatan berdasarkan role baru
+            $role = Role::find($request->role_id);
+            $nama_jabatan = strtolower($role->nama_role);
+
+            // C. Update tabel Anggota
+            $data_anggota = $request->all();
+            $data_anggota['jabatan'] = $nama_jabatan;
+
+            $anggota->update($data_anggota);
+
+            DB::commit();
+            return redirect()->route('anggota.anggota')
+                ->with('success', 'Data ' . $anggota->nama_lengkap . ' berhasil diperbarui!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Gagal update anggota: " . $e->getMessage());
+            return back()->with('error', 'Terjadi kesalahan saat memperbarui data.');
+        }
     }
-    
+
 }

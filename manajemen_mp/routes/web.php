@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KolatController;
 use App\Http\Controllers\PelatihController;
@@ -33,6 +35,22 @@ Route::get('/p', function () {
 
 Route::get('/anggota', function () {
     return view('anggota.anggota');
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']); // Sesuaikan nama method
+
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']); // Sesuaikan nama method
+});
+
+// Route untuk user yang SUDAH login
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Route dashboard atau menu lainnya masukkan di sini
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
 //anggota

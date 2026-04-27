@@ -13,7 +13,7 @@ class Anggota extends Model
     protected $table = 'anggotas';
 
     protected $fillable = [
-    'no_induk', 'nama_lengkap', 'role_id', 'jenis_kelamin',
+    'user_id', 'no_induk', 'nama_lengkap', 'role_id', 'jenis_kelamin',
     'tempat_lahir', 'tgl_lahir', 'no_hp', 'kolat_id',
     'tingkatan', 'tgl_gabung', 'status', 'alamat',
     'catatan_medis', 'jabatan', 'no_sk', 'masa_berlaku', 'foto_sk'
@@ -46,6 +46,12 @@ public function jadwalMelatih()
 public function evaluasiMasuk()
 {
     return $this->hasMany(Penilaian::class, 'pelatih_id');
+}
+
+// Anggota.php
+public function user()
+{
+    return $this->belongsTo(User::class, 'user_id');
 }
 
 }

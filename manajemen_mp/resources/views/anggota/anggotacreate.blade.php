@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container-fluid py-4">
-    <!-- Header & Breadcrumb -->
     <div class="page-header mb-4 text-start">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-2">
@@ -16,7 +15,6 @@
         <p class="text-muted small">Lengkapi data identitas dan legalitas SK untuk Pelatih atau Pengurus.</p>
     </div>
 
-    <!-- TAMPILKAN ERROR VALIDASI -->
     @if ($errors->any())
     <div class="alert alert-danger border-0 shadow-sm mb-4" style="border-radius: 15px;">
         <div class="d-flex">
@@ -38,22 +36,29 @@
                 @csrf
                 @if(isset($anggota)) @method('PUT') @endif
 
-                <!-- INPUT HIDDEN UNTUK JABATAN (Penting untuk validasi Controller) -->
-                <input type="hidden" name="jabatan" id="jabatanHidden" value="{{ old('jabatan', $anggota->jabatan ?? '') }}">
-
-                <!-- CARD 1: INFORMASI PRIBADI -->
                 <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
                     <div class="card-header bg-white border-0 pt-4 px-4">
-                        <h5 class="fw-bold text-primary mb-0"><i class="icon-user me-2"></i>Informasi Pribadi</h5>
+                        <h5 class="fw-bold text-primary mb-0"><i class="icon-user me-2"></i>Informasi Pribadi & Akun</h5>
                     </div>
                     <div class="card-body p-4">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">Nama Lengkap</label>
-                                <input type="text" name="nama_lengkap" class="form-control {{ isset($anggota) ? 'bg-light' : '' }}"
+                                <input type="text" name="nama_lengkap" class="form-control"
                                        value="{{ old('nama_lengkap', $anggota->nama_lengkap ?? '') }}"
-                                       {{ isset($anggota) ? 'readonly' : '' }} required placeholder="Nama lengkap sesuai identitas">
+                                       required placeholder="Nama lengkap sesuai identitas">
                             </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Alamat Email (Untuk Login)</label>
+                                <input type="email" name="email" class="form-control {{ isset($anggota) ? 'bg-light' : '' }}"
+                                       value="{{ old('email', $anggota->user->email ?? '') }}"
+                                       {{ isset($anggota) ? 'readonly' : '' }} required placeholder="email@contoh.com">
+                                @if(!isset($anggota))
+                                <small class="text-muted">Password default: <strong>tapakmp123</strong></small>
+                                @endif
+                            </div>
+
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">No. WhatsApp</label>
                                 <div class="input-group">
@@ -80,15 +85,14 @@
                                     <option value="P" {{ old('jenis_kelamin', $anggota->jenis_kelamin ?? '') == 'P' ? 'selected' : '' }}>Perempuan</option>
                                 </select>
                             </div>
-                            <div class="col-12">
+                            <div class="col-md-6">
                                 <label class="form-label fw-bold">Alamat Lengkap</label>
-                                <textarea name="alamat" class="form-control" rows="2" placeholder="Alamat lengkap domisili..." required>{{ old('alamat', $anggota->alamat ?? '') }}</textarea>
+                                <textarea name="alamat" class="form-control" rows="1" placeholder="Alamat lengkap domisili..." required>{{ old('alamat', $anggota->alamat ?? '') }}</textarea>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- CARD 2: INFORMASI ORGANISASI -->
                 <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
                     <div class="card-header bg-white border-0 pt-4 px-4">
                         <h5 class="fw-bold text-success mb-0"><i class="icon-badge me-2"></i>Informasi Organisasi</h5>
@@ -114,12 +118,11 @@
                             <div class="col-md-4">
                                 <label class="form-label fw-bold">Status Keanggotaan</label>
                                 <select name="status" class="form-select" required>
-                                    <option value="Aktif" {{ old('status', $anggota->status ?? '') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                    <option value="aktif" {{ old('status', $anggota->status ?? '') == 'aktif' ? 'selected' : '' }}>Aktif</option>
                                     <option value="Non-Aktif" {{ old('status', $anggota->status ?? '') == 'Non-Aktif' ? 'selected' : '' }}>Non-Aktif</option>
                                 </select>
                             </div>
 
-                            <!-- BOX SK (Legalitas) -->
                             <div id="boxSK" class="col-12 mt-3 p-4 bg-light rounded-4 border border-dashed border-danger" style="display: none;">
                                 <h6 class="text-danger fw-bold mb-3"><i class="icon-file-text me-2"></i>Data Legalitas (Khusus Pelatih/Pengurus)</h6>
                                 <div class="row g-3">
@@ -160,12 +163,11 @@
 
                             <div class="col-12 mt-4">
                                 <label class="form-label fw-bold text-danger"><i class="icon-heart me-2"></i>Catatan Medis (Opsional)</label>
-                                <textarea name="catatan_medis" class="form-control" rows="3" placeholder="Contoh: Riwayat asma atau cedera fisik.">{{ old('catatan_medis', $anggota->catatan_medis ?? '') }}</textarea>
+                                <textarea name="catatan_medis" class="form-control" rows="2" placeholder="Contoh: Riwayat asma atau cedera fisik.">{{ old('catatan_medis', $anggota->catatan_medis ?? '') }}</textarea>
                             </div>
                         </div>
                     </div>
 
-                    <!-- FOOTER CARD UNTUK BUTTON -->
                     <div class="card-footer bg-light border-0 p-4" style="border-radius: 0 0 20px 20px;">
                         <div class="d-flex justify-content-end align-items-center gap-3">
                             <a href="{{ route('anggota.anggota') }}" class="btn btn-outline-secondary px-4 fw-bold btn-cancel">
@@ -186,36 +188,25 @@
     function toggleSKFields() {
         const roleSelect = document.getElementById('roleSelect');
         const boxSK = document.getElementById('boxSK');
-        const jabatanHidden = document.getElementById('jabatanHidden');
 
         if (roleSelect.selectedIndex > 0) {
-            // 1. Ambil teks asli dari dropdown (Pelatih/Pengurus/Anggota)
-            const selectedText = roleSelect.options[roleSelect.selectedIndex].text;
-            const textLower = selectedText.toLowerCase();
+            const selectedText = roleSelect.options[roleSelect.selectedIndex].text.toLowerCase();
 
-            // 2. Isi hidden input 'jabatan' agar validasi di controller lolos
-            // Kita sesuaikan agar nilainya pas dengan validasi: pengurus, pelatih, anggota
-            if (textLower.includes('pelatih')) {
-                jabatanHidden.value = 'pelatih';
-                boxSK.style.display = 'block';
-            } else if (textLower.includes('pengurus')) {
-                jabatanHidden.value = 'pengurus';
+            // Tampilkan box SK jika role mengandung kata Pelatih atau Pengurus
+            if (selectedText.includes('pelatih') || selectedText.includes('pengurus')) {
                 boxSK.style.display = 'block';
             } else {
-                jabatanHidden.value = 'anggota';
                 boxSK.style.display = 'none';
             }
         }
     }
 
-    // Jalankan fungsi saat halaman selesai dimuat (penting untuk mode Edit & Old Value)
     document.addEventListener("DOMContentLoaded", function() {
         toggleSKFields();
     });
 </script>
 
 <style>
-    /* Styling agar input terlihat modern */
     .form-control, .form-select {
         border-radius: 10px;
         padding: 10px 15px;

@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'role_id',
         'email',
         'password',
     ];
@@ -42,4 +42,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function anggota()
+    {
+        // Setiap User memiliki satu data profil Anggota
+        return $this->hasOne(Anggota::class, 'user_id');
+    }
+
+    // Relasi ke tabel Role
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 }
