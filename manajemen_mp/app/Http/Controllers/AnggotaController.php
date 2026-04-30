@@ -84,7 +84,7 @@ class AnggotaController extends Controller
                 'alamat'        => $request->alamat,
                 'catatan_medis' => $request->catatan_medis,
                 'jabatan'       => $nama_jabatan,
-                'status'        => 'aktif', // Input admin otomatis aktif
+                'status'        => 'Aktif', // Input admin otomatis aktif
             ]);
 
             DB::commit();
@@ -120,7 +120,7 @@ class AnggotaController extends Controller
             'no_hp'        => 'required',
             'role_id'      => 'required|exists:role,id',
             'kolat_id'     => 'required|exists:kolat,id',
-            'status'       => 'required|in:aktif,Non-Aktif',
+            'status'       => 'required|in:Aktif,Non-Aktif',
         ]);
 
         DB::beginTransaction();

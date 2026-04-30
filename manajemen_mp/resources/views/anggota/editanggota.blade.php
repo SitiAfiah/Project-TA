@@ -1,395 +1,156 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="container-fluid py-4">
-<<<<<<< Updated upstream
-        <!-- Header & Breadcrumb -->
-=======
->>>>>>> Stashed changes
-        <div class="page-header mb-4 text-start">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-transparent p-0 mb-2">
-                    <li class="breadcrumb-item"><a href="{{ route('anggota.anggota') }}"
-                            class="text-muted text-decoration-none small">Daftar Anggota</a></li>
-                    <li class="breadcrumb-item active text-primary fw-bold small" aria-current="page">Edit Anggota</li>
-                </ol>
-            </nav>
-            <h3 class="fw-bold text-dark">Form Edit Anggota Merpati Putih</h3>
-            <p class="text-muted small">Perbarui informasi identitas atau legalitas SK anggota di bawah ini.</p>
+<div class="container-fluid py-4">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+    @endif
 
-        <div class="row">
-            <div class="col-md-12">
-<<<<<<< Updated upstream
-                <!-- Form Start - Pastikan enctype ada untuk upload foto SK -->
-=======
->>>>>>> Stashed changes
-                <form action="{{ route('anggota.update', $anggota->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-
-<<<<<<< Updated upstream
-                    <!-- CARD 1: INFORMASI PRIBADI -->
-                    <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
-                        <div class="card-header bg-white border-0 pt-4 px-4">
-                            <h5 class="fw-bold text-primary mb-0"><i class="icon-user me-2"></i>Informasi Pribadi</h5>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">No Induk</label>
-                                    <input type="text" name="no_induk" class="form-control bg-light fw-bold text-primary"
-                                        value="{{ $anggota->no_induk }}" readonly>
-                                    <small class="text-muted" style="font-size: 11px;">* No. induk permanen dan tidak dapat
-                                        diubah</small>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Nama Lengkap</label>
-                                    <input type="text" name="nama_lengkap" class="form-control bg-light"
-                                        value="{{ $anggota->nama_lengkap }}" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">No. WhatsApp (HP)</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-light border-end-0">+62</span>
-                                        <input type="number" name="no_hp" class="form-control"
-                                            value="{{ $anggota->no_hp }}" placeholder="81234567xxx" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Alamat Lengkap</label>
-                                    <input type="text" name="alamat" class="form-control" value="{{ $anggota->alamat }}"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- CARD 2: INFORMASI ORGANISASI -->
-                    <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
-                        <div class="card-header bg-white border-0 pt-4 px-4">
-                            <h5 class="fw-bold text-success mb-0"><i class="icon-badge me-2"></i>Informasi Organisasi</h5>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold">Jabatan Organisasi</label>
-                                    <select name="jabatan" id="jabatanSelect" class="form-select border-primary"
-                                        onchange="toggleSKFields()" required>
-                                        <option value="anggota" {{ $anggota->jabatan == 'anggota' ? 'selected' : '' }}>
-                                            Anggota</option>
-                                        <option value="pelatih" {{ $anggota->jabatan == 'pelatih' ? 'selected' : '' }}>
-                                            Pelatih</option>
-                                        <option value="pengurus" {{ $anggota->jabatan == 'pengurus' ? 'selected' : '' }}>
-                                            Pengurus</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold">Tingkatan</label>
-                                    <input type="text" name="tingkatan" class="form-control"
-                                        value="{{ $anggota->tingkatan }}" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold">Status Anggota</label>
-                                    <select name="status" class="form-select" required>
-                                        <option value="Aktif" {{ $anggota->status == 'Aktif' ? 'selected' : '' }}>Aktif
-                                        </option>
-                                        <option value="Non-Aktif" {{ $anggota->status == 'Non-Aktif' ? 'selected' : '' }}>
-                                            Non-Aktif</option>
-                                    </select>
-                                </div>
-
-                                <!-- BOX DATA SK (Otomatis muncul jika pilih Pelatih/Pengurus) -->
-                                <div id="boxSK"
-                                    class="col-12 mt-3 p-4 bg-light rounded-4 border border-dashed border-danger"
-                                    style="display: none;">
-                                    <h6 class="text-danger fw-bold mb-3"><i class="icon-certificate me-2"></i>Data Legalitas
-                                        SK (Wajib diisi untuk Pelatih/Pengurus)</h6>
-                                    <div class="row g-3">
-                                        <div class="col-md-3">
-                                            <label class="form-label small fw-bold">Nomor SK</label>
-                                            <input type="text" name="no_sk" class="form-control"
-                                                value="{{ $anggota->no_sk ?? '' }}" placeholder="Contoh: SK/001/2026">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label small fw-bold">Tanggal SK</label>
-                                            <input type="date" name="tgl_sk" class="form-control"
-                                                value="{{ $anggota->tgl_sk ?? '' }}">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label small fw-bold">Masa Berlaku</label>
-                                            <input type="date" name="masa_berlaku" class="form-control"
-                                                value="{{ $anggota->masa_berlaku ?? '' }}">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label class="form-label small fw-bold">Upload Scan SK</label>
-                                            <input type="file" name="foto_sk" class="form-control">
-                                            @if ($anggota->foto_sk)
-                                                <small class="text-muted mt-1 d-block">File:
-                                                    {{ $anggota->foto_sk }}</small>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- <div class="col-md-12 mt-3">
-                                <label class="form-label fw-bold">Asal Kolat</label>
-                                <input type="text" name="asal_kolat" class="form-control" value="{{ $anggota->asal_kolat }}" required>
-                            </div> --}}
-                                <div class="col-md-12 mt-3">
-                                    <label class="form-label fw-bold">Asal Kolat</label>
-                                    <select name="kolat_id" class="form-select" required>
-                                        <option value="" disabled>-- Pilih Kolat --</option>
-                                        @foreach ($data_kolat as $kolat)
-                                            <option value="{{ $kolat->id }}"
-                                                {{ $anggota->kolat_id == $kolat->id ? 'selected' : '' }}>
-                                                {{ $kolat->nama_kolat }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- FOOTER CARD UNTUK BUTTON -->
-                        <div class="card-footer bg-light border-0 p-4" style="border-radius: 0 0 20px 20px;">
-                            <div class="d-flex justify-content-end align-items-center gap-3">
-                                <a href="{{ route('anggota.anggota') }}"
-                                    class="btn btn-outline-secondary px-4 fw-bold btn-cancel">
-                                    <i class="icon-x me-1"></i> Batal
-                                </a>
-                                <button type="submit" class="btn btn-primary px-5 fw-bold btn-save shadow">
-                                    <i class="icon-check me-1"></i> Simpan Perubahan
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-=======
-                    <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
-                        <div class="card-header bg-white border-0 pt-4 px-4">
-                            <h5 class="fw-bold text-primary mb-0"><i class="icon-user me-2"></i>Informasi Pribadi & Akun</h5>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">No Induk</label>
-                                    <input type="text" class="form-control bg-light fw-bold text-primary"
-                                        value="{{ $anggota->no_induk }}" readonly>
-                                    <small class="text-muted" style="font-size: 11px;">* No. induk permanen</small>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Nama Lengkap</label>
-                                    <input type="text" name="nama_lengkap" class="form-control"
-                                        value="{{ old('nama_lengkap', $anggota->nama_lengkap) }}" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">Alamat Email (Login)</label>
-                                    <input type="email" name="email" class="form-control"
-                                        value="{{ old('email', $anggota->user->email ?? '') }}" required>
-                                    <small class="text-muted" style="font-size: 11px;">* Email digunakan untuk masuk ke sistem</small>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label fw-bold">No. WhatsApp (HP)</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text bg-light border-end-0">+62</span>
-                                        <input type="number" name="no_hp" class="form-control"
-                                            value="{{ old('no_hp', $anggota->no_hp) }}" placeholder="81234567xxx" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label fw-bold">Alamat Lengkap</label>
-                                    <textarea name="alamat" class="form-control" rows="2" required>{{ old('alamat', $anggota->alamat) }}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
-                        <div class="card-header bg-white border-0 pt-4 px-4">
-                            <h5 class="fw-bold text-success mb-0"><i class="icon-badge me-2"></i>Informasi Organisasi</h5>
-                        </div>
-                        <div class="card-body p-4">
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold">Jabatan / Role</label>
-                                    <select name="role_id" id="roleSelect" class="form-select border-primary"
-                                        onchange="toggleSKFields()" required>
-                                        <option value="" disabled>-- Pilih Jabatan --</option>
-                                        @foreach ($data_role as $role)
-                                            <option value="{{ $role->id }}"
-                                                {{ old('role_id', $anggota->role_id) == $role->id ? 'selected' : '' }}>
-                                                {{ $role->nama_role }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold">Tingkatan Sabuk</label>
-                                    <input type="text" name="tingkatan" class="form-control"
-                                        value="{{ old('tingkatan', $anggota->tingkatan) }}" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label fw-bold">Status Anggota</label>
-                                    <select name="status" class="form-select" required>
-                                        <option value="aktif" {{ old('status', $anggota->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                                        <option value="Non-Aktif" {{ old('status', $anggota->status) == 'Non-Aktif' ? 'selected' : '' }}>Non-Aktif</option>
-                                    </select>
-                                </div>
-
-                                <div id="boxSK"
-                                    class="col-12 mt-3 p-4 bg-light rounded-4 border border-dashed border-danger"
-                                    style="display: none;">
-                                    <h6 class="text-danger fw-bold mb-3"><i class="icon-certificate me-2"></i>Data Legalitas SK</h6>
-                                    <div class="row g-3">
-                                        <div class="col-md-4">
-                                            <label class="form-label small fw-bold">Nomor SK</label>
-                                            <input type="text" name="no_sk" class="form-control"
-                                                value="{{ old('no_sk', $anggota->no_sk) }}" placeholder="Contoh: SK/001/2026">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="form-label small fw-bold">Masa Berlaku SK</label>
-                                            <input type="date" name="masa_berlaku" class="form-control"
-                                                value="{{ old('masa_berlaku', $anggota->masa_berlaku) }}">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="form-label small fw-bold">Update File SK (Opsional)</label>
-                                            <input type="file" name="foto_sk" class="form-control">
-                                            @if ($anggota->foto_sk)
-                                                <small class="text-primary mt-1 d-block"><i class="icon-eye"></i> File saat ini: {{ $anggota->foto_sk }}</small>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12 mt-3">
-                                    <label class="form-label fw-bold">Asal Kolat</label>
-                                    <select name="kolat_id" class="form-select" required>
-                                        <option value="" disabled>-- Pilih Kolat --</option>
-                                        @foreach ($data_kolat as $kolat)
-                                            <option value="{{ $kolat->id }}"
-                                                {{ old('kolat_id', $anggota->kolat_id) == $kolat->id ? 'selected' : '' }}>
-                                                {{ $kolat->nama_kolat }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-footer bg-light border-0 p-4" style="border-radius: 0 0 20px 20px;">
-                            <div class="d-flex justify-content-end align-items-center gap-3">
-                                <a href="{{ route('anggota.anggota') }}"
-                                    class="btn btn-outline-secondary px-4 fw-bold btn-cancel">
-                                    <i class="icon-x me-1"></i> Batal
-                                </a>
-                                <button type="submit" class="btn btn-primary px-5 fw-bold btn-save shadow">
-                                    <i class="icon-check me-1"></i> Simpan Perubahan
-                                </button>
-                            </div>
-                        </div>
-                    </div>
->>>>>>> Stashed changes
-                </form>
-            </div>
-        </div>
+    <div class="page-header mb-4 text-start">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-transparent p-0 mb-2">
+                <li class="breadcrumb-item"><a href="{{ route('anggota.anggota') }}" class="text-muted text-decoration-none small">Daftar Anggota</a></li>
+                <li class="breadcrumb-item active text-primary fw-bold small" aria-current="page">Edit Anggota</li>
+            </ol>
+        </nav>
+        <h3 class="fw-bold text-dark">Form Edit Anggota Merpati Putih</h3>
     </div>
 
-<<<<<<< Updated upstream
-    <!-- JAVASCRIPT TOGGLE -->
-    <script>
-        function toggleSKFields() {
-            const jabatan = document.getElementById('jabatanSelect').value;
-            const boxSK = document.getElementById('boxSK');
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{ route('anggota.update', $anggota->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
 
-            if (jabatan === 'pelatih' || jabatan === 'pengurus') {
-                boxSK.style.display = 'block';
-            } else {
-                boxSK.style.display = 'none';
-            }
-        }
+                <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
+                    <div class="card-header bg-white border-0 pt-4 px-4">
+                        <h5 class="fw-bold text-primary mb-0"><i class="icon-user me-2"></i>Informasi Akun & Pribadi</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Email Login</label>
+                                <input type="email" name="email" class="form-control" value="{{ old('email', $anggota->user->email) }}" required>
+                                <small class="text-muted" style="font-size: 11px;">* Email digunakan untuk login sistem</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Role / Hak Akses</label>
+                                <select name="role_id" class="form-select" required>
+                                    @foreach($data_role as $role)
+                                        <option value="{{ $role->id }}" {{ $anggota->role_id == $role->id ? 'selected' : '' }}>
+                                            {{ $role->nama_role }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">No Induk</label>
+                                <input type="text" name="no_induk" class="form-control bg-light fw-bold text-primary" value="{{ $anggota->no_induk }}" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Nama Lengkap</label>
+                                <input type="text" name="nama_lengkap" class="form-control" value="{{ old('nama_lengkap', $anggota->nama_lengkap) }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">No. WhatsApp</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">+62</span>
+                                    <input type="number" name="no_hp" class="form-control" value="{{ old('no_hp', $anggota->no_hp) }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Alamat</label>
+                                <input type="text" name="alamat" class="form-control" value="{{ old('alamat', $anggota->alamat) }}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        // Jalankan saat pertama kali halaman dimuat
-=======
-    <script>
-        function toggleSKFields() {
-            const roleSelect = document.getElementById('roleSelect');
-            const boxSK = document.getElementById('boxSK');
+                <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
+                    <div class="card-header bg-white border-0 pt-4 px-4">
+                        <h5 class="fw-bold text-success mb-0"><i class="icon-badge me-2"></i>Informasi Organisasi</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Jabatan Khusus</label>
+                                <select name="jabatan" id="jabatanSelect" class="form-select border-primary" onchange="toggleSKFields()" required>
+                                    <option value="anggota" {{ $anggota->jabatan == 'anggota' ? 'selected' : '' }}>Anggota</option>
+                                    <option value="pelatih" {{ $anggota->jabatan == 'pelatih' ? 'selected' : '' }}>Pelatih</option>
+                                    <option value="pengurus" {{ $anggota->jabatan == 'pengurus' ? 'selected' : '' }}>Pengurus</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Tingkatan</label>
+                                <input type="text" name="tingkatan" class="form-control" value="{{ old('tingkatan', $anggota->tingkatan) }}" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Status</label>
+                                <select name="status" class="form-select" required>
+                                    <option value="Aktif" {{ $anggota->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                    <option value="Non-Aktif" {{ $anggota->status == 'Non-Aktif' ? 'selected' : '' }}>Non-Aktif</option>
+                                </select>
+                            </div>
 
-            if (roleSelect.selectedIndex >= 0) {
-                const selectedText = roleSelect.options[roleSelect.selectedIndex].text.toLowerCase();
+                            <div id="boxSK" class="col-12 mt-3 p-4 bg-light rounded-4 border border-dashed border-danger" style="display: none;">
+                                <h6 class="text-danger fw-bold mb-3">Data Legalitas SK</h6>
+                                <div class="row g-3">
+                                    <div class="col-md-3">
+                                        <label class="form-label small fw-bold">Nomor SK</label>
+                                        <input type="text" name="no_sk" class="form-control" value="{{ $anggota->no_sk }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label small fw-bold">Tanggal SK</label>
+                                        <input type="date" name="tgl_sk" class="form-control" value="{{ $anggota->tgl_sk }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label small fw-bold">Masa Berlaku</label>
+                                        <input type="date" name="masa_berlaku" class="form-control" value="{{ $anggota->masa_berlaku }}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label small fw-bold">Upload Scan SK</label>
+                                        <input type="file" name="foto_sk" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
 
-                if (selectedText.includes('pelatih') || selectedText.includes('pengurus')) {
-                    boxSK.style.display = 'block';
-                } else {
-                    boxSK.style.display = 'none';
-                }
-            }
-        }
+                            <div class="col-md-12 mt-3">
+                                <label class="form-label fw-bold">Asal Kolat</label>
+                                <select name="kolat_id" class="form-select" required>
+                                    @foreach ($data_kolat as $kolat)
+                                        <option value="{{ $kolat->id }}" {{ $anggota->kolat_id == $kolat->id ? 'selected' : '' }}>
+                                            {{ $kolat->nama_kolat }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
->>>>>>> Stashed changes
-        document.addEventListener("DOMContentLoaded", function() {
-            toggleSKFields();
-        });
-    </script>
+                    <div class="card-footer bg-light border-0 p-4" style="border-radius: 0 0 20px 20px;">
+                        <div class="d-flex justify-content-end gap-3">
+                            <a href="{{ route('anggota.anggota') }}" class="btn btn-outline-secondary px-4 fw-bold">Batal</a>
+                            <button type="submit" class="btn btn-primary px-5 fw-bold shadow">Simpan Perubahan</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-    <style>
-<<<<<<< Updated upstream
-        .form-control,
-        .form-select {
-            border-radius: 10px;
-            padding: 10px 15px;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-=======
-        .form-control, .form-select {
-            border-radius: 10px;
-            padding: 10px 15px;
-            border: 1px solid #dce1e7;
-        }
-
-        .form-control:focus, .form-select:focus {
->>>>>>> Stashed changes
-            border-color: #0d6efd;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
-        }
-
-        .btn-cancel {
-            border-radius: 12px;
-<<<<<<< Updated upstream
-            transition: all 0.3s ease;
-            border: 2px solid #6c757d;
-        }
-
-        .btn-cancel:hover {
-            background-color: #6c757d;
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-save {
-            border-radius: 12px;
-            background: (45deg, #0d6efd);
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-save:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4) !important;
-=======
-            border: 2px solid #6c757d;
-        }
-
-        .btn-save {
-            border-radius: 12px;
-            background: linear-gradient(45deg, #0d6efd, #004dc0);
-            border: none;
-            color: white;
->>>>>>> Stashed changes
-        }
-    </style>
+<script>
+    function toggleSKFields() {
+        const jabatan = document.getElementById('jabatanSelect').value;
+        const boxSK = document.getElementById('boxSK');
+        boxSK.style.display = (jabatan === 'pelatih' || jabatan === 'pengurus') ? 'block' : 'none';
+    }
+    document.addEventListener("DOMContentLoaded", toggleSKFields);
+</script>
 @endsection

@@ -14,8 +14,8 @@ class Presensi extends Model
     'status',
     'keterangan',
     'waktu_presensi',
-    'is_verified', 
-    'verified_by'  
+    'is_verified',
+    'verified_by'
 ];
 
     // Relasi: Presensi ini untuk jadwal yang mana?
@@ -28,5 +28,10 @@ class Presensi extends Model
     public function anggota()
     {
         return $this->belongsTo(Anggota::class, 'anggota_id');
+    }
+
+    public function pelatihVerifikator()
+    {
+        return $this->belongsTo(Anggota::class, 'verified_by');
     }
 }

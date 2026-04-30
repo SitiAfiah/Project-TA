@@ -2,127 +2,177 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Models\Anggota;
 // TAMBAHAN WAJIB: Memanggil Facades dan Model yang digunakan
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Jadwal;
 use App\Models\Presensi;
-use App\Models\Anggota;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PresensiController extends Controller
 {
+   /**
+     * AKTOR: PENGURUS/PELATIH
+     * Menampilkan daftar semua jadwal untuk dipilih mana yang mau dicek presensinya
+     */
     public function index()
     {
-        // Mengambil semua jadwal secara manual menggunakan Query Builder (JOIN)
-        $data_jadwal = DB::table('jadwals')
-            ->leftJoin('anggotas', 'jadwals.pelatih_id', '=', 'anggotas.id')
-            ->leftJoin('kolat', 'jadwals.kolat_id', '=', 'kolat.id') // Sesuaikan jika nama tabel di database kamu adalah 'kolat'
-            ->select(
-                'jadwals.*',
-                'anggotas.nama_lengkap as nama_pelatih',
-                'kolat.nama_kolat as nama_kolat'
-            )
-            ->orderBy('jadwals.tanggal', 'desc')
+        // Menggunakan Eloquent agar lebih konsisten dengan fungsi lainnya
+        $data_jadwal = Jadwal::with(['kolat', 'pelatih'])
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('jam_mulai', 'desc')
             ->get();
 
-        // Pastikan nama foldernya konsisten (admin atau pengurus)
         return view('presensi.pengurus.index', compact('data_jadwal'));
     }
 
+    /**
+     * AKTOR: PENGURUS/PELATIH
+     * Menampilkan detail siapa saja yang sudah scan/absen di jadwal tertentu
+     */
     public function kehadiran($jadwal_id)
-{
-    // Variabel dibuat dengan nama $jadwal (tunggal)
-    $jadwal = Jadwal::with(['kolat', 'pelatih'])->findOrFail($jadwal_id);
+    {
+        $jadwal = Jadwal::with(['kolat', 'pelatih'])->findOrFail($jadwal_id);
 
-    $data_presensi = Presensi::with('anggota', 'pelatihVerifikator')
-        ->where('jadwal_id', $jadwal_id)
-        ->get();
+        $data_presensi = Presensi::with('anggota', 'pelatihVerifikator')
+            ->where('jadwal_id', $jadwal_id)
+            ->get();
 
-    $daftar_anggota = Anggota::where('kolat_id', $jadwal->kolat_id)
-        ->where('status', 'Aktif')
-        ->get();
+        // 1. Ambil array ID anggota yang SUDAH absen
+        $id_sudah_absen = $data_presensi->pluck('anggota_id')->toArray();
 
-    // Pastikan di sini tulisannya 'jadwal' (sesuai nama variabel di atas)
-    return view('presensi.pengurus.kehadiran', compact('jadwal', 'data_presensi', 'daftar_anggota'));
-}
+        // 2. Ambil anggota yang se-Kolat, status Aktif, tapi ID-nya BELUM ADA di daftar absen
+        $anggota_belum_absen = Anggota::where('kolat_id', $jadwal->kolat_id)
+            ->where('status', 'Aktif')
+            ->whereNotIn('id', $id_sudah_absen)
+            ->get();
+
+        // Kirim variabel baru ini ke View
+        return view('presensi.pengurus.kehadiran', compact('jadwal', 'data_presensi', 'anggota_belum_absen'));
+    }
 
     /**
-     * 2. Proses Pelatih klik "Konfirmasi Hadir"
+     * AKTOR: PENGURUS/PELATIH
+     * Mensahkan (Verify) absensi anggota yang masuk lewat scan QR
      */
-    public function konfirmasi($presensi_id)
+    public function konfirmasi(Request $request, $presensi_id)
     {
         $presensi = Presensi::findOrFail($presensi_id);
 
-        // Ubah status menjadi terverifikasi dan catat ID Pelatih yang klik
-        $presensi->update([
-            'is_verified' => true,
-            'verified_by' => Auth::user()->id
+        $request->validate([
+            'action' => 'required|in:sah,tolak',
+            'keterangan' => 'nullable|string' // <-- Tambahan validasi keterangan
         ]);
 
-        return redirect()->back()->with('success', 'Kehadiran ' . $presensi->anggota->nama_lengkap . ' berhasil dikonfirmasi!');
+        if ($request->action == 'sah') {
+            $presensi->update([
+                'is_verified' => true,
+                'status'      => 'Hadir',
+                'verified_by' => Auth::user()->anggota->id,
+            ]);
+            $pesan = 'Kehadiran ' . $presensi->anggota->nama_lengkap . ' berhasil disahkan!';
+        } else {
+            $presensi->update([
+                'is_verified' => true,
+                'status'      => 'Alfa',
+                'verified_by' => Auth::user()->anggota->id,
+                'keterangan'  => $request->keterangan // <-- Simpan alasan penolakan
+            ]);
+            $pesan = 'Absensi ' . $presensi->anggota->nama_lengkap . ' ditolak (Alfa).';
+        }
+
+        return redirect()->back()->with('success', $pesan);
     }
 
     /**
-     * 3. Proses Pelatih input manual dari Modal (Kasus Lupa HP)
+     * AKTOR: PENGURUS/PELATIH
+     * Input manual jika anggota lupa bawa HP (Otomatis is_verified = true)
      */
     public function storeManual(Request $request)
     {
-        // Validasi input dari form modal
         $request->validate([
             'jadwal_id'  => 'required|exists:jadwals,id',
             'anggota_id' => 'required|exists:anggotas,id',
+            'status'     => 'required|in:Hadir,Izin,Sakit,Alfa',
+            'keterangan' => 'nullable|string' // <-- Tambahan validasi keterangan
         ]);
 
-        // Cek apakah anggota tersebut sudah absen sebelumnya agar tidak ada data ganda (double input)
         $sudah_absen = Presensi::where('jadwal_id', $request->jadwal_id)
-                               ->where('anggota_id', $request->anggota_id)
-                               ->first();
+            ->where('anggota_id', $request->anggota_id)
+            ->first();
 
         if ($sudah_absen) {
-            return redirect()->back()->with('error', 'Anggota tersebut sudah tercatat di daftar kehadiran!');
+            return redirect()->back()->with('error', 'Anggota tersebut sudah memiliki catatan kehadiran di jadwal ini!');
         }
 
-        // Simpan data presensi baru
-        // Karena diinput langsung oleh pelatih, is_verified otomatis bernilai true
         Presensi::create([
             'jadwal_id'      => $request->jadwal_id,
             'anggota_id'     => $request->anggota_id,
-            'status'         => 'Hadir',
-            'waktu_presensi' => now(), // Waktu dicatat saat form disubmit
-            'is_verified'    => true,  // Langsung Sah
-            'verified_by'    => Auth::user()->id
+            'status'         => $request->status,
+            'keterangan'     => $request->keterangan, // <-- Simpan keterangan manual
+            'waktu_presensi' => now(),
+            'is_verified'    => true,
+            'verified_by'    => Auth::user()->anggota->id,
         ]);
 
-        return redirect()->back()->with('success', 'Presensi manual berhasil ditambahkan!');
+        return redirect()->back()->with('success', 'Presensi manual berhasil disimpan!');
     }
 
-
+    /**
+     * AKTOR: ANGGOTA
+     * Melihat daftar jadwal latihan hari ini untuk di-scan
+     */
+    /**
+     * AKTOR: ANGGOTA
+     * Melihat daftar jadwal latihan hari ini dan riwayat 7 hari terakhir
+     */
     public function indexAnggota()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        $user = Auth::user();
         $now = \Carbon\Carbon::now('Asia/Jakarta');
         $hari_ini = $now->format('Y-m-d');
-        $user = Auth::user();
 
-        // 1. Ambil jadwal latihan yang terjadi HARI INI sesuai dengan Kolat si Anggota
-        // Asumsinya di tabel anggotas (users) ada kolom kolat_id
-        $jadwal_hari_ini = Jadwal::with('pelatih')
-            ->where('tanggal', $hari_ini)
-            ->where('kolat_id', $user->kolat_id)
-            ->orderBy('jam_mulai', 'asc')
+        // Ambil tanggal 7 hari yang lalu
+        $seminggu_lalu = $now->copy()->subDays(7)->format('Y-m-d');
+
+        if (!$user->anggota) {
+            return redirect()->route('presensi.index')->with('error', 'Akun Anda tidak terdaftar sebagai peserta latihan.');
+        }
+
+        // Ambil jadwal dalam rentang 7 hari terakhir hingga hari ini
+        $jadwal_terbaru = Jadwal::with('pelatih')
+            ->whereBetween('tanggal', [$seminggu_lalu, $hari_ini])
+            ->where('kolat_id', $user->anggota->kolat_id)
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('jam_mulai', 'desc')
             ->get();
 
-        // 2. Cek apakah anggota ini sudah absen di jadwal tersebut
-        // Menggunakan pluck() untuk mengambil ID jadwal hari ini saja
-        $presensi_saya = Presensi::where('anggota_id', $user->id)
-            ->whereIn('jadwal_id', $jadwal_hari_ini->pluck('id'))
+        $presensi_saya = Presensi::where('anggota_id', $user->anggota->id)
+            ->whereIn('jadwal_id', $jadwal_terbaru->pluck('id'))
             ->get()
-            ->keyBy('jadwal_id'); // Jadikan ID jadwal sebagai key array agar mudah dicek di View
+            ->keyBy('jadwal_id');
 
-        return view('presensi.anggota.index', compact('jadwal_hari_ini', 'presensi_saya', 'now'));
+        return view('presensi.anggota.index', compact('jadwal_terbaru', 'presensi_saya', 'now', 'hari_ini'));
     }
 
+    /**
+     * AKTOR: ANGGOTA
+     * Menampilkan halaman kamera scanner
+     */
+    public function scan($jadwal_id)
+    {
+        $jadwal = Jadwal::findOrFail($jadwal_id);
+        return view('presensi.anggota.scan', compact('jadwal'));
+    }
+
+    /**
+     * AKTOR: ANGGOTA
+     * Menyimpan data presensi hasil scan (Menunggu Verifikasi Pelatih)
+     */
     public function storeMandiri(Request $request)
     {
         $request->validate([
@@ -130,26 +180,86 @@ class PresensiController extends Controller
         ]);
 
         $user = Auth::user();
+        $profilAnggota = $user->anggota;
 
-        // Cek agar tidak bisa klik absen 2 kali (Double submit)
-        $sudah_absen = Presensi::where('jadwal_id', $request->jadwal_id)
-                               ->where('anggota_id', $user->id)
-                               ->exists();
-
-        if ($sudah_absen) {
-            return redirect()->back()->with('error', 'Kamu sudah melakukan absensi untuk jadwal ini!');
+        if (!$profilAnggota) {
+            return redirect()->back()->with('error', 'Data profil tidak lengkap.');
         }
 
-        // Simpan data presensi dengan status is_verified = false (Menunggu ACC)
+        $jadwal = Jadwal::findOrFail($request->jadwal_id);
+        $now = \Carbon\Carbon::now('Asia/Jakarta');
+
+        // Validasi Waktu: Gabungkan tanggal dan jam untuk pengecekan presisi
+        $jam_selesai = $jadwal->jam_selesai
+            ? $jadwal->jam_selesai
+            : \Carbon\Carbon::parse($jadwal->jam_mulai)->addHours(3)->format('H:i:s');
+
+        $batas_waktu = \Carbon\Carbon::parse($jadwal->tanggal . ' ' . $jam_selesai, 'Asia/Jakarta');
+
+        if ($now->gt($batas_waktu)) {
+            return redirect()->route('presensi.anggota.index')->with('error', 'Sesi absensi sudah berakhir pada pukul ' . substr($jam_selesai, 0, 5) . ' WIB.');
+        }
+
+        if ($jadwal->status == 'selesai') {
+            return redirect()->route('presensi.anggota.index')->with('error', 'Sesi latihan sudah ditutup oleh pelatih.');
+        }
+
+        // Cek apakah sudah absen
+        $sudah_absen = Presensi::where('jadwal_id', $request->jadwal_id)
+            ->where('anggota_id', $profilAnggota->id)
+            ->exists();
+
+        if ($sudah_absen) {
+            return redirect()->route('presensi.anggota.index')->with('error', 'Kamu sudah melakukan absensi untuk jadwal ini!');
+        }
+
         Presensi::create([
-            'jadwal_id'      => $request->jadwal_id,
-            'anggota_id'     => $user->id,
-            'status'         => 'Hadir',
-            'waktu_presensi' => now(),
-            'is_verified'    => false, // Belum Sah, butuh ACC Pelatih
-            'verified_by'    => null
+            'jadwal_id' => $request->jadwal_id,
+            'anggota_id' => $profilAnggota->id,
+            'status' => 'Hadir',
+            'waktu_presensi' => $now,
+            'is_verified' => false,
+            'verified_by' => null,
         ]);
 
-        return redirect()->back()->with('success', 'Berhasil! Kehadiranmu sedang menunggu konfirmasi Pelatih.');
+        return redirect()->route('presensi.anggota.index')->with('success', 'Berhasil scan! Silakan minta Pelatih untuk konfirmasi kehadiran.');
+    }
+
+    /**
+     * AKTOR: ANGGOTA
+     * Menampilkan riwayat lengkap presensi dengan filter bulan dan tahun
+     */
+    public function riwayatAnggota(Request $request)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        $user = Auth::user();
+
+        if (!$user->anggota) {
+            return redirect()->route('presensi.index')->with('error', 'Profil anggota tidak ditemukan.');
+        }
+
+        // Tangkap request filter bulan & tahun (Default: Bulan & Tahun saat ini)
+        $bulan = $request->input('bulan', date('m'));
+        $tahun = $request->input('tahun', date('Y'));
+
+        // Ambil semua jadwal sesuai filter bulan & tahun di Kolat anggota tersebut
+        $jadwal_riwayat = Jadwal::with('pelatih')
+            ->where('kolat_id', $user->anggota->kolat_id)
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('jam_mulai', 'desc')
+            ->get();
+
+        // Ambil data presensi anggota pada jadwal-jadwal tersebut
+        $presensi_saya = Presensi::where('anggota_id', $user->anggota->id)
+            ->whereIn('jadwal_id', $jadwal_riwayat->pluck('id'))
+            ->get()
+            ->keyBy('jadwal_id');
+
+        return view('presensi.anggota.riwayat', compact('jadwal_riwayat', 'presensi_saya', 'bulan', 'tahun'));
     }
 }
