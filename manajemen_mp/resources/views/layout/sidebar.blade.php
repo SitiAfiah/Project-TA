@@ -96,7 +96,7 @@
             <ul id="laporan-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li><a href="{{ route('laporan.anggota') }}"><i class="bi bi-circle"></i><span>Laporan Anggota</span></a></li>
                 <li><a href="{{ route('laporan.kas') }}"><i class="bi bi-circle"></i><span>Laporan Keuangan</span></a></li>
-                <li><a href="#"><i class="bi bi-circle"></i><span>Laporan Presensi</span></a></li>
+                <li><a href="{{ route('laporan.presensi') }}"><i class="bi bi-circle"></i><span>Laporan Presensi</span></a></li>
                 <li><a href="#"><i class="bi bi-circle"></i><span>Laporan Penilaian</span></a></li>
             </ul>
         </li>
