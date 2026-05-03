@@ -62,7 +62,7 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">No. WhatsApp</label>
                                 <div class="input-group">
-                                    <span class="input-group-text bg-light border-end-0">+62</span>
+                                   
                                     <input type="number" name="no_hp" class="form-control" value="{{ old('no_hp', $anggota->no_hp ?? '') }}" placeholder="81234567xxx" required>
                                 </div>
                             </div>

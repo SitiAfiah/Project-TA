@@ -13,16 +13,19 @@ return new class extends Migration
     {
         Schema::create('penilaians', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pelatih_id')->constrained('anggotas')->onDelete('cascade'); // Pelatih yang dinilai
-            $table->foreignId('anggota_id')->constrained('anggotas')->onDelete('cascade'); // Anggota yang menilai
-            $table->date('bulan_evaluasi'); // Untuk menandai evaluasi bulan apa
+            $table->foreignId('pelatih_id')->constrained('anggotas')->onDelete('cascade');
+            $table->foreignId('anggota_id')->constrained('anggotas')->onDelete('cascade');
+            $table->date('bulan_evaluasi');
 
-            // Kriteria Evaluasi Pelatih (Skala 1-5 atau 1-10)
-            $table->integer('kedisiplinan')->default(0);
-            $table->integer('kejelasan_materi')->default(0);
-            $table->integer('penguasaan_teknik')->default(0);
-            $table->integer('sikap_perilaku')->default(0); // Etika pelatih
-            $table->text('kritik_saran')->nullable(); // Masukan dari anggota
+            // 6 Kriteria Evaluasi Hasil Wawancara (Skala 1-5)
+            $table->integer('metode_pelatihan')->default(0);
+            $table->integer('komunikasi')->default(0);
+            $table->integer('sikap_kepribadian')->default(0);
+            $table->integer('kepemimpinan')->default(0);
+            $table->integer('konsistensi_komitmen')->default(0);
+            $table->integer('kedekatan_interpersonal')->default(0);
+
+            $table->text('kritik_saran')->nullable();
             $table->timestamps();
         });
     }

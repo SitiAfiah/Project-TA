@@ -13,7 +13,6 @@ return new class extends Migration
 {
     Schema::create('anggotas', function (Blueprint $table) {
         $table->id();
-
         // --- RELASI (Penghubung ke Dropdown) ---
         $table->foreignId('role_id')->constrained('role')->onDelete('cascade');
         $table->foreignId('kolat_id')->constrained('kolat')->onDelete('cascade');

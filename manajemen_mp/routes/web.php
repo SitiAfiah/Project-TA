@@ -4,9 +4,12 @@ use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\KasController;
 use App\Http\Controllers\KolatController;
 use App\Http\Controllers\PelatihController;
+use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\SppController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -101,5 +104,32 @@ Route::prefix('presensi')->name('presensi.')->group(function () {
     Route::post('/konfirmasi/{presensi_id}', [PresensiController::class, 'konfirmasi'])->name('konfirmasi');
     // Proses tambah presensi manual (Kasus Lupa HP)
     Route::post('/tambah-manual', [PresensiController::class, 'storeManual'])->name('storeManual');
+});
+
+//Penialaian
+
+    Route::prefix('penilaian')->name('penilaian.')->group(function () {
+    Route::get('/', [PenilaianController::class, 'index'])->name('index');
+    // Hilangkan kata 'penilaian' di dalam sini karena sudah ada di prefix
+    Route::get('/create/{id}', [PenilaianController::class, 'create'])->name('create');
+    Route::post('/store', [PenilaianController::class, 'store'])->name('store');
+    Route::get('/penilaian/rekap/{id}', [PenilaianController::class, 'show'])->name('show');
+});
+
+//Kas
+Route::prefix('kas')->name('kas.')->group(function () {
+    Route::get('/', [KasController::class, 'index'])->name('index');
+    Route::post('/store', [KasController::class, 'store'])->name('store');
+    Route::put('/update/{id}', [KasController::class, 'update'])->name('update');
+    Route::delete('/{id}', [KasController::class, 'destroy'])->name('destroy');
+});
+
+// Group SPP
+Route::prefix('spp')->name('spp.')->group(function () {
+    Route::get('/', [SppController::class, 'index'])->name('index');
+    Route::get('/create', [SppController::class, 'create'])->name('create');
+    Route::post('/store', [SppController::class, 'store'])->name('store');
+    Route::post('/bayar/{id}', [SppController::class, 'bayar'])->name('bayar');
+    Route::post('/generate', [SppController::class, 'generateTagihan'])->name('generate');
 });
 
