@@ -17,7 +17,7 @@
                 <div class="card border-0 shadow-sm" style="border-radius: 20px;">
                     <div class="card-body p-4">
 
-                        <div class="d-flex justify-content-between align-items-center mb-4">
+                        {{-- <div class="d-flex justify-content-between align-items-center mb-4">
                             <div class="text-start">
                                 <h5 class="card-title mb-0 fw-bold text-dark">Daftar Anggota PPS Merpati Putih</h5>
                                 <p class="text-muted small mb-0">Cabang Jember - Kelola informasi induk anggota.</p>
@@ -26,6 +26,32 @@
                                 style="border-radius: 12px;">
                                 <i class="icon-plus me-1"></i> Tambah Anggota
                             </a>
+                        </div> --}}
+                        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                            <div class="text-start">
+                                <h5 class="card-title mb-0 fw-bold text-dark">Daftar Anggota PPS Merpati Putih</h5>
+                                <p class="text-muted small mb-0">Cabang Jember - Kelola informasi induk anggota.</p>
+                            </div>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <a href="{{ route('anggota.export.excel') }}"
+                                    class="btn btn-success px-3 py-2 shadow-sm d-flex align-items-center"
+                                    style="border-radius: 12px; font-size: 14px;">
+                                    <i class="bi bi-file-earmark-excel me-2"></i> Excel
+                                </a>
+
+                                <a href="{{ route('anggota.export.pdf') }}"
+                                    class="btn btn-danger px-3 py-2 shadow-sm d-flex align-items-center"
+                                    style="border-radius: 12px; font-size: 14px;">
+                                    <i class="bi bi-file-earmark-pdf me-2"></i> PDF
+                                </a>
+
+                                <a href="{{ route('anggota.create') }}"
+                                    class="btn btn-primary px-4 py-2 shadow-sm d-flex align-items-center"
+                                    style="border-radius: 12px; font-size: 14px;">
+                                    <i class="icon-plus me-2"></i> Tambah Anggota
+                                </a>
+                            </div>
                         </div>
 
                         <div class="table-responsive">
