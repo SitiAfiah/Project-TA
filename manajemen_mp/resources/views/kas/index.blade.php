@@ -76,7 +76,7 @@
                 <div class="card-body p-4">
 
                     <!-- Header Tabel -->
-                    <div class="d-flex justify-content-between align-items-center mb-4 text-start">
+                    {{-- <div class="d-flex justify-content-between align-items-center mb-4 text-start">
                         <div class="text-start">
                             <h5 class="card-title mb-0 fw-bold text-dark">Buku Kas Utama</h5>
                             <p class="text-muted small mb-0">Cabang Jember - Histori seluruh arus kas.</p>
@@ -121,6 +121,61 @@
 
                             <!-- TOMBOL CATAT TRANSAKSI -->
                             <button type="button" class="btn btn-primary px-4 py-2 shadow-sm pulse-button"
+                                    style="border-radius: 12px;" data-bs-toggle="modal" data-bs-target="#modalTambahKas">
+                                <i class="icon-plus me-1"></i> Catat Transaksi
+                            </button>
+                        </div>
+                    </div> --}}
+                    <div class="d-flex justify-content-between align-items-center mb-4 text-start flex-wrap gap-3">
+                        <div class="text-start">
+                            <h5 class="card-title mb-0 fw-bold text-dark">Buku Kas Utama</h5>
+                            <p class="text-muted small mb-0">Cabang Jember - Histori seluruh arus kas.</p>
+                        </div>
+
+                        <div class="d-flex flex-wrap align-items-center gap-2">
+                            <div class="dropdown">
+                                <button class="btn btn-light border px-4 py-2 dropdown-toggle shadow-sm d-flex align-items-center"
+                                        type="button" id="filterDropdown" data-bs-toggle="dropdown"
+                                        aria-expanded="false" style="border-radius: 12px;">
+                                    <i class="icon-filter me-2"></i> Filter
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end p-4 shadow-lg border-0"
+                                     aria-labelledby="filterDropdown" style="width: 300px; border-radius: 20px;">
+                                    <form action="{{ route('kas.index') }}" method="GET">
+                                        <h6 class="fw-bold mb-3">Saring Transaksi</h6>
+                                        <div class="mb-3 text-start">
+                                            <label class="form-label small fw-bold">Jenis Kas</label>
+                                            <select name="jenis" class="form-select border-0 bg-light" style="border-radius: 10px;">
+                                                <option value="">Semua Jenis</option>
+                                                <option value="masuk" {{ request('jenis') == 'masuk' ? 'selected' : '' }}>Pemasukan</option>
+                                                <option value="keluar" {{ request('jenis') == 'keluar' ? 'selected' : '' }}>Pengeluaran</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 text-start">
+                                            <label class="form-label small fw-bold">Dari Tanggal</label>
+                                            <input type="date" name="dari" value="{{ request('dari') }}" class="form-control border-0 bg-light" style="border-radius: 10px;">
+                                        </div>
+                                        <div class="mb-3 text-start">
+                                            <label class="form-label small fw-bold">Sampai Tanggal</label>
+                                            <input type="date" name="sampai" value="{{ request('sampai') }}" class="form-control border-0 bg-light" style="border-radius: 10px;">
+                                        </div>
+                                        <div class="d-grid gap-2 mt-4">
+                                            <button type="submit" class="btn btn-primary shadow-sm" style="border-radius: 10px;">Terapkan</button>
+                                            <a href="{{ route('kas.index') }}" class="btn btn-link btn-sm text-decoration-none text-muted">Hapus Filter</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <a href="{{ route('kas.export.excel', request()->all()) }}" class="btn btn-success px-3 py-2 shadow-sm d-flex align-items-center" style="border-radius: 12px;">
+                                <i class="bi bi-file-earmark-excel me-1"></i> Excel
+                            </a>
+
+                            <a href="{{ route('kas.export.pdf', request()->all()) }}" class="btn btn-danger px-3 py-2 shadow-sm d-flex align-items-center" style="border-radius: 12px;">
+                                <i class="bi bi-file-earmark-pdf me-1"></i> PDF
+                            </a>
+
+                            <button type="button" class="btn btn-primary px-4 py-2 shadow-sm pulse-button d-flex align-items-center"
                                     style="border-radius: 12px;" data-bs-toggle="modal" data-bs-target="#modalTambahKas">
                                 <i class="icon-plus me-1"></i> Catat Transaksi
                             </button>

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid py-4">
     <!-- Header Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    {{-- <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h3 class="fw-bold text-dark mb-1">Manajemen SPP</h3>
             <p class="text-muted small mb-0">Kelola tagihan dan pembayaran SPP anggota Merpati Putih.</p>
@@ -23,6 +23,33 @@
             <button class="btn btn-info text-white px-3 py-2 shadow-sm" style="border-radius: 10px; background-color: #0099bc;">
                 <i class="fas fa-download me-1"></i> Export
             </button>
+        </div>
+    </div> --}}
+
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div class="text-start">
+            <h3 class="fw-bold text-dark mb-1">Manajemen SPP</h3>
+            <p class="text-muted small mb-0">Kelola tagihan dan pembayaran SPP anggota Merpati Putih.</p>
+        </div>
+        <div class="d-flex flex-wrap gap-2">
+            <form action="{{ route('spp.generate') }}" method="POST" class="m-0">
+                @csrf
+                <button type="submit" class="btn btn-warning text-white px-3 py-2 shadow-sm d-flex align-items-center h-100" style="border-radius: 10px;" onclick="return confirm('Generate tagihan otomatis untuk bulan ini?')">
+                    <i class="fas fa-cog me-2"></i> Generate
+                </button>
+            </form>
+
+            <a href="{{ route('spp.export.excel', request()->all()) }}" class="btn btn-success px-3 py-2 shadow-sm d-flex align-items-center" style="border-radius: 10px; text-decoration: none;">
+                <i class="fas fa-file-excel me-2"></i> Excel
+            </a>
+
+            <a href="{{ route('spp.export.pdf', request()->all()) }}" class="btn btn-danger px-3 py-2 shadow-sm d-flex align-items-center" style="border-radius: 10px; text-decoration: none;">
+                <i class="fas fa-file-pdf me-2"></i> PDF
+            </a>
+
+            <a href="{{ route('spp.create') }}" class="btn btn-primary px-3 py-2 shadow-sm d-flex align-items-center" style="border-radius: 10px; text-decoration: none;">
+                <i class="fas fa-plus me-2"></i> Tambah Manual
+            </a>
         </div>
     </div>
 

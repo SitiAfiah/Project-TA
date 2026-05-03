@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KolatController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PresensiController;
@@ -60,6 +61,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/anggota/simpan', [AnggotaController::class, 'store'])->name('anggota.store');
     Route::get('/anggota/{id}/edit', [AnggotaController::class, 'edit'])->name('anggota.edit');
     Route::put('/anggota/{id}', [AnggotaController::class, 'update'])->name('anggota.update');
+    Route::get('/anggota/export/excel', [AnggotaController::class, 'exportExcel'])->name('anggota.export.excel');
+    Route::get('/anggota/export/pdf', [AnggotaController::class, 'exportPdf'])->name('anggota.export.pdf');
 
     // kolat
     Route::get('/kolat', [KolatController::class, 'kolat'])->name('kolat.index');
@@ -148,6 +151,48 @@ Route::prefix('spp')->name('spp.')->group(function () {
 
         // --- AKTOR: PENGURUS / PELATIH ---
         // Halaman utama rekap jadwal (untuk pilih jadwal mana yang mau dicek)
+
+
+//Penialaian
+
+    Route::prefix('penilaian')->name('penilaian.')->group(function () {
+    Route::get('/', [PenilaianController::class, 'index'])->name('index');
+    // Hilangkan kata 'penilaian' di dalam sini karena sudah ada di prefix
+    Route::get('/create/{id}', [PenilaianController::class, 'create'])->name('create');
+    Route::post('/store', [PenilaianController::class, 'store'])->name('store');
+    Route::get('/penilaian/rekap/{id}', [PenilaianController::class, 'show'])->name('show');
+});
+
+//Kas
+Route::prefix('kas')->name('kas.')->group(function () {
+    Route::get('/', [KasController::class, 'index'])->name('index');
+    Route::post('/store', [KasController::class, 'store'])->name('store');
+    Route::put('/update/{id}', [KasController::class, 'update'])->name('update');
+    Route::delete('/{id}', [KasController::class, 'destroy'])->name('destroy');
+    Route::get('/export/excel', [KasController::class, 'exportExcel'])->name('export.excel');
+    Route::get('/export/pdf', [KasController::class, 'exportPdf'])->name('export.pdf');
+});
+
+// Group SPP
+Route::prefix('spp')->name('spp.')->group(function () {
+    Route::get('/', [SppController::class, 'index'])->name('index');
+    Route::get('/create', [SppController::class, 'create'])->name('create');
+    Route::post('/store', [SppController::class, 'store'])->name('store');
+    Route::post('/bayar/{id}', [SppController::class, 'bayar'])->name('bayar');
+    Route::post('/generate', [SppController::class, 'generateTagihan'])->name('generate');
+    Route::get('/export/excel', [SppController::class, 'exportExcel'])->name('export.excel');
+    Route::get('/export/pdf', [SppController::class, 'exportPdf'])->name('export.pdf');
+});
+
+Route::prefix('laporan')->name('laporan.')->group(function () {
+    Route::get('/anggota', [LaporanController::class, 'anggota'])->name('anggota');
+    Route::get('/kas', [LaporanController::class, 'kas'])->name('kas');
+    Route::get('/spp', [LaporanController::class, 'spp'])->name('spp');
+    Route::get('/presensi', [LaporanController::class, 'presensi'])->name('presensi');
+    Route::get('/presensi/excel', [LaporanController::class, 'presensiExcel'])->name('presensi.excel');
+    Route::get('/presensi/pdf', [LaporanController::class, 'presensiPdf'])->name('presensi.pdf');
+});
+
 
 
 });

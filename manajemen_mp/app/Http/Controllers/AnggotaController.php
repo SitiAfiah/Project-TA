@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AnggotaExport;
 use App\Models\Anggota;
 use App\Models\Kolat; // Import model Kolat
 use App\Models\Role;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AnggotaController extends Controller
 {
@@ -152,5 +155,26 @@ class AnggotaController extends Controller
             return back()->with('error', 'Terjadi kesalahan saat memperbarui data.');
         }
     }
+
+
+    public function exportExcel()
+{
+    return Excel::download(new AnggotaExport, 'Data_Anggota_TapakMP.xlsx');
+}
+
+public function exportPdf()
+{
+    $data_anggota = Anggota::whereHas('role', function($query) {
+        $query->where('nama_role', 'Anggota');
+    })->with(['kolat', 'user'])->get();
+
+    // Menggunakan view khusus PDF
+    $pdf = Pdf::loadView('anggota.export_pdf', compact('data_anggota'));
+
+    // Karena kolomnya banyak, set ke Landscape agar tidak berdesakan
+    $pdf->setPaper('a4', 'potrait');
+
+    return $pdf->download('Laporan_Anggota_TapakMP.pdf');
+}
 
 }
