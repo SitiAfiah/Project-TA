@@ -84,7 +84,7 @@ class AnggotaController extends Controller
                 'alamat'        => $request->alamat,
                 'catatan_medis' => $request->catatan_medis,
                 'jabatan'       => $nama_jabatan,
-                'status'        => 'aktif', // Input admin otomatis aktif
+                'status'        => 'Aktif', // Input admin otomatis aktif
             ]);
 
             DB::commit();
@@ -110,54 +110,47 @@ class AnggotaController extends Controller
 
     // 5. Update Data Anggota
     public function update(Request $request, $id)
-{
-    $anggota = Anggota::findOrFail($id);
-    $user = User::findOrFail($anggota->user_id);
+    {
+        $anggota = Anggota::findOrFail($id);
+        $user = User::findOrFail($anggota->user_id);
 
-    $request->validate([
-        'email'        => 'required|email|unique:users,email,' . $user->id,
-        'nama_lengkap' => 'required|string|max:255',
-        'no_hp'        => 'required',
-        'role_id'      => 'required|exists:role,id',
-        'kolat_id'     => 'required|exists:kolat,id',
-        'status'       => 'required|in:Aktif,Non-Aktif',
-    ]);
-
-    DB::beginTransaction();
-
-    try {
-        // 1. Update tabel Users (Email & Role)
-        $user->update([
-            'email'   => $request->email,
-            'role_id' => $request->role_id,
+        $request->validate([
+            'email'        => 'required|email|unique:users,email,' . $user->id,
+            'nama_lengkap' => 'required',
+            'no_hp'        => 'required',
+            'role_id'      => 'required|exists:role,id',
+            'kolat_id'     => 'required|exists:kolat,id',
+            'status'       => 'required|in:Aktif,Non-Aktif',
         ]);
 
-        // 2. Ambil nama jabatan baru dari role_id
-        $role = Role::find($request->role_id);
-        $nama_jabatan = strtolower($role->nama_role);
+        DB::beginTransaction();
 
-        // 3. Kelola Upload Foto SK (jika ada)
-        $data = $request->all();
-        $data['jabatan'] = $nama_jabatan;
+        try {
+            // A. Update tabel User (email & role)
+            $user->update([
+                'email'   => $request->email,
+                'role_id' => $request->role_id
+            ]);
 
-        if ($request->hasFile('foto_sk')) {
-            $file = $request->file('foto_sk');
-            $nama_file = time() . "_" . $file->getClientOriginalName();
-            $file->move(public_path('uploads/sk'), $nama_file);
-            $data['foto_sk'] = $nama_file;
+            // B. Update jabatan berdasarkan role baru
+            $role = Role::find($request->role_id);
+            $nama_jabatan = strtolower($role->nama_role);
+
+            // C. Update tabel Anggota
+            $data_anggota = $request->all();
+            $data_anggota['jabatan'] = $nama_jabatan;
+
+            $anggota->update($data_anggota);
+
+            DB::commit();
+            return redirect()->route('anggota.anggota')
+                ->with('success', 'Data ' . $anggota->nama_lengkap . ' berhasil diperbarui!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Gagal update anggota: " . $e->getMessage());
+            return back()->with('error', 'Terjadi kesalahan saat memperbarui data.');
         }
-
-        // 4. Update tabel Anggota
-        $anggota->update($data);
-
-        DB::commit();
-        return redirect()->route('anggota.anggota')
-            ->with('success', 'Data ' . $anggota->nama_lengkap . ' berhasil diperbarui!');
-
-    } catch (\Exception $e) {
-        DB::rollBack();
-        return back()->with('error', 'Gagal update: ' . $e->getMessage());
     }
-}
 
 }

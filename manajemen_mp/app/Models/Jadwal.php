@@ -19,7 +19,9 @@ class Jadwal extends Model
         'jam_mulai',
         'jam_selesai',
         'lokasi',
-        'deskripsi'
+        'deskripsi',
+        'foto_bukti',      // Tambahan baru untuk foto kegiatan (Pelatih)
+        'catatan_latihan',
     ];
 
     // Relasi: Jadwal ini milik Kolat mana?
