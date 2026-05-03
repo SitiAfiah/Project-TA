@@ -14,8 +14,8 @@ class KolatSeeder extends Seeder
     public function run(): void
     {
         DB::table('kolat')->insert([
-            'id' => 1, // Kita paksa ID 1 biar nyambung sama UserSeeder tadi
-            'nama_kolat' => 'Kolat Polije',
+            'id' => 2, // Kita paksa ID 1 biar nyambung sama UserSeeder tadi
+            'nama_kolat' => 'Kolat Unej',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

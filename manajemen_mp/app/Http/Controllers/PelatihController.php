@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Anggota;
+use App\Models\Kolat;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -74,19 +75,25 @@ class PelatihController extends Controller
     // Menampilkan form edit data kepelatihan (misal perpanjang SK)
     public function edit($id)
     {
-        $pelatih = Anggota::findOrFail($id);
-        return view('pelatih.editpelatih', compact('pelatih'));
-    }
+
+    $pelatih = Anggota::findOrFail($id);
+    $data_kolat = Kolat::all();
+
+    return view('pelatih.editpelatih', compact('pelatih', 'data_kolat'));
+}
 
     public function update(Request $request, $id)
     {
         $pelatih = Anggota::findOrFail($id);
 
-        $request->validate([
-            'no_sk' => 'required|unique:anggotas,no_sk,' . $id,
-            'tgl_sk' => 'required|date',
-            'foto_sk' => 'nullable|image|max:2048',
-        ]);
+    $request->validate([
+        'nama_lengkap' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $pelatih->user_id, // validasi email user
+        'no_hp' => 'required',
+        'no_sk' => 'required|unique:anggotas,no_sk,' . $id, // pastikan nama tabel benar 'anggota'
+        'tgl_sk' => 'nullable|date', // tambahkan jika di form ada tgl_sk
+        'foto_sk' => 'nullable|image|max:2048',
+    ]);
 
         $data = $request->all();
 

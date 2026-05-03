@@ -94,6 +94,30 @@ Route::middleware('auth')->group(function () {
 
     // Rute untuk Presensi
     Route::prefix('presensi')->name('presensi.')->group(function () {
+        Route::get('/', [PresensiController::class, 'index'])->name('index');
+
+        // Halaman daftar kehadiran anggota pada jadwal tertentu (tampil QR Code & List)
+        Route::get('/kehadiran/{jadwal_id}', [PresensiController::class, 'kehadiran'])->name('kehadiran');
+
+        // Proses konfirmasi/verifikasi pelatih klik tombol "Sah"
+        Route::post('/konfirmasi/{presensi_id}', [PresensiController::class, 'konfirmasi'])->name('konfirmasi');
+
+        // Proses tambah presensi manual (Kasus Lupa HP)
+        Route::post('/tambah-manual', [PresensiController::class, 'storeManual'])->name('storeManual');
+
+        // --- AKTOR: ANGGOTA ---
+        // Halaman daftar jadwal hari ini di sisi anggota (Tampil tombol "Scan Absen")
+        Route::get('/anggota', [PresensiController::class, 'indexAnggota'])->name('anggota.index');
+
+        Route::get('/riwayat', [PresensiController::class, 'riwayatAnggota'])->name('anggota.riwayat');
+
+        // Halaman Kamera Scanner (Tempat anggota men-scan QR Code pelatih)
+        Route::get('/scan/{jadwal_id}', [PresensiController::class, 'scan'])->name('anggota.scan');
+
+        // Proses penyimpanan absen mandiri setelah sukses scan
+        Route::post('/store-mandiri', [PresensiController::class, 'storeMandiri'])->name('storeMandiri');
+
+    });
 
 //Penialaian
 
@@ -124,30 +148,6 @@ Route::prefix('spp')->name('spp.')->group(function () {
 
         // --- AKTOR: PENGURUS / PELATIH ---
         // Halaman utama rekap jadwal (untuk pilih jadwal mana yang mau dicek)
-        Route::get('/', [PresensiController::class, 'index'])->name('index');
 
-        // Halaman daftar kehadiran anggota pada jadwal tertentu (tampil QR Code & List)
-        Route::get('/kehadiran/{jadwal_id}', [PresensiController::class, 'kehadiran'])->name('kehadiran');
-
-        // Proses konfirmasi/verifikasi pelatih klik tombol "Sah"
-        Route::post('/konfirmasi/{presensi_id}', [PresensiController::class, 'konfirmasi'])->name('konfirmasi');
-
-        // Proses tambah presensi manual (Kasus Lupa HP)
-        Route::post('/tambah-manual', [PresensiController::class, 'storeManual'])->name('storeManual');
-
-        // --- AKTOR: ANGGOTA ---
-        // Halaman daftar jadwal hari ini di sisi anggota (Tampil tombol "Scan Absen")
-        Route::get('/anggota', [PresensiController::class, 'indexAnggota'])->name('anggota.index');
-
-        Route::get('/riwayat', [PresensiController::class, 'riwayatAnggota'])->name('anggota.riwayat');
-
-        // Halaman Kamera Scanner (Tempat anggota men-scan QR Code pelatih)
-        Route::get('/scan/{jadwal_id}', [PresensiController::class, 'scan'])->name('anggota.scan');
-
-        // Proses penyimpanan absen mandiri setelah sukses scan
-        Route::post('/store-mandiri', [PresensiController::class, 'storeMandiri'])->name('storeMandiri');
-
-
-    });
 
 });

@@ -154,10 +154,10 @@
                                         <!-- Avatar Inisial -->
                                         <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3 shadow-sm"
                                              style="width: 40px; height: 40px; font-size: 14px; font-weight: bold; background: linear-gradient(45deg, #0d6efd, #0099bc);">
-                                            {{ strtoupper(substr($spp->anggota->nama, 0, 1)) }}
+                                            {{ strtoupper(substr($spp->anggota->nama_lengkap, 0, 1)) }}
                                         </div>
                                         <div>
-                                            <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $spp->anggota->nama }}</div>
+                                            <div class="fw-bold text-dark" style="font-size: 0.95rem;">{{ $spp->anggota->nama_lengkap }}</div>
                                             <span class="badge bg-light text-muted border fw-normal" style="font-size: 0.75rem;">
                                                 ID: {{ $spp->anggota_id }}
                                             </span>

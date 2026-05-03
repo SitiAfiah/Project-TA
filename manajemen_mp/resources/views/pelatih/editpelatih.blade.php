@@ -11,6 +11,15 @@
                 </ol>
             </nav>
             <h3 class="fw-bold text-dark">Form Edit Data Pelatih</h3>
+            @if ($errors->any())
+    <div class="alert alert-danger shadow-sm" style="border-radius: 12px;">
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
             <p class="text-muted small">Perbarui profil pribadi dan legalitas SK pelatih <strong>{{ $pelatih->nama_lengkap }}</strong>.</p>
         </div>
 

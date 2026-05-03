@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pelatih extends Model
 {
+
+protected $table = 'anggota';
+
     // Kolom yang boleh diisi massal
     protected $fillable = [
         'anggota_id',
@@ -18,9 +21,14 @@ class Pelatih extends Model
         'status_pelatih',
         'catatan'
     ];
-    
+
     public function anggota(): BelongsTo
     {
         return $this->belongsTo(Anggota::class, 'anggota_id');
     }
+
+    // public function kolat(): BelongsTo
+    // {
+    //     return $this->belongsTo(Kolat::class, 'kolat_id');
+    // }
 }
