@@ -133,12 +133,28 @@
       });
     @endif
 
-    // Popup jika gagal login atau akun non-aktif
+    // Popup jika gagal login manual (dilempar via with('error', '...'))
     @if(session('error'))
       Swal.fire({
         icon: 'warning',
         title: 'Perhatian',
         text: "{{ session('error') }}",
+        confirmButtonColor: '#06163a'
+      });
+    @endif
+
+    // [TAMBAHAN BARU] Popup jika validasi gagal (Email/Password salah)
+    @if($errors->any())
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Gagal!',
+        html: `
+            <ul style="text-align: left; margin-bottom: 0;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        `,
         confirmButtonColor: '#06163a'
       });
     @endif

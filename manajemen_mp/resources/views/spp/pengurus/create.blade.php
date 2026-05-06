@@ -33,7 +33,7 @@
                                     <option value="" selected disabled>Cari nama anggota...</option>
                                     @foreach($data_anggota as $agt)
                                         <option value="{{ $agt->id }}" {{ old('anggota_id') == $agt->id ? 'selected' : '' }}>
-                                            {{ $agt->nama }} (ID: {{ $agt->id }})
+                                            {{ $agt->nama_lengkap }} (ID: {{ $agt->id }})
                                         </option>
                                     @endforeach
                                 </select>

@@ -1,6 +1,11 @@
 @extends('layout.app')
 
 @section('content')
+    @php
+        // Ambil nama role user yang login saat ini
+        $userRole = auth()->user()->role->nama_role ?? 'Anggota';
+    @endphp
+
     <div class="container-fluid py-4">
         <div class="page-header mb-4 text-start">
             <nav aria-label="breadcrumb">
@@ -22,11 +27,14 @@
                                 <h5 class="card-title mb-0 fw-bold text-dark">Daftar Pelatih Aktif</h5>
                                 <p class="text-muted small mb-0">Kelola sertifikasi dan masa berlaku SK Pelatih Cabang.</p>
                             </div>
-                            <!-- Link ke halaman Upgrade -->
+
+                            <!-- HANYA PENGURUS YANG BISA MELIHAT TOMBOL INI -->
+                            @if($userRole == 'Pengurus')
                             <a href="{{ route('pelatih.upgrade') }}" class="btn btn-primary px-4 py-2 shadow-sm"
                                 style="border-radius: 12px;">
                                 <i class="icon-plus me-1"></i> Upgrade Anggota ke Pelatih
                             </a>
+                            @endif
                         </div>
 
                         <div class="table-responsive">
@@ -38,7 +46,11 @@
                                         <th>No. SK & Masa Berlaku</th>
                                         <th>Kolat</th>
                                         <th>Status SK</th>
+
+                                        <!-- KOLOM AKSI HANYA MUNCUL JIKA PENGURUS -->
+                                        @if($userRole == 'Pengurus')
                                         <th>Aksi</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -64,6 +76,9 @@
                                                     {{ !$isExpired ? 'Berlaku' : 'Expired' }}
                                                 </span>
                                             </td>
+
+                                            <!-- TOMBOL EDIT HANYA MUNCUL JIKA PENGURUS -->
+                                            @if($userRole == 'Pengurus')
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center gap-2">
                                                     <a href="{{ route('pelatih.edit', $item->id) }}"
@@ -72,6 +87,7 @@
                                                     </a>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

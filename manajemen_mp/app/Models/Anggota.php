@@ -54,5 +54,12 @@ public function user()
     return $this->belongsTo(User::class, 'user_id');
 }
 
+public function presensi() {
+    return $this->hasMany(Presensi::class);
+}
+
+public function spp() {
+    return $this->hasMany(Spp::class);
+}
 
 }

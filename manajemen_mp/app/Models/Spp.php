@@ -17,7 +17,8 @@ class Spp extends Model
         'nominal',
         'status',
         'jatuh_tempo',
-        'keterangan'
+        'keterangan',
+        'bukti_pembayaran'
     ];
 
     // Relasi ke Anggota

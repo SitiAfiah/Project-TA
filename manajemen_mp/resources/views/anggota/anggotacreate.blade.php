@@ -1,6 +1,11 @@
 @extends('layout.app')
 
 @section('content')
+@php
+    // Ambil nama role user yang login saat ini
+    $userRole = auth()->user()->role->nama_role ?? 'Anggota';
+@endphp
+
 <div class="container-fluid py-4">
     <div class="page-header mb-4 text-start">
         <nav aria-label="breadcrumb">
@@ -62,8 +67,7 @@
                             <div class="col-md-6">
                                 <label class="form-label fw-bold">No. WhatsApp</label>
                                 <div class="input-group">
-                                   
-                                    <input type="number" name="no_hp" class="form-control" value="{{ old('no_hp', $anggota->no_hp ?? '') }}" placeholder="81234567xxx" required>
+                                    <input type="number" name="no_hp" class="form-control" value="{{ old('no_hp', $anggota->no_hp ?? '') }}" placeholder="081234567xxx" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -103,18 +107,31 @@
                                 <label class="form-label fw-bold text-muted small">No Induk</label>
                                 <input type="text" class="form-control bg-light fw-bold text-primary" value="{{ $anggota->no_induk ?? 'JB-XXX (Otomatis)' }}" readonly>
                             </div>
+
                             <div class="col-md-4">
                                 <label class="form-label fw-bold">Jabatan / Role</label>
                                 <select name="role_id" id="roleSelect" class="form-select border-primary" onchange="toggleSKFields()" required>
                                     <option value="" disabled selected>-- Pilih Jabatan --</option>
                                     @foreach($data_role as $role)
+                                        {{-- LOGIKA PENGAMANAN ROLE --}}
+                                        {{-- Jika yang login BUKAN pengurus, dan pilihan role saat ini BUKAN anggota, maka sembunyikan pilihannya --}}
+                                        @if($userRole != 'Pengurus' && strtolower($role->nama_role) != 'anggota')
+                                            @continue
+                                        @endif
+
                                         <option value="{{ $role->id }}"
                                             {{ old('role_id', $anggota->role_id ?? '') == $role->id ? 'selected' : '' }}>
                                             {{ $role->nama_role }}
                                         </option>
                                     @endforeach
                                 </select>
+
+                                {{-- Pesan informasi tambahan untuk Pelatih --}}
+                                @if($userRole != 'Pengurus')
+                                    <small class="text-info mt-1 d-block"><i class="icon-info me-1"></i>Anda hanya dapat mendaftarkan Anggota biasa.</small>
+                                @endif
                             </div>
+
                             <div class="col-md-4">
                                 <label class="form-label fw-bold">Status Keanggotaan</label>
                                 <select name="status" class="form-select" required>
@@ -123,6 +140,8 @@
                                 </select>
                             </div>
 
+                            {{-- BOX SK HANYA DI-RENDER UTUH UNTUK PENGURUS AGAR LEBIH AMAN --}}
+                            @if($userRole == 'Pengurus')
                             <div id="boxSK" class="col-12 mt-3 p-4 bg-light rounded-4 border border-dashed border-danger" style="display: none;">
                                 <h6 class="text-danger fw-bold mb-3"><i class="icon-file-text me-2"></i>Data Legalitas (Khusus Pelatih/Pengurus)</h6>
                                 <div class="row g-3">
@@ -140,6 +159,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endif
 
                             <div class="col-md-6 mt-4">
                                 <label class="form-label fw-bold">Asal Kolat</label>
@@ -189,7 +209,8 @@
         const roleSelect = document.getElementById('roleSelect');
         const boxSK = document.getElementById('boxSK');
 
-        if (roleSelect.selectedIndex > 0) {
+        
+        if (boxSK && roleSelect.selectedIndex > 0) {
             const selectedText = roleSelect.options[roleSelect.selectedIndex].text.toLowerCase();
 
             // Tampilkan box SK jika role mengandung kata Pelatih atau Pengurus

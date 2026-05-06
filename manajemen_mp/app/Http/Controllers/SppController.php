@@ -87,7 +87,6 @@ class SppController extends Controller
 
     public function bayar(Request $request, $id)
     {
-        // Perbaikan: Pakai 'anggota' (singular) sesuai relasi model biasanya
         $spp = Spp::with('anggota')->findOrFail($id);
 
         if ($spp->status == 'lunas') {
@@ -99,28 +98,32 @@ class SppController extends Controller
             $saldo_terakhir = Kas::saldoTerakhir() ?? 0;
             $saldo_baru = $saldo_terakhir + $spp->nominal;
 
+            // Buat Catatan Kas
             $kas = Kas::create([
                 'tanggal' => now(),
                 'jenis' => 'masuk',
                 'kategori' => 'SPP',
                 'nominal' => $spp->nominal,
-                'keterangan' => 'Bayar SPP '.$spp->anggota->nama.' - '.$spp->bulan.' '.$spp->tahun,
+                'keterangan' => 'Bayar SPP ' . $spp->anggota->nama_lengkap . ' - ' . $spp->bulan . ' ' . $spp->tahun,
                 'saldo_akhir' => $saldo_baru,
             ]);
 
+            // Update Status SPP
             $spp->update([
                 'status' => 'lunas',
-                'tanggal_bayar' => now(),
+                // Jangan timpa tanggal_bayar jika sudah diisi saat upload bukti TF
+                'tanggal_bayar' => $spp->tanggal_bayar ?? now(),
                 'kas_id' => $kas->id,
             ]);
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Pembayaran SPP berhasil dicatat!');
+            $pesan = $spp->status == 'pending' ? 'Pembayaran via transfer berhasil divalidasi!' : 'Pembayaran SPP tunai berhasil dicatat!';
+            return redirect()->back()->with('success', $pesan);
+
         } catch (\Exception $e) {
             DB::rollback();
-
-            return redirect()->back()->with('error', 'Terjadi kesalahan: '.$e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
 
@@ -212,5 +215,105 @@ class SppController extends Controller
         $pdf->setPaper('a4', 'landscape'); // Landscape agar tabel lega
 
         return $pdf->download('Laporan_SPP_TapakMP_'.date('Ymd').'.pdf');
+    }
+
+    // public function indexAnggota()
+    // {
+    //     // Sesuaikan cara pemanggilan ID anggota dengan struktur tabel User kamu
+    //     // Contoh ini mengasumsikan di tabel users ada kolom 'anggota_id'
+    //     $anggota_id = auth()->user()->anggota_id;
+
+    //     $data_spp = Spp::where('anggota_id', $anggota_id)
+    //                    ->orderBy('tahun', 'desc')
+    //                    ->orderBy('bulan', 'desc')
+    //                    ->get();
+
+    //     return view('spp.anggota.index', compact('data_spp'));
+    // }
+
+    public function indexAnggota()
+    {
+        // 1. Panggil relasi anggota dari user yang sedang login
+        $profil_anggota = auth()->user()->anggota;
+
+        // 2. Proteksi jika user belum punya profil anggota (mencegah error)
+        if (!$profil_anggota) {
+            $data_spp = collect(); // Kirim data kosong agar tidak error di view
+            return view('spp.anggota.index', compact('data_spp'))
+                   ->with('error', 'Profil anggota Anda belum terhubung. Silakan hubungi pengurus.');
+        }
+
+        // 3. Jika aman, ambil ID anggotanya
+        $anggota_id = $profil_anggota->id;
+
+        // 4. Cari tagihan SPP
+        $data_spp = Spp::where('anggota_id', $anggota_id)
+                       ->orderBy('tahun', 'desc')
+                       ->orderBy('bulan', 'desc')
+                       ->get();
+
+        return view('spp.anggota.index', compact('data_spp'));
+    }
+    // 2. Menampilkan form upload bukti transfer
+    // public function formBayarAnggota($id)
+    // {
+    //     $spp = Spp::findOrFail($id);
+
+    //     // Keamanan: Pastikan yang diakses adalah tagihannya sendiri
+    //     if ($spp->anggota_id != auth()->user()->anggota_id) {
+    //         abort(403, 'Akses ditolak.');
+    //     }
+
+    //     return view('spp.anggota.bayar', compact('spp'));
+    // }
+    public function formBayarAnggota($id)
+    {
+        $spp = Spp::findOrFail($id);
+        $profil_anggota = auth()->user()->anggota;
+
+        // Proteksi 1: Pastikan user punya profil anggota
+        if (!$profil_anggota) {
+            abort(403, 'Profil anggota belum terhubung.');
+        }
+
+        // Proteksi 2: Pastikan yang diakses adalah tagihannya sendiri
+        if ($spp->anggota_id != $profil_anggota->id) {
+            abort(403, 'Akses ditolak. Ini bukan tagihan Anda.');
+        }
+
+        return view('spp.anggota.bayar', compact('spp'));
+    }
+
+    // 3. Memproses upload gambar bukti TF
+    public function prosesBayarAnggota(Request $request, $id)
+    {
+        $request->validate([
+            'bukti_pembayaran' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Maksimal 2MB
+        ], [
+            'bukti_pembayaran.required' => 'Bukti transfer wajib diunggah.',
+            'bukti_pembayaran.image' => 'File harus berupa gambar.',
+        ]);
+
+        $spp = Spp::findOrFail($id);
+
+        if ($request->hasFile('bukti_pembayaran')) {
+            $file = $request->file('bukti_pembayaran');
+            // Membuat nama file unik
+            $nama_file = time() . "_" . $file->getClientOriginalName();
+
+            // Pindahkan gambar ke folder public/uploads/bukti_spp
+            $file->move(public_path('uploads/bukti_spp'), $nama_file);
+
+            // Update status menjadi pending dan simpan nama file
+            $spp->update([
+                'bukti_pembayaran' => $nama_file,
+                'status' => 'pending',
+                'tanggal_bayar' => now(), // Mencatat waktu upload
+            ]);
+
+            return redirect()->route('spp.anggota.index')->with('success', 'Bukti pembayaran berhasil diunggah! Menunggu konfirmasi pengurus.');
+        }
+
+        return redirect()->back()->with('error', 'Gagal mengunggah bukti pembayaran.');
     }
 }

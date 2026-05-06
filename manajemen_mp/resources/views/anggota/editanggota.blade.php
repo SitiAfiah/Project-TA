@@ -1,14 +1,22 @@
 @extends('layout.app')
 
 @section('content')
+@php
+    // Ambil nama role user yang login saat ini
+    $userRole = auth()->user()->role->nama_role ?? 'Anggota';
+@endphp
+
 <div class="container-fluid py-4">
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <div class="alert alert-danger border-0 shadow-sm mb-4" style="border-radius: 15px;">
+            <div class="d-flex">
+                <i class="icon-alert-circle me-2 mt-1"></i>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li class="small">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
     @endif
 
@@ -43,6 +51,11 @@
                                 <label class="form-label fw-bold">Role / Hak Akses</label>
                                 <select name="role_id" class="form-select" required>
                                     @foreach($data_role as $role)
+                                        {{-- LOGIKA PENGAMANAN ROLE --}}
+                                        @if($userRole != 'Pengurus' && strtolower($role->nama_role) != 'anggota')
+                                            @continue
+                                        @endif
+
                                         <option value="{{ $role->id }}" {{ $anggota->role_id == $role->id ? 'selected' : '' }}>
                                             {{ $role->nama_role }}
                                         </option>
@@ -81,9 +94,17 @@
                                 <label class="form-label fw-bold">Jabatan Khusus</label>
                                 <select name="jabatan" id="jabatanSelect" class="form-select border-primary" onchange="toggleSKFields()" required>
                                     <option value="anggota" {{ $anggota->jabatan == 'anggota' ? 'selected' : '' }}>Anggota</option>
-                                    <option value="pelatih" {{ $anggota->jabatan == 'pelatih' ? 'selected' : '' }}>Pelatih</option>
-                                    <option value="pengurus" {{ $anggota->jabatan == 'pengurus' ? 'selected' : '' }}>Pengurus</option>
+
+                                    {{-- HANYA PENGURUS YANG BISA JADIKAN PELATIH/PENGURUS --}}
+                                    @if($userRole == 'Pengurus')
+                                        <option value="pelatih" {{ $anggota->jabatan == 'pelatih' ? 'selected' : '' }}>Pelatih</option>
+                                        <option value="pengurus" {{ $anggota->jabatan == 'pengurus' ? 'selected' : '' }}>Pengurus</option>
+                                    @endif
                                 </select>
+
+                                @if($userRole != 'Pengurus')
+                                    <small class="text-info mt-1 d-block"><i class="icon-info me-1"></i>Anda hanya dapat mengubah data Anggota biasa.</small>
+                                @endif
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label fw-bold">Tingkatan</label>
@@ -97,6 +118,8 @@
                                 </select>
                             </div>
 
+                            {{-- BOX SK HANYA DIBUKA UNTUK PENGURUS --}}
+                            @if($userRole == 'Pengurus')
                             <div id="boxSK" class="col-12 mt-3 p-4 bg-light rounded-4 border border-dashed border-danger" style="display: none;">
                                 <h6 class="text-danger fw-bold mb-3">Data Legalitas SK</h6>
                                 <div class="row g-3">
@@ -113,11 +136,12 @@
                                         <input type="date" name="masa_berlaku" class="form-control" value="{{ $anggota->masa_berlaku }}">
                                     </div>
                                     <div class="col-md-3">
-                                        <label class="form-label small fw-bold">Upload Scan SK</label>
+                                        <label class="form-label small fw-bold">Upload Scan SK (Gambar)</label>
                                         <input type="file" name="foto_sk" class="form-control">
                                     </div>
                                 </div>
                             </div>
+                            @endif
 
                             <div class="col-md-12 mt-3">
                                 <label class="form-label fw-bold">Asal Kolat</label>
@@ -134,8 +158,8 @@
 
                     <div class="card-footer bg-light border-0 p-4" style="border-radius: 0 0 20px 20px;">
                         <div class="d-flex justify-content-end gap-3">
-                            <a href="{{ route('anggota.anggota') }}" class="btn btn-outline-secondary px-4 fw-bold">Batal</a>
-                            <button type="submit" class="btn btn-primary px-5 fw-bold shadow">Simpan Perubahan</button>
+                            <a href="{{ route('anggota.anggota') }}" class="btn btn-outline-secondary px-4 fw-bold btn-cancel">Batal</a>
+                            <button type="submit" class="btn btn-primary px-5 fw-bold btn-save shadow">Simpan Perubahan</button>
                         </div>
                     </div>
                 </div>
@@ -146,10 +170,37 @@
 
 <script>
     function toggleSKFields() {
-        const jabatan = document.getElementById('jabatanSelect').value;
+        const jabatanSelect = document.getElementById('jabatanSelect');
         const boxSK = document.getElementById('boxSK');
-        boxSK.style.display = (jabatan === 'pelatih' || jabatan === 'pengurus') ? 'block' : 'none';
+
+        
+        if (boxSK && jabatanSelect) {
+            const jabatan = jabatanSelect.value;
+            boxSK.style.display = (jabatan === 'pelatih' || jabatan === 'pengurus') ? 'block' : 'none';
+        }
     }
     document.addEventListener("DOMContentLoaded", toggleSKFields);
 </script>
+
+<style>
+    .form-control, .form-select {
+        border-radius: 10px;
+        padding: 10px 15px;
+        border: 1px solid #dce1e7;
+    }
+    .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+    }
+    .btn-save {
+        border-radius: 12px;
+        background: linear-gradient(45deg, #0d6efd, #004dc0);
+        border: none;
+        color: white;
+    }
+    .btn-cancel {
+        border-radius: 12px;
+    }
+    .bg-light { background-color: #f8f9fa !important; }
+</style>
 @endsection
