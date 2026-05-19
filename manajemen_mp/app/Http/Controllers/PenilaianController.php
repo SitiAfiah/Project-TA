@@ -12,7 +12,10 @@ class PenilaianController extends Controller
 {
     public function index()
     {
-        $data_pelatih = Anggota::where('jabatan', 'Pelatih')
+       // Mencari anggota berdasarkan relasi 'role' yang bernama 'Pelatih'
+        $data_pelatih = Anggota::whereHas('role', function ($query) {
+                            $query->where('nama_role', 'Pelatih');
+                        })
                         ->with('kolat')
                         ->get();
 
@@ -108,6 +111,18 @@ public function exportPdf($id)
 
         // 5. Download file PDF
         return $pdf->download('Laporan-Performa-' . $pelatih->nama_lengkap . '.pdf');
+    }
+
+    public function indexAnggota()
+    {
+        // Ubah juga bagian ini menggunakan whereHas
+        $data_pelatih = Anggota::whereHas('role', function ($query) {
+                            $query->where('nama_role', 'Pelatih');
+                        })
+                        ->with('kolat')
+                        ->get();
+
+        return view('penilaian.anggota_index', compact('data_pelatih'));
     }
 
 }

@@ -55,7 +55,7 @@
                                                 <div class="fw-bold text-dark">Kolat {{ $item->nama_kolat }}</div>
                                                 <small class="text-muted d-block">Pusat Latihan Unit</small>
                                             </td>
-                                            <td class="text-start">
+                                            <td class="text-center">
                                                 <span class="text-muted small">
                                                     <i class="bi bi-geo-alt me-1"></i> {{ $item->alamat_kolat ?? 'Alamat belum diatur' }}
                                                 </span>
@@ -65,7 +65,7 @@
                                                     <!-- Edit Button -->
                                                     <a href="{{ route('kolat.edit', $item->id) }}"
                                                         class="btn btn-sm btn-action-edit fw-bold px-3 shadow-xs">
-                                                        <i class="bi bi-pencil-square"></i> Edit
+                                                        <i class="bi bi-pencil-square"></i>
                                                     </a>
 
                                                     <!-- Delete Button dengan SweetAlert -->
@@ -73,7 +73,7 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" onclick="confirmDelete({{ $item->id }})" class="btn btn-sm btn-action-delete fw-bold px-3 shadow-xs">
-                                                            <i class="bi bi-trash"></i> Hapus
+                                                            <i class="bi bi-trash"></i>
                                                         </button>
                                                     </form>
                                                 </div>

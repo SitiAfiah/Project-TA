@@ -21,6 +21,28 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+
+                // Ambil data user yang sedang login
+                $user = Auth::guard($guard)->user();
+                $roleName = null;
+
+                // Cek nama role sesuai struktur relasi TapakMP
+                if ($user->role) {
+                    $roleName = $user->role->nama_role;
+                } elseif ($user->anggota && $user->anggota->role) {
+                    $roleName = $user->anggota->role->nama_role;
+                }
+
+                // Arahkan ke dashboard yang sesuai
+                if ($roleName === 'Anggota') {
+                    return redirect()->route('anggota.dashboard');
+                }
+
+                if ($roleName === 'Pelatih' || $roleName === 'Pengurus') {
+                    return redirect()->route('dashboard');
+                }
+
+                // Default bawaan Laravel jika role tidak terdefinisi
                 return redirect(RouteServiceProvider::HOME);
             }
         }

@@ -116,9 +116,9 @@
                     <thead>
                         <tr>
                             <th width="50" class="text-center">No</th>
-                            <th>Identitas Anggota</th>
+                            <th class="text-center">Identitas Anggota</th>
                             <th class="text-center">Periode Tagihan</th>
-                            <th class="text-end">Nominal (Rp)</th>
+                            <th class="text-center">Nominal (Rp)</th>
                             <th class="text-center">Status</th>
                         </tr>
                     </thead>
@@ -127,13 +127,13 @@
                         <tr>
                             <td class="text-muted small text-center">{{ $no + 1 }}</td>
                             <td>
-                                <div class="fw-bold text-dark text-start">{{ $spp->anggota->nama_lengkap ?? '-' }}</div>
-                                <small class="text-muted text-start d-block mt-1" style="font-size: 11px;">Kolat: {{ $spp->kolat->nama_kolat ?? '-' }}</small>
+                                <div class="fw-bold text-dark text-center">{{ $spp->anggota->nama_lengkap ?? '-' }}</div>
+                                <small class="text-muted text-center d-block mt-1" style="font-size: 11px;">Kolat: {{ $spp->kolat->nama_kolat ?? '-' }}</small>
                             </td>
                             <td class="text-center">
                                 <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">{{ $spp->bulan }} {{ $spp->tahun }}</span>
                             </td>
-                            <td class="text-end fw-bold text-dark">
+                            <td class="text-center fw-bold text-dark">
                                 {{ number_format($spp->nominal, 0, ',', '.') }}
                             </td>
                             <td class="text-center">

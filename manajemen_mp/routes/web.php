@@ -7,6 +7,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\KasController;
 use App\Http\Controllers\KolatController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\MemberDashboardController;
 use App\Http\Controllers\PelatihController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PresensiController;
@@ -44,12 +45,18 @@ Route::middleware('guest')->group(function () {
 // =======================================================
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+
+
 
     // =======================================================
     // 1. BLOK KHUSUS ANGGOTA
     // =======================================================
     Route::middleware('checkrole:Anggota')->group(function () {
+        Route::get('/dashboard/anggota', [MemberDashboardController::class, 'index'])->name('anggota.dashboard');
         // SPP Anggota (Upload Bukti)
         Route::prefix('anggota/spp')->name('spp.anggota.')->group(function () {
             Route::get('/', [SppController::class, 'indexAnggota'])->name('index');
@@ -66,6 +73,7 @@ Route::middleware('auth')->group(function () {
         });
 
         // Penilaian (Anggota mengisi nilai)
+        Route::get('/penilaian/anggota', [PenilaianController::class, 'indexAnggota'])->name('penilaian.anggota_index');
         Route::get('/penilaian/create/{id}', [PenilaianController::class, 'create'])->name('penilaian.create');
         Route::post('/penilaian/store', [PenilaianController::class, 'store'])->name('penilaian.store');
     });
@@ -74,6 +82,8 @@ Route::middleware('auth')->group(function () {
     // 2. BLOK KHUSUS PENGURUS & PELATIH (Bisa Akses Bersama)
     // =======================================================
     Route::middleware('checkrole:Pengurus,Pelatih')->group(function () {
+
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         // Lihat Master Data Dasar
         Route::get('/anggota', [AnggotaController::class, 'anggota'])->name('anggota.anggota');
         Route::get('/anggota/tambah', [AnggotaController::class, 'create'])->name('anggota.create');
@@ -119,7 +129,7 @@ Route::middleware('auth')->group(function () {
     // 3. BLOK KHUSUS PENGURUS SAJA (Akses Tertinggi)
     // =======================================================
     Route::middleware('checkrole:Pengurus')->group(function () {
-        // Aksi CRUD Anggota
+    // Aksi CRUD Anggota
 
         Route::get('/anggota/export/excel ', [AnggotaController::class, 'exportExcel'])->name('anggota.export.excel');
         Route::get('/anggota/export/pdf', [AnggotaController::class, 'exportPdf'])->name('anggota.export.pdf');
@@ -171,9 +181,6 @@ Route::middleware('auth')->group(function () {
 
     });
 
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 
 });
 

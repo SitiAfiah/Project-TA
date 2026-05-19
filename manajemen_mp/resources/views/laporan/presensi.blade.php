@@ -3,13 +3,13 @@
 @section('content')
 <div class="container-fluid py-4 text-start">
     <div class="page-header mb-4">
-        <nav aria-label="breadcrumb">
+        {{-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-2">
                 <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none small">Laporan</a></li>
                 <li class="breadcrumb-item active text-primary fw-bold small" aria-current="page">Laporan Presensi</li>
             </ol>
-        </nav>
+        </nav> --}}
         <h3 class="fw-bold text-dark">Laporan Kehadiran Latihan</h3>
         <p class="text-muted small">Rekapitulasi absensi anggota untuk bahan evaluasi rapat tahunan.</p>
     </div>
@@ -73,18 +73,18 @@
             <div class="table-responsive">
                 <table class="table table-hover align-middle main-table">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th width="50">No</th>
                             <th>Anggota</th>
                             <th>Jadwal & Kolat</th>
-                            <th class="text-center">Status</th>
+                            <th>Status</th>
                             <th>Verifikator</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($data_presensi as $no => $p)
-                        <tr>
-                            <td class="text-center text-muted small">{{ $no + 1 }}</td>
+                        <tr class="text-center">
+                            <td class=" text-muted small">{{ $no + 1 }}</td>
                             <td>
                                 <div class="fw-bold text-dark">{{ $p->anggota->nama_lengkap ?? '-' }}</div>
                                 <small class="text-muted">Waktu: {{ $p->waktu_presensi ? \Carbon\Carbon::parse($p->waktu_presensi)->format('H:i') : '-' }} WIB</small>
@@ -93,7 +93,7 @@
                                 <div class="fw-medium text-dark">{{ \Carbon\Carbon::parse($p->jadwal->tanggal)->format('d M Y') }}</div>
                                 <div class="small text-muted">Kolat: {{ $p->jadwal->kolat->nama_kolat ?? '-' }}</div>
                             </td>
-                            <td class="text-center">
+                            <td>
                                 @php
                                     $color = ['Hadir'=>'success', 'Izin'=>'info', 'Sakit'=>'warning', 'Alfa'=>'danger'][$p->status] ?? 'secondary';
                                 @endphp

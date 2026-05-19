@@ -3,12 +3,12 @@
 @section('content')
 <div class="container-fluid py-4">
     <div class="page-header mb-4 text-start">
-        <nav aria-label="breadcrumb">
+        {{-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-2">
                 <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item active text-primary fw-bold small" aria-current="page">Rekap Kelayakan</li>
             </ol>
-        </nav>
+        </nav> --}}
         <h3 class="fw-bold text-dark">Rekap Kelayakan Anggota</h3>
         <p class="text-muted small">Penentuan kelayakan ujian berdasarkan presensi dan administrasi SPP.</p>
     </div>
@@ -55,12 +55,12 @@
             <div class="table-responsive">
                 <table class="table table-hover align-middle main-table">
                     <thead>
-                        <tr>
-                            <th width="60" class="text-center">No</th>
+                        <tr class="text-center">
+                            <th width="60">No</th>
                             <th>Identitas</th>
-                            <th class="text-center">Presensi</th>
-                            <th class="text-center">Status SPP</th>
-                            <th class="text-center">Kelayakan Ujian</th>
+                            <th>Presensi</th>
+                            <th>Status SPP</th>
+                            <th>Kelayakan Ujian</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,8 +68,8 @@
                         <tr>
                             <td class="text-muted small text-center">{{ $no + 1 }}</td>
                             <td>
-                                <div class="fw-bold text-dark text-start ps-3">{{ $item['nama'] }}</div>
-                                <small class="text-muted text-start ps-3 d-block">Tingkat: {{ $item['tingkatan'] }}</small>
+                                <div class="fw-bold text-dark ps-3 text-center">{{ $item['nama'] }}</div>
+                                <small class="text-muted text-center ps-3 d-block">Tingkat: {{ $item['tingkatan'] }}</small>
                             </td>
                             <td class="text-center">
                                 <span class="fw-bold {{ $item['persentase_presensi'] >= 75 ? 'text-primary' : 'text-warning' }}">

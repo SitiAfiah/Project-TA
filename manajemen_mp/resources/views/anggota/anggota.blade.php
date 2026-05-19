@@ -57,7 +57,7 @@
                         <div class="table-responsive">
                             <table class="table table-hover align-middle main-table">
                                 <thead>
-                                    <tr>
+                                    <tr class="text-center">
                                         <th width="60">No</th>
                                         <th>Identitas Anggota</th>
                                         <th>Email</th>
@@ -109,12 +109,12 @@
                                                     <button class="btn btn-sm btn-action-detail fw-bold px-3 shadow-xs"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#modalDetail{{ $item->id }}">
-                                                        <i class="icon-eye"></i> Detail
+                                                        <i class="bi bi-eye"></i>
                                                     </button>
 
                                                     <a href="{{ route('anggota.edit', $item->id) }}"
                                                         class="btn btn-sm btn-action-edit fw-bold px-3 shadow-xs">
-                                                        <i class="icon-pencil"></i> Edit
+                                                        <i class="bi bi-pencil"></i>
                                                     </a>
                                                 </div>
                                             </td>
@@ -303,11 +303,11 @@
 
         .btn-action-edit {
             background-color: #fff8e6;
-            color: #f59e0b;
-            border: 1px solid #ffecb3;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
+             color: #f59e0b;
+             border: 1px solid #ffecb3;
+             border-radius: 10px;
+             transition: 0.3s;
+            }
 
         .btn-action-edit:hover {
             background-color: #f59e0b !important;

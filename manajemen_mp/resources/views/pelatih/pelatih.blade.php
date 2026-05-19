@@ -81,9 +81,9 @@
                                             @if($userRole == 'Pengurus')
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center gap-2">
-                                                    <a href="{{ route('pelatih.edit', $item->id) }}"
-                                                        class="btn btn-sm btn-action-edit fw-bold px-3 shadow-xs">
-                                                        <i class="icon-pencil"></i> Edit SK
+                                                     <a href="{{ route('pelatih.edit', $item->id) }}"
+                                                        class="btn btn-sm btn-action-edit fw-bold px-2 shadow-xs">
+                                                        <i class="bi bi-pencil"></i> 
                                                     </a>
                                                 </div>
                                             </td>

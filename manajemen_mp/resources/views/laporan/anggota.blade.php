@@ -3,13 +3,13 @@
 @section('content')
 <div class="container-fluid py-4">
     <div class="page-header mb-4 text-start">
-        <nav aria-label="breadcrumb">
+        {{-- <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-2">
                 <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none small">Laporan</a></li>
                 <li class="breadcrumb-item active text-primary fw-bold small" aria-current="page">Laporan Anggota</li>
             </ol>
-        </nav>
+        </nav> --}}
         <h3 class="fw-bold text-dark">Laporan Keanggotaan</h3>
         <p class="text-muted small">Rekapitulasi dan filter data anggota Merpati Putih Cabang Jember.</p>
     </div>
@@ -66,7 +66,7 @@
                     <thead>
                         <tr>
                             <th width="60" class="text-center">No</th>
-                            <th>Identitas Anggota</th>
+                            <th class="text-center">Identitas Anggota</th>
                             <th class="text-center">Tingkatan & Kolat</th>
                             <th class="text-center">Status</th>
                         </tr>
@@ -76,8 +76,8 @@
                         <tr>
                             <td class="text-muted small text-center">{{ $no + 1 }}</td>
                             <td>
-                                <div class="fw-bold text-dark text-start ps-3">{{ $item->nama_lengkap }}</div>
-                                <small class="text-muted text-start ps-3 d-block">ID: {{ $item->no_induk }}</small>
+                                <div class="fw-bold text-dark text-start ps-3 text-center">{{ $item->nama_lengkap }}</div>
+                                <small class="text-muted text-start ps-3 d-block text-center">ID: {{ $item->no_induk }}</small>
                             </td>
                             <td class="text-center">
                                 <span class="badge bg-info-soft text-info px-3 py-2 rounded-pill">{{ $item->tingkatan }}</span>

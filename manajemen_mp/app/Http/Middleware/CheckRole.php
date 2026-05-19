@@ -16,19 +16,32 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
+        // 1. Pastikan user sudah login
         if (!Auth::check()) {
-            return redirect('login');
+            return redirect()->route('login');
         }
 
-        // 2. Ambil nama role user yang sedang login (lewat relasi yang kita buat kemarin)
-        $userRole = Auth::user()->role->nama_role;
+        $user = Auth::user();
+        $namaRole = null;
 
-        // 3. Cek apakah role user ada di dalam daftar role yang diperbolehkan?
-        if (in_array($userRole, $roles)) {
+        // 2. Ambil nama_role dari relasi.
+        if ($user->role) {
+            $namaRole = $user->role->nama_role;
+        } elseif ($user->anggota && $user->anggota->role) {
+            $namaRole = $user->anggota->role->nama_role;
+        }
+
+        // ==========================================
+        // LETAKKAN KODE DD DI SINI (UNTUK DEBUGGING)
+        // ==========================================
+        // dd('Role di DB: ' . $namaRole, 'Role di Rute: ', $roles);
+
+        // 3. Cek apakah nama_role user ada di dalam daftar role
+        if (in_array($namaRole, $roles)) {
             return $next($request);
         }
 
-        // 4. Kalau nggak cocok, lempar ke halaman 403 (Forbidden)
+        // 4. Jika role tidak cocok, tolak akses
         abort(403, 'Akses Ditolak. Anda tidak memiliki wewenang untuk mengakses halaman ini.');
     }
 }

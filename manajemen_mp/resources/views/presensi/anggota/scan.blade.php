@@ -31,7 +31,7 @@
             </div>
 
             {{-- Form Tersembunyi untuk Submit Data --}}
-            <form id="form-scan" action="{{ route('presensi.storeMandiri') }}" method="POST" style="display: none;">
+            <form id="form-scan" action="{{ route('presensi.anggota.storeMandiri') }}" method="POST" style="display: none;">
                 @csrf
                 <input type="hidden" name="jadwal_id" id="jadwal_id_input">
             </form>

@@ -3,12 +3,12 @@
 @section('content')
     <div class="container-fluid py-4">
         <div class="page-header mb-4 text-start">
-            <nav aria-label="breadcrumb">
+            {{-- <nav aria-label="breadcrumb">
                 <ol class="breadcrumb bg-transparent p-0 mb-2">
                     <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none small">Home</a></li>
                     <li class="breadcrumb-item active text-primary fw-bold small" aria-current="page">Penilaian Pelatih</li>
                 </ol>
-            </nav>
+            </nav> --}}
             <h3 class="fw-bold text-dark">SDM Merpati Putih</h3>
         </div>
 

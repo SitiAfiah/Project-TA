@@ -26,31 +26,48 @@ class AuthController extends Controller
      * Proses Login
      */
     public function login(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
 
-            // Proteksi Status: Jika belum diaktifkan admin, tidak boleh masuk
-            if ($user->anggota && $user->anggota->status !== 'Aktif') {
-                Auth::logout();
-                return back()->with('error', 'Akun Anda sedang dalam tahap verifikasi admin. Mohon tunggu.');
-            }
-
-            $request->session()->regenerate();
-
-            // Redirect sesuai role jika diperlukan, atau ke dashboard utama
-            return redirect()->intended('/dashboard')->with('success', 'Selamat datang kembali!');
+        // 1. Proteksi Status: Jika belum diaktifkan admin, tidak boleh masuk
+        if ($user->anggota && $user->anggota->status !== 'Aktif') {
+            Auth::logout();
+            return back()->with('error', 'Akun Anda sedang dalam tahap verifikasi admin. Mohon tunggu.');
         }
 
-        return back()->withErrors([
-            'email' => 'Email atau password yang Anda masukkan salah.',
-        ])->onlyInput('email');
+        $request->session()->regenerate();
+
+        // 2. Ambil Nama Role (samakan logikanya dengan Middleware)
+        $roleName = null;
+        if ($user->role) {
+            $roleName = $user->role->nama_role;
+        } elseif ($user->anggota && $user->anggota->role) {
+            $roleName = $user->anggota->role->nama_role;
+        }
+
+        // 3. Logika Pengarahan (Redirect) berdasarkan String Role
+        if ($roleName === 'Anggota') {
+            return redirect()->route('anggota.dashboard')->with('success', 'Selamat datang, Anggota!');
+        }
+
+        if ($roleName === 'Pelatih' || $roleName === 'Pengurus') {
+            return redirect()->route('dashboard')->with('success', 'Selamat datang, Pelatih/Pengurus!');
+        }
+
+        // Default redirect jika entah kenapa role kosong
+        return redirect()->intended('/dashboard');
     }
+
+    return back()->withErrors([
+        'email' => 'Email atau password yang Anda masukkan salah.',
+    ])->onlyInput('email');
+}
 
     /**
      * Menampilkan Halaman Register

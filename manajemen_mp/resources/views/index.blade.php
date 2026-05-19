@@ -9,7 +9,7 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+  <link href="{{ asset('assets/img/logo1.jpg') }}" rel="icon">
   <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
   <!-- Fonts -->
@@ -47,9 +47,9 @@
           <i class="bi bi-phone d-flex align-items-center ms-4"><span>081776198245</span></i>
         </div>
         <div class="social-links d-none d-md-flex align-items-center">
-          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          <a href="https://www.facebook.com/share/1ATYmi4SUw/" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/mpcabangjember?igsh=cnA1andsNno4NXUx" class="instagram"><i class="bi bi-instagram"></i></a>
+          {{-- <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a> --}}
         </div>
       </div>
     </div><!-- End Top Bar -->
@@ -65,11 +65,11 @@
 
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">Tentang</a></li>
-            <li><a href="services.html">Fitur Utama</a></li>
-            <li><a href="projects.html">Panduan</a></li>
-            <li><a href="contact.html">Kontak</a></li>
+            <li><a href="#hero" class="active">Home</a></li>
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#services">Fitur Utama</a></li>
+            <li><a href="#call-to-action">Kontak</a></li>
+
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
@@ -95,8 +95,7 @@
               <p>Membangun organisasi yang lebih tertib, transparan, dan terintegrasi melalui TapakMP.</p>
 
               <div class="hero-buttons">
-                <a href="#" class="btn-primary">Masuk Sistem</a>
-                <a href="#" class="btn-secondary">Jadwal Latihan</a>
+                <a href="{{ route('login') }}" class="btn-primary">Masuk Sistem</a>
               </div>
 
               <div class="trust-badges">
@@ -174,23 +173,14 @@
                   </div>
                 </div>
               </div>
-
-
-              <div class="cta-container mt-5" data-aos="fade-up" data-aos-delay="800">
-                <a href="about.html" class="btn btn-primary">Akses Ruang Anggota</a>
-              </div>
             </div>
           </div>
 
           <div class="col-lg-6">
             <div class="about-image position-relative" data-aos="fade-left" data-aos-delay="200">
-              <img src="{{ asset('assets/img/construction/project-3.webp') }}" alt="Construction Team" class="img-fluid main-image rounded">
+              <img src="{{ asset('assets/img/construction/gambar3.jpeg') }}" alt="Construction Team" class="img-fluid main-image rounded">
               <div class="image-overlay">
-                <img src="{{ asset('assets/img/construction/project-7.webp') }}" alt="Construction Project" class="img-fluid rounded">
-              </div>
-              <div class="experience-badge" data-aos="zoom-in" data-aos-delay="500">
-                <span>25+</span>
-                <p>Years of Experience</p>
+                <img src="{{ asset('assets/img/construction/gambar2.jpeg') }}" alt="Construction Project" class="img-fluid rounded">
               </div>
             </div>
           </div>
@@ -284,152 +274,46 @@
     <!-- /Team Section -->
 
     <!-- Call To Action Section -->
-    <section id="call-to-action" class="call-to-action section light-background">
+   <section id="call-to-action" class="call-to-action section light-background">
+  <div class="container" data-aos="fade-up">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
 
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <!-- Badge Status -->
+        <div class="badge-wrapper mb-3">
+          <span class="cta-badge" style="background: rgba(var(--accent-color-rgb), 0.1); padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; color: var(--accent-color);">
+            <i class="bi bi-shield-check"></i> Terintegrasi & Aman Sejak 2026
+          </span>
+        </div>
 
-        <div class="row g-5 align-items-center">
+        <!-- Heading & Deskripsi -->
+        <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 20px;">Siap Melangkah Bersama TapakMP?</h2>
+        <p class="lead mb-4">
+          Pastikan data Anda atau Kelompok Latihan (Kolat) terdata secara resmi di Cabang Jember.
+          Hubungi admin kami untuk bantuan pendaftaran akun baru, kendala akses, atau panduan sistem.
+        </p>
 
-          <div class="col-lg-6">
-            <div class="cta-hero-content" data-aos="fade-right" data-aos-delay="200">
-              <div class="badge-wrapper">
-                <span class="cta-badge">
-                  <i class="bi bi-shield-check"></i>
-                  Terintegrasi & Aman Sejak 2026
-                </span>
-              </div>
+        <!-- Feature Highlights (Inline) -->
+        <div class="d-flex flex-wrap justify-content-center gap-3 mb-5">
+          <div class="highlight-item"><i class="bi bi-check-circle-fill text-success"></i> Akun Anggota</div>
+          <div class="highlight-item"><i class="bi bi-check-circle-fill text-success"></i> Dukungan Teknis</div>
+          <div class="highlight-item"><i class="bi bi-check-circle-fill text-success"></i> Panduan Admin</div>
+        </div>
 
-              <h2>Siap Melangkah Bersama TapakMP?</h2>
-              <p>Pastikan data Anda atau Kelompok Latihan (Kolat)
-                Anda terdata secara resmi di Cabang Jember. Hubungi admin
-                kami jika Anda mengalamikendala akses atau ingin mendaftarkan akun baru.</p>
-
-              <div class="feature-highlights">
-                <div class="highlight-item">
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Bantuan pendaftaran akun anggota baru</span>
-                </div>
-                <div class="highlight-item">
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Dukungan teknis kendala <i>login</i> dan <i>password</i></span>
-                </div>
-                <div class="highlight-item">
-                  <i class="bi bi-check-circle-fill"></i>
-                  <span>Layanan panduan input data keuangan & absensi</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="cta-form-section" data-aos="fade-left" data-aos-delay="300">
-              <div class="form-container">
-                <div class="form-header">
-                  <h3>Hubungi Admin Cabang</h3>
-                  <p>Lengkapi data di bawah untuk bantuan administrasi sistem</p>
-                </div>
-
-                <form action="forms/get-a-quote.php" method="post" class="php-email-form">
-                  <div class="row g-3">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <input type="text" name="name" class="form-control" placeholder="Nama Lengkap" required="">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Alamat Email Aktif" required="">
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="form-group">
-                        <input type="tel" name="phone" class="form-control" placeholder="Nomor WhatsApp" required="">
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="form-group">
-                        <select name="type" class="form-control" required="">
-                          <option value="">Pilih Jenis Bantuan</option>
-                          <option value="residential">Pendaftaran akun baru</option>
-                          <option value="commercial">Masalah Login</option>
-                          <option value="renovation">Laporan Keuangan</option>
-                          <option value="other">Lainnya</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="form-group">
-                        <textarea name="message" class="form-control" rows="4" placeholder="Detail Pesan atau Kendala" required=""></textarea>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Kirim Pesan Sekarang!</div>
-
-                  <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                      <i class="bi bi-send"></i>
-                      Kirim Pesan
-                    </button>
-
-                    <div class="contact-alternative">
-    <span>Atau hubungi kami secara langsung melalui:</span>
-    <a href="https://wa.me/6281617376290" class="phone-link" target="_blank" rel="noopener noreferrer">
-        <i class="bi bi-whatsapp"></i>
-        +62 816-1737-6290
-    </a>
-</div>
-                  </div>
-                </form>
-              </div>
-
-              <div class="trust-indicators" data-aos="fade-up" data-aos-delay="400">
-                <div class="row g-3">
-                  <div class="col-4">
-                    <div class="trust-item">
-                      <div class="trust-icon">
-                        <i class="bi bi-clock"></i>
-                      </div>
-                      <div class="trust-content">
-                        <span class="trust-number">08.00 - 17.00</span>
-                        <span class="trust-label">Respon Admin</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="trust-item">
-                      <div class="trust-icon">
-                        <i class="bi bi-star-fill"></i>
-                      </div>
-                      <div class="trust-content">
-                        <span class="trust-number">4.9</span>
-                        <span class="trust-label">Customer Rating</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="trust-item">
-                      <div class="trust-icon">
-                        <i class="bi bi-hammer"></i>
-                      </div>
-                      <div class="trust-content">
-                        <span class="trust-number">350+</span>
-                        <span class="trust-label">Projects Done</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <!-- Tombol Kontak Utama -->
+        <div class="cta-actions">
+          <a href="https://wa.me/6281617376290" class="btn btn-primary btn-lg px-5 py-3 shadow-sm" target="_blank" rel="noopener noreferrer" style="border-radius: 50px; font-weight: 600;">
+            <i class="bi bi-whatsapp me-2"></i> Hubungi Admin Melalui WhatsApp
+          </a>
+          <p class="mt-3 text-muted small">
+            <i class="bi bi-clock me-1"></i> Jam Operasional Admin: <strong>08.00 - 17.00 WIB</strong>
+          </p>
         </div>
 
       </div>
-
-    </section><!-- /Call To Action Section -->
+    </div>
+  </div>
+</section><!-- /Call To Action Section -->
 
   </main>
 
@@ -437,66 +321,66 @@
 
     <div class="container footer-top">
       <div class="row gy-4">
+
+        <!-- Bagian Tentang (About) -->
         <div class="col-lg-5 col-md-12 footer-about">
           <a href="index.html" class="logo d-flex align-items-center">
-            <span class="sitename">MyWebsite</span>
+            <span class="sitename">TapakMP</span>
           </a>
-          <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+          <p>Sistem informasi manajemen terpadu PPS Betako Merpati Putih Cabang Jember. Mewujudkan transparansi data anggota, administrasi keuangan, dan absensi dalam satu genggaman.</p>
           <div class="social-links d-flex mt-4">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.instagram.com/mpcabangjember?igsh=cnA1andsNno4NXUx"><i class="bi bi-instagram"></i></a>
+            <a href="https://youtube.com/@ppsbetakomerpatiputihcaban8671?si=7332dwKZXmF5_auT"><i class="bi bi-youtube"></i></a>
+            <a href="https://www.facebook.com/share/1ATYmi4SUw/"><i class="bi bi-facebook"></i></a>
           </div>
         </div>
 
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Useful Links</h4>
+        <!-- Tautan Penting -->
+        {{-- <div class="col-lg-2 col-6 footer-links">
+          <h4>Navigasi</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Tentang Kami</a></li>
+            <li><a href="#">Data Kolat</a></li>
+            <li><a href="#">Jadwal Latihan</a></li>
+            <li><a href="#">Kebijakan Privasi</a></li>
+          </ul>
+        </div> --}}
+
+        <!-- Fitur Sistem -->
+        <div class="col-lg-3 col-3 footer-links">
+          <h4>Fitur Utama</h4>
+          <ul>
+            <li><a href="#">Manajemen Anggota</a></li>
+            <li><a href="#">Iuran SPP & Keuangan</a></li>
+            <li><a href="#">Presensi Digital</a></li>
+            <li><a href="#">Laporan Cabang</a></li>
+            <li><a href="#">Database Pelatih</a></li>
           </ul>
         </div>
 
-        <div class="col-lg-2 col-6 footer-links">
-          <h4>Our Services</h4>
-          <ul>
-            <li><a href="#">Web Design</a></li>
-            <li><a href="#">Web Development</a></li>
-            <li><a href="#">Product Management</a></li>
-            <li><a href="#">Marketing</a></li>
-            <li><a href="#">Graphic Design</a></li>
-          </ul>
-        </div>
-
-        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-          <h4>Contact Us</h4>
-          <p>A108 Adam Street</p>
-          <p>New York, NY 535022</p>
-          <p>United States</p>
-          <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-          <p><strong>Email:</strong> <span>info@example.com</span></p>
+        <!-- Informasi Kontak Cabang -->
+        <div class="col-lg-4 col-md-12 footer-contact text-center text-md-start">
+          <h4>Kontak Cabang</h4>
+          <p>Sekretariat Merpati Putih Jember</p>
+          <p>Jember, Jawa Timur</p>
+          <p>Indonesia</p>
+          <p class="mt-4"><strong>WhatsApp:</strong> <span>+62 816-1737-6290</span></p>
+          <p><strong>Email:</strong> <span>admin@tapakmp.com</span></p>
         </div>
 
       </div>
     </div>
 
+    <!-- Copyright -->
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Constructo</strong> <span>All Rights Reserved</span></p>
+      <p>© 2026 <span>Copyright</span> <strong class="px-1 sitename">TapakMP</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | <a href="https://bootstrapmade.com/tools/">DevTools</a>
+        Dikembangkan oleh <a href="#">Siti</a> | Cabang Jember
       </div>
     </div>
 
-  </footer>
-
+</footer>
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 

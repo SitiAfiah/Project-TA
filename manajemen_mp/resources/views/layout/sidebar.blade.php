@@ -1,6 +1,13 @@
 @php
-    // Ambil nama role user yang login saat ini
-    $userRole = auth()->user()->role->nama_role ?? 'Anggota';
+    // Ambil nama role user dengan logika yang sama persis seperti di Middleware
+    $user = auth()->user();
+    $userRole = null;
+
+    if ($user->role) {
+        $userRole = $user->role->nama_role;
+    } elseif ($user->anggota && $user->anggota->role) {
+        $userRole = $user->anggota->role->nama_role;
+    }
 @endphp
 
 <aside id="sidebar" class="sidebar">
@@ -10,10 +17,19 @@
         {{-- MENU DASHBOARD (Semua Role Bisa Akses)                       --}}
         {{-- ======================================================== --}}
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('dashboard') ? '' : 'collapsed' }}" href="{{ route('dashboard') }}">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
-            </a>
+            @if($userRole === 'Anggota')
+                <!-- Link khusus untuk Anggota -->
+                <a class="nav-link {{ request()->routeIs('anggota.dashboard') ? '' : 'collapsed' }}" href="{{ route('anggota.dashboard') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            @else
+                <!-- Link untuk Pelatih dan Pengurus -->
+                <a class="nav-link {{ request()->routeIs('dashboard') ? '' : 'collapsed' }}" href="{{ route('dashboard') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            @endif
         </li>
 
         {{-- ======================================================== --}}
@@ -66,7 +82,8 @@
                     </li>
                     <!-- Link Penilaian masih manual (sesuaikan id pelatihnya nanti) -->
                     <li>
-                        <a href="#" class="{{ request()->routeIs('penilaian.*') ? 'active' : '' }}">
+                        <!-- href saya ganti '#' sementara, karena anggota belum punya rute index penilaian sendiri -->
+                        <a href="{{ route('penilaian.anggota_index') }}" class="{{ request()->routeIs('penilaian.anggota_index') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Isi Nilai Pelatih</span>
                         </a>
                     </li>
@@ -84,7 +101,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('penilaian.index') }}" class="{{ request()->routeIs('penilaian.*') ? 'active' : '' }}">
+                        <a href="{{ route('penilaian.index') }}" class="{{ request()->routeIs('penilaian.index', 'penilaian.show') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Rekap Penilaian</span>
                         </a>
                     </li>
@@ -134,10 +151,10 @@
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('laporan.*') ? '' : 'collapsed' }}"
                data-bs-target="#laporan-nav" data-bs-toggle="collapse" href="#"
-               aria-expanded="{{ request()->routeIs('laporan.*') ? 'true' : 'false' }}">
+               aria-expanded="{{ request()->routeIs('laporan.*', 'rekap.*') ? 'true' : 'false' }}">
                 <i class="bi bi-file-earmark-bar-graph"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="laporan-nav" class="nav-content collapse {{ request()->routeIs('laporan.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+            <ul id="laporan-nav" class="nav-content collapse {{ request()->routeIs('laporan.*', 'rekap.*') ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
 
                 {{-- Hanya Pengurus --}}
                 @if($userRole == 'Pengurus')
@@ -178,7 +195,7 @@
         {{-- ======================================================== --}}
         {{-- MENU AKUN (Semua Bisa Akses)                                 --}}
         {{-- ======================================================== --}}
-        <li class="nav-heading mt-3">Akun</li>
+        {{-- <li class="nav-heading mt-3">Akun</li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('profile.edit') }}">
                 <i class="bi bi-person"></i><span>Profile Saya</span>
@@ -189,6 +206,6 @@
             <a class="nav-link collapsed text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="bi bi-box-arrow-right"></i><span>Logout</span>
             </a>
-        </li>
+        </li> --}}
     </ul>
 </aside>

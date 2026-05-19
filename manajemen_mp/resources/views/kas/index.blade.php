@@ -232,13 +232,13 @@
                                             <div class="d-flex justify-content-center gap-2">
                                                 <!-- Button Edit -->
                                                 <button type="button" class="btn-action-custom btn-edit" data-bs-toggle="modal" data-bs-target="#modalEditKas{{ $item->id }}">
-                                                    <i class="icon-note"></i>
+                                                    <i class="bi bi-pencil"></i>
                                                 </button>
                                                 <!-- Form Hapus -->
                                                 <form action="{{ route('kas.destroy', $item->id) }}" method="POST" id="form-hapus-{{ $item->id }}">
                                                     @csrf @method('DELETE')
                                                     <button type="button" class="btn-action-custom btn-delete" onclick="hapusKas('{{ $item->id }}')">
-                                                        <i class="icon-trash"></i>
+                                                        <i class="bi bi-trash"></i>
                                                     </button>
                                                 </form>
                                             </div>

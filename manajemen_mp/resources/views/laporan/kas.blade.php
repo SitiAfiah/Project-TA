@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="container-fluid py-4 text-start">
-    <div class="page-header mb-4">
+    {{-- <div class="page-header mb-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-2">
                 <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none small">Home</a></li>
                 <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none small">Laporan</a></li>
                 <li class="breadcrumb-item active text-primary fw-bold small" aria-current="page">Laporan Kas</li>
             </ol>
-        </nav>
+        </nav> --}}
         <h3 class="fw-bold text-dark">Laporan Keuangan (Kas)</h3>
         <p class="text-muted small">Rekapitulasi dan filter arus kas masuk dan keluar organisasi.</p>
     </div>
@@ -54,13 +54,13 @@
             <div class="table-responsive">
                 <table class="table table-hover align-middle main-table">
                     <thead>
-                        <tr>
-                            <th width="50" class="text-center">No</th>
+                        <tr class="text-center">
+                            <th width="50">No</th>
                             <th width="130">Tanggal</th>
                             <th>Kategori & Keterangan</th>
-                            <th class="text-end">Masuk (Rp)</th>
-                            <th class="text-end">Keluar (Rp)</th>
-                            <th class="text-end">Saldo Akhir</th>
+                            <th>Masuk (Rp)</th>
+                            <th>Keluar (Rp)</th>
+                            <th>Saldo Akhir</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -68,21 +68,21 @@
                         <tr>
                             <td class="text-muted small text-center">{{ $no + 1 }}</td>
                             <td>
-                                <div class="fw-bold text-dark">{{ \Carbon\Carbon::parse($kas->tanggal)->format('d M Y') }}</div>
+                                <div class="fw-bold text-dark text-center">{{ \Carbon\Carbon::parse($kas->tanggal)->format('d M Y') }}</div>
                             </td>
-                            <td>
+                            <td class="text-center">
                                 <span class="badge {{ $kas->jenis == 'masuk' ? 'bg-success-soft text-success border-success' : 'bg-danger-soft text-danger border-danger' }} border px-3 py-1 mb-1 rounded-pill" style="font-size: 10px;">
                                     {{ strtoupper($kas->kategori) }}
                                 </span>
-                                <div class="small text-muted mt-1">{{ $kas->keterangan ?? 'Tanpa keterangan' }}</div>
+                                <div class="small text-muted mt-1 text-center">{{ $kas->keterangan ?? 'Tanpa keterangan' }}</div>
                             </td>
-                            <td class="text-end text-success fw-bold">
+                            <td class="text-end text-success fw-bold text-center">
                                 {{ $kas->jenis == 'masuk' ? '+ ' . number_format($kas->nominal, 0, ',', '.') : '-' }}
                             </td>
-                            <td class="text-end text-danger fw-bold">
+                            <td class="text-end text-danger fw-bold text-center">
                                 {{ $kas->jenis == 'keluar' ? '- ' . number_format($kas->nominal, 0, ',', '.') : '-' }}
                             </td>
-                            <td class="text-end fw-bold text-dark">
+                            <td class="text-end fw-bold text-dark text-center">
                                 {{ number_format($kas->saldo_akhir, 0, ',', '.') }}
                             </td>
                         </tr>

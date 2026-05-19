@@ -30,7 +30,7 @@ class RekapController extends Controller
         $dataRekap = $anggota->map(function ($item) {
             // Logika Presensi
             $totalPertemuan = $item->presensi->count();
-            $hadir = $item->presensi->where('status', 'hadir')->count();
+            $hadir = $item->presensi->where('status', 'Hadir')->count();
             $persentasePresensi = $totalPertemuan > 0 ? ($hadir / $totalPertemuan) * 100 : 0;
 
             // Logika SPP

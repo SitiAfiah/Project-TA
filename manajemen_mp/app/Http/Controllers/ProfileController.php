@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -30,22 +31,42 @@ class ProfileController extends Controller
     {
         $anggota = Auth::user()->anggota;
 
-        // Validasi data yang boleh diubah oleh anggota[cite: 1, 2]
+        // 1. Validasi input, tambahkan validasi untuk foto
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'no_hp'        => 'required|numeric',
             'tempat_lahir' => 'required|string',
             'tgl_lahir'    => 'required|date',
-            'jenis_kelamin'=> 'required|in:L,P',
+            'jenis_kelamin' => 'required|in:L,P',
             'alamat'       => 'required|string',
+            'foto_profil'  => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Maksimal 2MB
         ]);
 
-        // Mengambil data input
+        // 2. Ambil data teks
         $input = $request->only([
-            'nama_lengkap', 'no_hp', 'tempat_lahir', 'tgl_lahir', 'jenis_kelamin', 'alamat'
+            'nama_lengkap',
+            'no_hp',
+            'tempat_lahir',
+            'tgl_lahir',
+            'jenis_kelamin',
+            'alamat'
         ]);
 
-        // Proses update data ke database
+        // 3. Logika Upload Foto
+        if ($request->hasFile('foto_profil')) {
+            // Jika anggota sudah punya foto sebelumnya, hapus file lamanya dari storage
+            if ($anggota->foto_profil && Storage::disk('public')->exists($anggota->foto_profil)) {
+                Storage::disk('public')->delete($anggota->foto_profil);
+            }
+
+            // Simpan foto baru ke folder 'profil_images' di dalam storage/app/public
+            $path = $request->file('foto_profil')->store('profil_images', 'public');
+
+            // Masukkan path foto baru ke dalam array input untuk disimpan ke database
+            $input['foto_profil'] = $path;
+        }
+
+        // 4. Update data ke database
         $anggota->update($input);
 
         // Update nama di tabel users agar sinkron
@@ -53,7 +74,7 @@ class ProfileController extends Controller
             'name' => $request->nama_lengkap
         ]);
 
-        return redirect()->route('profil.edit')->with('success', 'Profil Anda berhasil diperbarui!');
+        return redirect()->route('profile.edit')->with('success', 'Profil Anda berhasil diperbarui!');
     }
 
     /**
