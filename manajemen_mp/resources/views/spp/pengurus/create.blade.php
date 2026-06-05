@@ -13,11 +13,11 @@
             </div>
 
             <!-- Alert Notifikasi -->
-            @if(session('error'))
+            {{-- @if(session('error'))
                 <div class="alert alert-danger border-0 shadow-sm mb-4" style="border-radius: 12px;">
                     {{ session('error') }}
                 </div>
-            @endif
+            @endif --}}
 
             <div class="card border-0 shadow-sm" style="border-radius: 20px;">
                 <div class="card-body p-4">
@@ -106,4 +106,34 @@
         border: 1px solid #0d6efd !important;
     }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+
+        // POP-UP JIKA DATA DUPLIKAT / ERROR
+        @if(session('error'))
+            Swal.fire({
+                title: 'Data Sudah Ada!',
+                text: "{{ session('error') }}",
+                icon: 'warning', // Saya pakai icon warning agar kesannya "peringatan", bukan error sistem rusak
+                confirmButtonColor: '#f59e0b',
+                confirmButtonText: 'Oke, Ganti Data'
+            });
+        @endif
+
+        // POP-UP JIKA BERHASIL SIMPAN MANUAL (Sekalian aja wkwk)
+        @if(session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonColor: '#10b981',
+                confirmButtonText: 'Mantap!'
+            });
+        @endif
+
+    });
+</script>
 @endsection

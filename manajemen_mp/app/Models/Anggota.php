@@ -30,6 +30,19 @@ class Anggota extends Model
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    public function kolatLatihan()
+    {
+        return $this->belongsToMany(Kolat::class, 'kolat_pelatih', 'anggota_id', 'kolat_id');
+    }
+
+    // Scope agar gampang memanggil data yang hanya ber-role Pelatih
+    public function scopeIsPelatih($query)
+    {
+        return $query->whereHas('role', function ($q) {
+            $q->where('nama_role', 'Pelatih');
+        });
+    }
+
     // Relasi: Mendapatkan riwayat kehadiran anggota
 public function riwayatPresensi()
 {

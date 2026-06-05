@@ -56,35 +56,52 @@ class SppController extends Controller
         return view('spp.pengurus.create', compact('data_anggota'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'anggota_id' => 'required|exists:anggotas,id',
-            'bulan' => 'required',
-            'tahun' => 'required',
-            'nominal' => 'required|numeric',
-            'jatuh_tempo' => 'required|date',
-        ]);
+   public function store(Request $request)
+{
+    // 1. Validasi Input
+    $request->validate([
+        'anggota_id' => 'required|exists:anggotas,id',
+        'bulan' => 'required',
+        'tahun' => 'required',
+        'nominal' => 'required|numeric',
+        'jatuh_tempo' => 'required|date',
+    ]);
 
-        try {
-            $anggota = Anggota::findOrFail($request->anggota_id);
+    // 2. PENJAGA: Cek apakah tagihan untuk anggota, bulan, dan tahun tersebut sudah ada
+    $cekDuplikat = Spp::where('anggota_id', $request->anggota_id)
+                      ->where('bulan', $request->bulan)
+                      ->where('tahun', $request->tahun)
+                      ->exists();
 
-            Spp::create([
-                'anggota_id' => $request->anggota_id,
-                'kolat_id' => $anggota->kolat_id,
-                'bulan' => $request->bulan,
-                'tahun' => $request->tahun,
-                'nominal' => $request->nominal,
-                'jatuh_tempo' => $request->jatuh_tempo,
-                'status' => 'belum_bayar',
-            ]);
-
-            return redirect()->route('spp.index')->with('success', 'Tagihan berhasil dibuat!');
-        } catch (\Exception $e) {
-            return redirect()->back()->withInput()->with('error', 'Gagal menyimpan: '.$e->getMessage());
-        }
+    // Jika sudah ada, langsung tendang balik ke form dengan pesan error
+    if ($cekDuplikat) {
+        return redirect()->back()
+                         ->withInput() // withInput menjaga agar form tidak kosong lagi
+                         ->with('error', "Gagal! Tagihan untuk bulan {$request->bulan} {$request->tahun} sudah terdaftar untuk anggota ini.");
     }
 
+    // 3. Proses Penyimpanan (Jika lolos penjagaan)
+    try {
+        $anggota = Anggota::findOrFail($request->anggota_id);
+
+        Spp::create([
+            'anggota_id' => $request->anggota_id,
+            'kolat_id' => $anggota->kolat_id,
+            'bulan' => $request->bulan,
+            'tahun' => $request->tahun,
+            'nominal' => $request->nominal,
+            'jatuh_tempo' => $request->jatuh_tempo,
+            // Catatan Kecil: Pastikan penulisan 'belum_bayar' ini sama persis
+            // dengan filter yang dipakai di Dashboard Anggota ya!
+            'status' => 'pending',
+        ]);
+
+        return redirect()->route('spp.index')->with('success', 'Tagihan manual berhasil dibuat!');
+
+    } catch (\Exception $e) {
+        return redirect()->back()->withInput()->with('error', 'Gagal menyimpan: '.$e->getMessage());
+    }
+}
     public function bayar(Request $request, $id)
     {
         $spp = Spp::with('anggota')->findOrFail($id);
@@ -127,43 +144,57 @@ class SppController extends Controller
         }
     }
 
-    public function generateTagihan(Request $request)
-    {
-        $bulanIni = Carbon::now()->translatedFormat('F');
-        $tahunIni = Carbon::now()->year;
-        $jatuhTempo = Carbon::now()->day(10);
+   public function generateTagihan(Request $request)
+{
+    // PERBAIKAN BHS INDONESIA: Tambahkan ->locale('id') agar outputnya pasti "Juni"
+    $bulanIni = \Carbon\Carbon::now()->locale('id')->translatedFormat('F');
+    $tahunIni = \Carbon\Carbon::now()->year;
 
-        $anggota = Anggota::all();
+    // Sesuaikan format jatuh tempo ke Y-m-d agar aman saat masuk ke database
+    $jatuhTempo = \Carbon\Carbon::now()->day(10)->format('Y-m-d');
 
-        DB::beginTransaction();
-        try {
-            foreach ($anggota as $agt) {
-                $exists = Spp::where('anggota_id', $agt->id)
-                    ->where('bulan', $bulanIni)
-                    ->where('tahun', $tahunIni)
-                    ->exists();
+    // --- 1. PENJAGA: Cek apakah bulan dan tahun ini sudah pernah di-generate ---
+    $cekSudahGenerate = Spp::where('bulan', $bulanIni)
+                           ->where('tahun', $tahunIni)
+                           ->exists();
 
-                if (! $exists) {
-                    Spp::create([
-                        'anggota_id' => $agt->id,
-                        'kolat_id' => $agt->kolat_id,
-                        'bulan' => $bulanIni,
-                        'tahun' => $tahunIni,
-                        'nominal' => 50000,
-                        'jatuh_tempo' => $jatuhTempo,
-                        'status' => 'belum_bayar',
-                    ]);
-                }
-            }
-            DB::commit();
-
-            return redirect()->route('spp.index')->with('success', 'Tagihan berhasil dibuat!');
-        } catch (\Exception $e) {
-            DB::rollback();
-
-            return redirect()->back()->with('error', 'Gagal: '.$e->getMessage());
-        }
+    if ($cekSudahGenerate) {
+        // Jika sudah ada, langsung tolak dan kembalikan ke halaman index dengan pesan warning
+        return redirect()->route('spp.index')->with('warning', "Tagihan SPP bulan {$bulanIni} {$tahunIni} sudah pernah dibuat!");
     }
+    // --------------------------------------------------------------------------
+
+    $anggota = Anggota::where('status', 'Aktif')->get(); // Pastikan hanya menagih yang aktif
+
+    DB::beginTransaction();
+    try {
+        foreach ($anggota as $agt) {
+            // Pengecekan per-user untuk keamanan ekstra
+            $exists = Spp::where('anggota_id', $agt->id)
+                ->where('bulan', $bulanIni)
+                ->where('tahun', $tahunIni)
+                ->exists();
+
+            if (! $exists) {
+                Spp::create([
+                    'anggota_id' => $agt->id,
+                    'kolat_id' => $agt->kolat_id,
+                    'bulan' => $bulanIni,
+                    'tahun' => $tahunIni,
+                    'nominal' => 50000,
+                    'jatuh_tempo' => $jatuhTempo,
+                    'status' => 'belum_bayar', // PERBAIKAN STATUS: Disamakan menjadi 'belum_bayar'
+                ]);
+            }
+        }
+        DB::commit();
+
+        return redirect()->route('spp.index')->with('success', "Tagihan bulan {$bulanIni} berhasil dibuat!");
+    } catch (\Exception $e) {
+        DB::rollback();
+        return redirect()->back()->with('error', 'Gagal: '.$e->getMessage());
+    }
+}
 
     public function exportExcel(Request $request)
     {
