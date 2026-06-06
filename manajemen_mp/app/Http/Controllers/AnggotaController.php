@@ -22,7 +22,9 @@ class AnggotaController extends Controller
         // Filter data: Ambil anggota yang relasi 'role'-nya bernama 'Anggota'
     $data_anggota = Anggota::whereHas('role', function($query) {
         $query->where('nama_role', 'Anggota');
-    })->with(['kolat', 'role'])->get();
+    })->with(['kolat', 'role'])
+    ->latest()
+    ->get();
 
     return view('anggota.anggota', compact('data_anggota'));
     }
