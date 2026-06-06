@@ -100,6 +100,22 @@
   </script>
   @endif
 
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Cari tombol dengan class toggle-sidebar-btn
+        const toggleBtn = document.querySelector('.toggle-sidebar-btn');
+
+        // Pastikan tombolnya ada
+        if (toggleBtn) {
+            // Berikan aksi ketika tombol diklik
+            toggleBtn.addEventListener('click', function(e) {
+                // Tambahkan atau hapus class 'toggle-sidebar' pada tag body
+                document.body.classList.toggle('toggle-sidebar');
+            });
+        }
+    });
+</script>
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
