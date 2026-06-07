@@ -137,7 +137,7 @@
             <div class="card card-custom h-100 border-0">
                 <div class="card-header bg-white border-0 pt-4 pb-0 px-4 d-flex align-items-center justify-content-between">
                     <h5 class="fw-bold text-dark mb-0">Jadwal Latihan Terdekat</h5>
-                    <a href="#" class="btn btn-sm btn-light text-primary fw-semibold rounded-pill px-3">Lihat Semua</a>
+                    <a href="{{ route('presensi.anggota.index') }}" class="btn btn-sm btn-light text-primary fw-semibold rounded-pill px-3">Lihat Semua</a>
                 </div>
                 <div class="card-body px-4 pt-3 pb-4 table-responsive">
                     <table class="table table-modern table-borderless align-middle mb-0">

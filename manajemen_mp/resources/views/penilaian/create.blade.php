@@ -1,218 +1,3 @@
-{{-- @extends('layout.app')
-
-@section('content')
-<div class="container-fluid py-4">
-    <!-- Menggunakan col-12 agar card membentang penuh (Full Width) -->
-    <div class="row">
-        <div class="col-12">
-
-            <!-- Tombol Kembali -->
-            <a href="{{ route('penilaian.anggota_index') }}" class="text-decoration-none text-muted mb-3 d-inline-block">
-                <i class="bi bi-arrow-left me-1"></i> Kembali ke Daftar Pelatih
-            </a>
-
-            <div class="card border-0 shadow-sm form-penilaian-card">
-                <!-- Header Card Friendly -->
-                <div class="card-header text-center border-0 pt-5 pb-4 bg-white" style="border-radius: 20px 20px 0 0;">
-                    <div class="pelatih-avatar mb-3 mx-auto">
-                        @if($pelatih->foto_profil)
-                            <img src="{{ asset('storage/' . $pelatih->foto_profil) }}" alt="Foto">
-                        @else
-                            <i class="bi bi-person-fill"></i>
-                        @endif
-                    </div>
-                    <h4 class="fw-bold mb-1">Nilai Kak <span style="color: var(--accent-color);">{{ $pelatih->nama_lengkap }}</span></h4>
-                    <span class="badge bg-light text-dark px-3 py-2 rounded-pill mt-2">
-                        <i class="bi bi-geo-alt-fill text-danger me-1"></i> Kolat: {{ $pelatih->kolat->nama_kolat ?? '-' }}
-                    </span>
-                    <p class="text-muted small mt-3 px-3 mx-auto" style="max-width: 600px;">
-                        Yuk, berikan penilaian jujurmu untuk evaluasi bulan {{ now()->translatedFormat('F Y') }}. Tenang saja, namamu akan dirahasiakan! 🤫
-                    </p>
-                </div>
-
-                <div class="card-body p-4 p-lg-5 pt-2">
-                    <form action="{{ route('penilaian.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="pelatih_id" value="{{ $pelatih->id }}">
-
-                        @php
-                            $kriterias = [
-                                'metode_pelatihan' => 'Cara Menyampaikan Materi',
-                                'komunikasi' => 'Cara Berkomunikasi dengan Anggota',
-                                'sikap_kepribadian' => 'Sikap & Kedisiplinan Pelatih',
-                                'kepemimpinan' => 'Jiwa Kepemimpinan di Lapangan',
-                                'konsistensi_komitmen' => 'Kehadiran & Semangat Melatih',
-                                'kedekatan_interpersonal' => 'Kedekatan & Kepedulian'
-                            ];
-
-                            // Emoji untuk masing-masing nilai 1-5
-                            $emojis = [
-                                1 => '😞',
-                                2 => '😐',
-                                3 => '🙂',
-                                4 => '😄',
-                                5 => '🤩'
-                            ];
-                        @endphp
-
-                        <!-- Dibikin 2 Kolom untuk Layar Besar agar tidak terlalu kosong saat Full Width -->
-                        <div class="row g-4">
-                            @foreach($kriterias as $key => $label)
-                            <div class="col-md-6">
-                                <div class="kriteria-box h-100 p-4 rounded-4 bg-light">
-                                    <label class="fw-bold d-block mb-4 text-dark text-center fs-6">{{ $label }}</label>
-
-                                    <div class="d-flex justify-content-between gap-2 gap-md-3">
-                                        @foreach(range(1, 5) as $score)
-                                            <div class="rating-wrapper flex-fill">
-                                                <!-- Input Radio disembunyikan -->
-                                                <input class="rating-input" type="radio" name="{{ $key }}" id="{{ $key.$score }}" value="{{ $score }}" required>
-                                                <!-- Label dibuat seperti tombol kotak -->
-                                                <label class="rating-label w-100" for="{{ $key.$score }}">
-                                                    <span class="emoji-rate">{{ $emojis[$score] }}</span>
-                                                    <span class="score-text">{{ $score }}</span>
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <!-- Keterangan text di bawah angka (Hanya tampil 1 dan 5) -->
-                                    <div class="d-flex justify-content-between mt-3 px-2 text-muted fw-medium" style="font-size: 0.75rem;">
-                                        <span>Kurang</span>
-                                        <span>Sangat Baik</span>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-
-                        <div class="mb-4 mt-5">
-                            <label class="fw-bold mb-3 text-dark fs-5">Pesan, Kritik & Saran 📝</label>
-                            <textarea name="kritik_saran" class="form-control bg-light border-0" rows="5" placeholder="Tulis masukan, pujian, atau saranmu di sini (boleh dikosongi)..." style="border-radius: 15px; padding: 20px; resize: none;"></textarea>
-                        </div>
-
-                        <div class="d-grid mt-5">
-                            <button type="submit" class="btn btn-submit-nilai py-3 fw-bold fs-5">
-                                <i class="bi bi-send-fill me-2"></i> Kirim Penilaian Rahasia
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<style>
-    /* Styling Card Utama */
-    .form-penilaian-card {
-        border-radius: 20px;
-        overflow: hidden;
-    }
-
-    /* Foto Profil Kecil di Atas */
-    .pelatih-avatar {
-        width: 100px;
-        height: 100px;
-        background: #f8f9fa;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 3.5rem;
-        color: var(--dark-blue, #06163a);
-        border: 5px solid #fff;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-    .pelatih-avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-    }
-
-    /* Menyembunyikan radio button asli */
-    .rating-input {
-        display: none;
-    }
-
-    /* Kotak Pilihan Angka & Emoji */
-    .rating-label {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 15px 5px;
-        background: #ffffff;
-        border: 2px solid #e9ecef;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        color: #6c757d;
-    }
-
-    .emoji-rate {
-        font-size: 1.8rem;
-        margin-bottom: 5px;
-        filter: grayscale(100%); /* Bikin abu-abu dulu kalau belum dipilih */
-        opacity: 0.6;
-        transition: all 0.2s ease;
-    }
-
-    .score-text {
-        font-weight: 700;
-        font-size: 1.1rem;
-    }
-
-    /* Efek Saat Di-Hover (Sentuh) */
-    .rating-label:hover {
-        background: #f1f5f9;
-        border-color: #cbd5e1;
-    }
-    .rating-label:hover .emoji-rate {
-        filter: grayscale(0%);
-        opacity: 1;
-        transform: scale(1.1);
-    }
-
-    /* Efek Saat Di-Klik (Dipilih) */
-    .rating-input:checked + .rating-label {
-        background: var(--accent-color, #feb900);
-        border-color: var(--accent-color, #feb900);
-        color: var(--dark-blue, #06163a);
-        transform: translateY(-4px);
-        box-shadow: 0 8px 20px rgba(254, 185, 0, 0.3);
-    }
-
-    .rating-input:checked + .rating-label .emoji-rate {
-        filter: grayscale(0%);
-        opacity: 1;
-        transform: scale(1.2);
-    }
-
-    /* Input Textarea Focus */
-    textarea.form-control:focus {
-        background: #ffffff !important;
-        border: 2px solid var(--accent-color, #feb900) !important;
-        box-shadow: 0 0 0 0.25rem rgba(254, 185, 0, 0.1) !important;
-    }
-
-    /* Tombol Submit */
-    .btn-submit-nilai {
-        background: var(--dark-blue, #06163a);
-        color: #fff;
-        border-radius: 15px;
-        border: none;
-        transition: all 0.3s;
-    }
-    .btn-submit-nilai:hover {
-        background: var(--accent-color, #feb900);
-        color: var(--dark-blue, #06163a);
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(254, 185, 0, 0.4);
-    }
-</style>
-@endsection --}}
-
 @extends('layout.app')
 
 @section('content')
@@ -252,8 +37,8 @@
                                 </div>
                             @endif
                             <div class="text-start">
-                                <div class="fw-bold text-dark lh-1" style="font-size: 0.9rem;">Kak {{ $pelatih->nama_lengkap }}</div>
-                                <div class="text-muted" style="font-size: 0.75rem;">Kolat {{ $pelatih->kolat->nama_kolat ?? '-' }}</div>
+                                <div class="fw-bold text-dark lh-1" style="font-size: 0.9rem;"> {{ $pelatih->nama_lengkap }}</div>
+                                <div class="text-muted" style="font-size: 0.75rem;">{{ $pelatih->kolat->nama_kolat ?? '-' }}</div>
                             </div>
                         </div>
 
@@ -263,7 +48,7 @@
 
                             @php
                                 $kriterias = [
-                                    'metode_pelatihan' => 'Bagaimana cara Kakak Pelatih menyampaikan materi hari ini?',
+                                    'metode_pelatihan' => 'Bagaimana cara Pelatih menyampaikan materi hari ini?',
                                     'komunikasi' => 'Seberapa asik dan jelas komunikasinya dengan anggota?',
                                     'sikap_kepribadian' => 'Bagaimana sikap dan kedisiplinan pelatih di lapangan?',
                                     'kepemimpinan' => 'Seberapa baik jiwa kepemimpinan pelatih saat memandu latihan?',
@@ -315,7 +100,7 @@
                                 <div class="mb-4">
                                     <span class="emoji-rate d-inline-block mb-3" style="font-size: 4rem; filter: none; opacity: 1;">📝</span>
                                     <h3 class="fw-bolder text-dark mb-2">Satu langkah lagi!</h3>
-                                    <p class="text-muted">Ada pesan, kritik, saran, atau pujian untuk Kak {{ $pelatih->nama_lengkap }}? (Boleh dikosongkan kok)</p>
+                                    <p class="text-muted">Ada pesan, kritik, saran, atau pujian untuk {{ $pelatih->nama_lengkap }}? (Boleh dikosongkan kok)</p>
                                 </div>
 
                                 <textarea name="kritik_saran" class="form-control bg-light border-0 mb-4 shadow-inner" rows="5" placeholder="Ketik pesan rahasiamu di sini..." style="border-radius: 20px; padding: 25px; resize: none; font-size: 1.1rem;"></textarea>

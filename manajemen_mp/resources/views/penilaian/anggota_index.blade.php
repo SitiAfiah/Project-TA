@@ -130,4 +130,29 @@
         font-size: 2.5rem;
     }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        @if(session('error'))
+            Swal.fire({
+                title: 'Tidak Bisa Menilai!',
+                text: "{{ session('error') }}",
+                icon: 'warning',
+                confirmButtonColor: '#f59e0b',
+                confirmButtonText: 'Mengerti'
+            });
+        @endif
+
+        @if(session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                confirmButtonColor: '#10b981',
+                confirmButtonText: 'OK'
+            });
+        @endif
+    });
+</script>
 @endsection

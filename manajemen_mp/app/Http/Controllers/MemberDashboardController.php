@@ -39,7 +39,7 @@ class MemberDashboardController extends Controller
 
     //     return view('anggota.dashboard', compact('anggota', 'jadwal', 'tagihan_spp', 'persentase_hadir'));
     // }
-    public function index()
+   public function index()
     {
         // 1. Ambil data profil anggota yang sedang login
         $user = Auth::user();
@@ -49,21 +49,22 @@ class MemberDashboardController extends Controller
             return redirect('/')->with('error', 'Data anggota tidak ditemukan.');
         }
 
-        // 2. Ambil Jadwal Latihan (Hanya yang sesuai dengan Kolat si anggota)
+        // 2. Ambil Jadwal Latihan
+        // PERBAIKAN: Gunakan today() atau now()->toDateString() alih-alih now().
+        // now() membawa jam (misal 19:42), sehingga jadwal hari ini yang jamnya sudah lewat bisa tidak terbaca.
         $jadwal = Jadwal::where('kolat_id', $anggota->kolat_id)
-                        ->where('tanggal', '>=', now())
+                        ->where('tanggal', '>=', today())
                         ->orderBy('tanggal', 'asc')
                         ->take(5)
                         ->get();
 
         // 3. Ambil Tagihan SPP
-        // PERBAIKAN: Menggunakan relasi spp() yang sudah Anda buat di model Anggota.
-        // Asumsi di tabel SPP Anda terdapat kolom 'status' (misal: 'Pending' atau 'Belum Lunas')
-        $tagihan_spp = $anggota->spp()->where('status', 'Pending')->get();
+        // PERBAIKAN PENTING: Tadi kita sepakat status awalnya adalah 'belum_bayar', bukan 'Pending'
+        $tagihan_spp = $anggota->spp()
+                               ->where('status', 'belum_bayar')
+                               ->get();
 
         // 4. Hitung Ringkasan Kehadiran
-        // Contoh mengambil total kehadiran dari relasi riwayatPresensi()
-        // Ini asumsikan Anda memiliki kolom 'status_hadir' (misal: 'Hadir') di tabel Presensi
         $total_latihan = $anggota->riwayatPresensi()->count();
         $total_hadir = $anggota->riwayatPresensi()->where('status', 'Hadir')->count();
 
@@ -74,4 +75,4 @@ class MemberDashboardController extends Controller
 
         return view('anggota.dashboard', compact('anggota', 'jadwal', 'tagihan_spp', 'persentase_hadir'));
     }
-}
+};
