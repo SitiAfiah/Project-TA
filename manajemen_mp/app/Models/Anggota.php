@@ -13,7 +13,7 @@ class Anggota extends Model
     protected $table = 'anggotas';
 
     protected $fillable = [
-    'user_id', 'no_induk', 'nama_lengkap', 'foto_profil', 'role_id', 'jenis_kelamin',
+    'user_id', 'no_induk', 'nama_lengkap', 'foto_profil', 'jenis_kelamin',
     'tempat_lahir', 'tgl_lahir', 'no_hp', 'kolat_id',
     'tingkatan', 'tgl_gabung', 'status', 'alamat',
     'catatan_medis', 'jabatan', 'no_sk', 'masa_berlaku', 'foto_sk'
@@ -25,10 +25,28 @@ class Anggota extends Model
         return $this->belongsTo(Kolat::class, 'kolat_id');
     }
 
-    public function role()
+    // public function role()
+    // {
+    //     return $this->belongsTo(Role::class, 'role_id');
+    // }
+
+    // TAMBAHKAN relasi baru ini:
+    public function roles()
     {
-        return $this->belongsTo(Role::class, 'role_id');
+        // Menghubungkan Anggota ke Role lewat tabel pivot anggota_role
+        return $this->belongsToMany(Role::class, 'anggota_role', 'anggota_id', 'role_id')->withTimestamps();
     }
+
+    /**
+     * Fungsi bantuan (Helper) untuk mengecek apakah anggota memiliki role tertentu.
+     * Sangat berguna nanti di Controller, Middleware, atau Blade.
+     */
+    public function hasRole($roleName)
+    {
+        return $this->roles()->where('nama_role', $roleName)->exists();
+    }
+
+
 
     public function kolatLatihan()
     {
@@ -36,9 +54,17 @@ class Anggota extends Model
     }
 
     // Scope agar gampang memanggil data yang hanya ber-role Pelatih
+    // public function scopeIsPelatih($query)
+    // {
+    //     return $query->whereHas('role', function ($q) {
+    //         $q->where('nama_role', 'Pelatih');
+    //     });
+    // }
+
+    // KODE BARU (Ubah jadi 'roles')
     public function scopeIsPelatih($query)
     {
-        return $query->whereHas('role', function ($q) {
+        return $query->whereHas('roles', function ($q) { // <-- Ubah 'role' jadi 'roles'
             $q->where('nama_role', 'Pelatih');
         });
     }

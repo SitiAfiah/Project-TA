@@ -40,7 +40,13 @@
         </tr>
         <tr>
             <td class="label">Unit Latihan</td>
-            <td>: Kolat {{ $pelatih->kolat->nama_kolat ?? '-' }}</td>
+            {{-- <td>: Kolat {{ $pelatih->kolat->nama_kolat ?? '-' }}</td> --}}
+            <td class="label">Unit Latihan</td>
+            <td>:
+                @foreach($pelatih->kolatLatihan as $kolat)
+                    {{ $kolat->nama_kolat }}{{ !$loop->last ? ', ' : '' }}
+                @endforeach
+            </td>
             <td class="label">Tanggal Cetak</td>
             <td>: {{ now()->format('d/m/Y') }}</td>
         </tr>

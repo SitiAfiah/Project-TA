@@ -1,6 +1,30 @@
 @extends('layout.app')
 
 @section('content')
+@php
+    // LOGIKA MULTI-ROLE: Memeriksa jabatan apa saja yang tersemat pada pengguna ini
+    $user = auth()->user();
+
+    // Periksa apakah user memiliki tabel anggota yang terhubung
+    $isPengurus = false;
+    $isPelatih  = false;
+
+    if ($user && $user->anggota) {
+        $isPengurus = $user->anggota->roles->contains('nama_role', 'Pengurus');
+        $isPelatih  = $user->anggota->roles->contains('nama_role', 'Pelatih');
+    }
+
+    // Tentukan label yang akan tampil di header
+    if ($isPengurus && $isPelatih) {
+        $roleDisplay = 'Pengurus & Pelatih';
+    } elseif ($isPengurus) {
+        $roleDisplay = 'Pengurus Cabang';
+    } elseif ($isPelatih) {
+        $roleDisplay = 'Pelatih Kolat';
+    } else {
+        $roleDisplay = 'Anggota Biasa';
+    }
+@endphp
 <div class="container-fluid py-4">
     <!-- Header Section -->
     <div class="row align-items-center mb-4">
@@ -19,7 +43,7 @@
                 </div>
                 <div class="text-start me-3">
                     <small class="text-muted d-block" style="font-size: 10px;">ROLE AKSES</small>
-                    <span class="fw-bold small text-primary">Administrator</span>
+                    <span class="fw-bold small text-primary">{{ $roleDisplay }}</span>
                 </div>
             </div>
         </div>

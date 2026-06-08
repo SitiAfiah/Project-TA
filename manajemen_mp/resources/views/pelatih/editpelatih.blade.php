@@ -82,7 +82,7 @@
                                     <input type="text" name="tingkatan" class="form-control"
                                         value="{{ old('tingkatan', $pelatih->tingkatan) }}" required>
                                 </div>
-                                <div class="col-md-8">
+                                {{-- <div class="col-md-8">
                                     <label class="form-label fw-bold">Asal Kolat (Tempat Melatih)</label>
                                     <select name="kolat_id" class="form-select" required>
                                         @foreach ($data_kolat as $kolat)
@@ -91,6 +91,24 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                </div> --}}
+                                <div class="col-md-8">
+                                    <label class="form-label fw-bold">Kolat Binaan (Tempat Melatih)</label>
+
+                                    {{-- Ambil data ID Kolat yang sudah pernah dipilih pelatih ini --}}
+                                    @php
+                                        $selectedKolat = old('kolat_ids', $pelatih->kolatLatihan->pluck('id')->toArray());
+                                    @endphp
+
+                                    <select name="kolat_ids[]" class="form-control select2 shadow-none" multiple="multiple" style="border-radius: 12px;" required>
+                                        @foreach ($data_kolat as $kolat)
+                                            {{-- Gunakan in_array untuk menandai kolat mana saja yang sudah ditugaskan ke dia --}}
+                                            <option value="{{ $kolat->id }}" {{ in_array($kolat->id, $selectedKolat) ? 'selected' : '' }}>
+                                                {{ $kolat->nama_kolat }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <small class="text-muted">Bisa memilih lebih dari satu kolat sekaligus.</small>
                                 </div>
 
                                 <div class="col-12 mt-3 p-4 bg-light rounded-4 border border-dashed border-danger">
@@ -143,4 +161,18 @@
         .btn-save { border-radius: 12px; background: linear-gradient(45deg, #4f46e5, #3730a3); border: none; transition: all 0.3s ease; }
         .btn-save:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4) !important; }
     </style>
+
+   @push('scripts')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+                placeholder: "Klik untuk memilih kolat...",
+                width: '100%'
+            });
+        });
+    </script>
+@endpush
 @endsection

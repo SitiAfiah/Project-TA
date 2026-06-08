@@ -13,7 +13,7 @@ class AnggotaExport implements FromCollection, WithHeadings, WithMapping, Should
     public function collection()
     {
         // Ambil data Anggota dengan relasi kolat dan user (untuk email)
-        return Anggota::whereHas('role', function($query) {
+        return Anggota::whereHas('roles', function($query) {
             $query->where('nama_role', 'Anggota');
         })->with(['kolat', 'user'])->get();
     }

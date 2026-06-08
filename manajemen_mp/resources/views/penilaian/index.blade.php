@@ -56,8 +56,15 @@
                                                     Hingga: {{ $item->masa_berlaku ? \Carbon\Carbon::parse($item->masa_berlaku)->format('d M Y') : '-' }}
                                                 </div>
                                             </td>
-                                            <td class="text-center">
+                                            {{-- <td class="text-center">
                                                 <span class="badge bg-info-soft text-info px-3">{{ $item->kolat->nama_kolat ?? '-' }}</span>
+                                            </td> --}}
+                                            <td class="text-center">
+                                                @forelse($item->kolatLatihan as $kolat)
+                                                    <span class="badge bg-info-soft text-info px-2 mb-1 d-block">{{ $kolat->nama_kolat }}</span>
+                                                @empty
+                                                    <span class="text-muted small">-</span>
+                                                @endforelse
                                             </td>
                                             <td class="text-center">
                                                 @php

@@ -26,6 +26,16 @@
                             <small class="text-muted">Hanya anggota yang belum memiliki jabatan pelatih yang muncul di sini.</small>
                         </div>
 
+                        <div class="mb-4">
+                            <label class="form-label fw-bold text-dark">Tugaskan ke Kolat (Tempat Melatih)</label>
+                            <select name="kolat_ids[]" class="form-control select2 shadow-none" multiple="multiple" style="border-radius: 12px;" required>
+                                @foreach($data_kolat as $kolat)
+                                    <option value="{{ $kolat->id }}">{{ $kolat->nama_kolat }}</option>
+                                @endforeach
+                            </select>
+                            <small class="text-muted">Bisa memilih lebih dari satu kolat sekaligus.</small>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold text-dark">Nomor SK Pelatih</label>
@@ -76,7 +86,10 @@
 <script>
     $(document).ready(function() {
         $('.select2').select2({
-            theme: 'bootstrap-5'
+            theme: 'bootstrap-5',
+            placeholder: "Klik untuk memilih Kolat...",
+            allowClear: true,
+            width: '100%' // Memastikan dropdown memenuhi lebar kolom
         });
     });
 </script>

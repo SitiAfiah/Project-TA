@@ -18,11 +18,12 @@ class AnggotaController extends Controller
 {
     // 1. Menampilkan Daftar Anggota
     public function anggota()
+
     {
         // Filter data: Ambil anggota yang relasi 'role'-nya bernama 'Anggota'
-    $data_anggota = Anggota::whereHas('role', function($query) {
+    $data_anggota = Anggota::whereHas('roles', function($query) {
         $query->where('nama_role', 'Anggota');
-    })->with(['kolat', 'role'])
+    })->with(['kolat', 'roles'])
     ->latest()
     ->get();
 
@@ -61,12 +62,11 @@ class AnggotaController extends Controller
             $user = User::create([
                 'email'    => $request->email,
                 'password' => Hash::make('tapakmp123'), // Password default
-                'role_id'  => $request->role_id,
             ]);
 
             // B. Cari nama jabatan berdasarkan role
             $role = Role::find($request->role_id);
-            $nama_jabatan = strtolower($role->nama_role);
+            $nama_jabatan = $role ? strtolower($role->nama_role) : 'anggota';
 
             // C. Logika No Induk (JB-001)
             $terakhir = Anggota::orderBy('id', 'desc')->first();
@@ -74,11 +74,10 @@ class AnggotaController extends Controller
             $no_induk_baru = "JB-" . $nomor_urut;
 
             // D. Simpan Profil di tabel Anggotas
-            Anggota::create([
+            $anggota = Anggota::create([
                 'user_id'       => $user->id,
                 'no_induk'      => $no_induk_baru,
                 'nama_lengkap'  => $request->nama_lengkap,
-                'role_id'       => $request->role_id,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'tempat_lahir'  => $request->tempat_lahir,
                 'tgl_lahir'     => $request->tgl_lahir,
@@ -91,6 +90,8 @@ class AnggotaController extends Controller
                 'jabatan'       => $nama_jabatan,
                 'status'        => 'Aktif', // Input admin otomatis aktif
             ]);
+
+            $anggota->roles()->attach($request->role_id);
 
             DB::commit();
             return redirect()->route('anggota.anggota')
@@ -106,7 +107,7 @@ class AnggotaController extends Controller
     // 4. Menampilkan Form Edit
     public function edit($id)
     {
-        $anggota = Anggota::with('user')->findOrFail($id);
+        $anggota = Anggota::with(['user', 'roles'])->findOrFail($id);
         $data_kolat = Kolat::all(); // Ambil daftar kolat lagi untuk pilihan saat edit
         $data_role = Role::all();
 
@@ -134,18 +135,19 @@ class AnggotaController extends Controller
             // A. Update tabel User (email & role)
             $user->update([
                 'email'   => $request->email,
-                'role_id' => $request->role_id
             ]);
 
             // B. Update jabatan berdasarkan role baru
             $role = Role::find($request->role_id);
-            $nama_jabatan = strtolower($role->nama_role);
+            $nama_jabatan = $role ? strtolower($role->nama_role) : 'anggota';
 
             // C. Update tabel Anggota
-            $data_anggota = $request->all();
+            // $data_anggota = $request->all();
+            $data_anggota = $request->except(['email', 'role_id', '_token', '_method']);
             $data_anggota['jabatan'] = $nama_jabatan;
 
             $anggota->update($data_anggota);
+            $anggota->roles()->sync([$request->role_id]);
 
             DB::commit();
             return redirect()->route('anggota.anggota')
@@ -166,7 +168,7 @@ class AnggotaController extends Controller
 
 public function exportPdf()
 {
-    $data_anggota = Anggota::whereHas('role', function($query) {
+    $data_anggota = Anggota::whereHas('roles', function($query) {
         $query->where('nama_role', 'Anggota');
     })->with(['kolat', 'user'])->get();
 

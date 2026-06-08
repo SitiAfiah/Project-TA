@@ -44,12 +44,31 @@ class AuthController extends Controller
         $request->session()->regenerate();
 
         // 2. Ambil Nama Role (samakan logikanya dengan Middleware)
+        // $roleName = null;
+        // if ($user->role) {
+        //     $roleName = $user->role->nama_role;
+        // } elseif ($user->anggota && $user->anggota->role) {
+        //     $roleName = $user->anggota->role->nama_role;
+        // }
+
         $roleName = null;
-        if ($user->role) {
-            $roleName = $user->role->nama_role;
-        } elseif ($user->anggota && $user->anggota->role) {
-            $roleName = $user->anggota->role->nama_role;
+        $anggota = $user->anggota;
+
+        if ($anggota) {
+            // Cek apakah dia punya role Pengurus
+            if ($anggota->roles->contains('nama_role', 'Pengurus')) {
+                $roleName = 'Pengurus';
+            }
+            // Kalau bukan Pengurus, cek apakah dia Pelatih
+            elseif ($anggota->roles->contains('nama_role', 'Pelatih')) {
+                $roleName = 'Pelatih';
+            }
+            // Kalau bukan keduanya, berarti Anggota biasa
+            elseif ($anggota->roles->contains('nama_role', 'Anggota')) {
+                $roleName = 'Anggota';
+            }
         }
+
 
         // 3. Logika Pengarahan (Redirect) berdasarkan String Role
         if ($roleName === 'Anggota') {
@@ -110,7 +129,7 @@ class AuthController extends Controller
             $user = User::create([
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role_id' => $role_id,
+                // 'role_id' => $role_id,
             ]);
 
             // 3. Logika Penomoran Induk JB-xxx
@@ -119,11 +138,11 @@ class AuthController extends Controller
             $no_induk_baru = "JB-" . $nomor_urut;
 
             // 4. Buat Profil Anggota
-            Anggota::create([
+            $anggota =Anggota::create([
                 'user_id'       => $user->id,
                 'no_induk'      => $no_induk_baru,
                 'nama_lengkap'  => $request->nama_lengkap,
-                'role_id'       => $role_id,
+                // 'role_id'       => $role_id,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'tempat_lahir'  => $request->tempat_lahir,
                 'tgl_lahir'     => $request->tgl_lahir,
@@ -136,6 +155,8 @@ class AuthController extends Controller
                 'jabatan'       => 'anggota',
                 'status'        => 'Non-Aktif', // Default sesuai permintaanmu
             ]);
+
+            $anggota->roles()->attach($role_id);
 
             DB::commit();
 

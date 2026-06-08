@@ -14,7 +14,8 @@ class RekapController extends Controller
         $data_kolat = Kolat::all();
 
         // 2. Query data anggota dengan filter
-        $query = Anggota::with(['presensi', 'spp', 'kolat']);
+        // $query = Anggota::with(['presensi', 'spp', 'kolat']);
+        $query = Anggota::with(['presensi', 'spp', 'kolatLatihan']);
 
         if ($request->kolat_id) {
             $query->where('kolat_id', $request->kolat_id);
@@ -46,7 +47,8 @@ class RekapController extends Controller
                 'nama' => $item->nama_lengkap, // Sesuaikan dengan kolom tabel Anda
                 'no_induk' => $item->no_induk,
                 'tingkatan' => $item->tingkatan,
-                'nama_kolat' => $item->kolat->nama_kolat ?? '-',
+                // 'nama_kolat' => $item->kolat->nama_kolat ?? '-',
+                'nama_kolat' => $item->kolatLatihan->pluck('nama_kolat')->join(', '),
                 'status_aktif' => $statusAktif,
                 'persentase_presensi' => round($persentasePresensi, 1),
                 'status_spp' => $punyaTunggakan ? 'Ada Tunggakan' : 'Lunas',

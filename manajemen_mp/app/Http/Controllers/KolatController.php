@@ -55,9 +55,22 @@ public function update(Request $request, $id)
 }
 
     // 4. Hapus Data Kolat
+    // public function destroy($id)
+    // {
+    //     $kolat = Kolat::findOrFail($id);
+    //     $kolat->delete();
+    //     return redirect()->back()->with('success', 'Kolat telah dihapus!');
+    // }
+
     public function destroy($id)
     {
         $kolat = Kolat::findOrFail($id);
+
+        // Cek apakah ada anggota di kolat ini
+        if ($kolat->anggota()->count() > 0) {
+            return redirect()->back()->with('error', 'Kolat tidak bisa dihapus karena masih ada anggota yang terdaftar di dalamnya!');
+        }
+
         $kolat->delete();
         return redirect()->back()->with('success', 'Kolat telah dihapus!');
     }

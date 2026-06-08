@@ -26,8 +26,6 @@ class Kolat extends Model
 
     public function pelatihs()
     {
-        // Panggil relasi pivot, lalu sambungkan dengan scope isPelatih()
-        return $this->belongsToMany(Anggota::class, 'kolat_pelatih', 'kolat_id', 'anggota_id')
-                    ->isPelatih();
+        return $this->belongsToMany(Anggota::class, 'kolat_pelatih', 'kolat_id', 'anggota_id')->withTimestamps();
     }
 }

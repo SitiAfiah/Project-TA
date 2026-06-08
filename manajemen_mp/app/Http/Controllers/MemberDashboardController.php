@@ -75,4 +75,4 @@ class MemberDashboardController extends Controller
 
         return view('anggota.dashboard', compact('anggota', 'jadwal', 'tagihan_spp', 'persentase_hadir'));
     }
-};
+}

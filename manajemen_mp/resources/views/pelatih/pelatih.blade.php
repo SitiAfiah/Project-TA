@@ -1,9 +1,14 @@
 @extends('layout.app')
 
 @section('content')
-    @php
+    {{-- @php
         // Ambil nama role user yang login saat ini
         $userRole = auth()->user()->role->nama_role ?? 'Anggota';
+    @endphp --}}
+    @php
+        // LOGIKA BARU: Cek apakah user yang login punya role 'Pengurus' di tabel pivot
+        $user = auth()->user();
+        $isPengurus = $user->anggota && $user->anggota->roles->contains('nama_role', 'Pengurus');
     @endphp
 
     <div class="container-fluid py-4">
@@ -29,7 +34,7 @@
                             </div>
 
                             <!-- HANYA PENGURUS YANG BISA MELIHAT TOMBOL INI -->
-                            @if($userRole == 'Pengurus')
+                            @if($isPengurus)
                             <a href="{{ route('pelatih.upgrade') }}" class="btn btn-primary px-4 py-2 shadow-sm"
                                 style="border-radius: 12px;">
                                 <i class="icon-plus me-1"></i> Upgrade Anggota ke Pelatih
@@ -48,7 +53,7 @@
                                         <th>Status SK</th>
 
                                         <!-- KOLOM AKSI HANYA MUNCUL JIKA PENGURUS -->
-                                        @if($userRole == 'Pengurus')
+                                        @if($isPengurus)
                                         <th>Aksi</th>
                                         @endif
                                     </tr>
@@ -65,8 +70,19 @@
                                                 <div class="small fw-bold">{{ $item->no_sk }}</div>
                                                 <div class="text-muted" style="font-size: 11px;">Hingga: {{ \Carbon\Carbon::parse($item->masa_berlaku)->format('d M Y') }}</div>
                                             </td>
-                                            <td class="text-center">
+                                            {{-- <td class="text-center">
                                                 <span class="badge bg-info-soft text-info px-3">{{ $item->kolat->nama_kolat ?? '-' }}</span>
+                                            </td> --}}
+                                            <td class="text-center">
+                                                @if($item->kolatLatihan->count() > 0)
+                                                    @foreach($item->kolatLatihan as $kolat)
+                                                        <span class="badge bg-info-soft text-info px-3 mb-1 d-inline-block">
+                                                            {{ $kolat->nama_kolat }}
+                                                        </span>
+                                                    @endforeach
+                                                @else
+                                                    <span class="text-muted small">- Belum ada kolat -</span>
+                                                @endif
                                             </td>
                                             <td class="text-center">
                                                 @php
@@ -78,12 +94,12 @@
                                             </td>
 
                                             <!-- TOMBOL EDIT HANYA MUNCUL JIKA PENGURUS -->
-                                            @if($userRole == 'Pengurus')
+                                            @if($isPengurus)
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center gap-2">
                                                      <a href="{{ route('pelatih.edit', $item->id) }}"
                                                         class="btn btn-sm btn-action-edit fw-bold px-2 shadow-xs">
-                                                        <i class="bi bi-pencil"></i> 
+                                                        <i class="bi bi-pencil"></i>
                                                     </a>
                                                 </div>
                                             </td>

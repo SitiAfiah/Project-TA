@@ -29,7 +29,14 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
         if (Auth::check()) {
             $user = Auth::user();
-            $userRole = $user->role->nama_role; // Sesuaikan dengan cara Anda ambil role
+            $userRole = 'Anggota';
+            if ($user->anggota) {
+                    if ($user->anggota->roles->contains('nama_role', 'Pengurus')) {
+                        $userRole = 'Pengurus';
+                    } elseif ($user->anggota->roles->contains('nama_role', 'Pelatih')) {
+                        $userRole = 'Pelatih';
+                    }
+            }// Sesuaikan dengan cara Anda ambil role
             $notifications = [];
             $unreadCount = 0;
 

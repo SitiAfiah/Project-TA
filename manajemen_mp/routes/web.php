@@ -9,6 +9,7 @@ use App\Http\Controllers\KolatController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MemberDashboardController;
 use App\Http\Controllers\PelatihController;
+use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\ProfileController;
@@ -131,7 +132,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('checkrole:Pengurus')->group(function () {
     // Aksi CRUD Anggota
 
-        Route::get('/anggota/export/excel ', [AnggotaController::class, 'exportExcel'])->name('anggota.export.excel');
+        Route::get('/anggota/export/excel', [AnggotaController::class, 'exportExcel'])->name('anggota.export.excel');
         Route::get('/anggota/export/pdf', [AnggotaController::class, 'exportPdf'])->name('anggota.export.pdf');
 
         // Aksi CRUD Kolat
@@ -183,6 +184,15 @@ Route::middleware('auth')->group(function () {
 
 
 });
+
+
+Route::middleware(['auth', 'checkrole:Pengurus'])->group(function () {
+    Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus.index');
+    Route::get('/pengurus/create', [PengurusController::class, 'create'])->name('pengurus.create');
+    Route::post('/pengurus/store', [PengurusController::class, 'store'])->name('pengurus.store');
+    Route::get('/pengurus/{id}/edit', [PengurusController::class, 'edit'])->name('pengurus.edit');
+    Route::put('/pengurus/{id}/update', [PengurusController::class, 'update'])->name('pengurus.update');
+    });
 
 
 

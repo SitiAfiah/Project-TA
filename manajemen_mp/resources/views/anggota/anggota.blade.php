@@ -164,10 +164,25 @@
                                                                         <span
                                                                             class="fw-bold text-dark">{{ $item->kolat->nama_kolat ?? '-' }}</span>
                                                                     </div>
-                                                                    <div class="col-6">
+                                                                    {{-- <div class="col-6">
                                                                         <small class="text-muted d-block">Jabatan</small>
                                                                         <span
                                                                             class="fw-bold text-primary text-uppercase">{{ $item->role->nama_role ?? 'ANGGOTA' }}</span>
+                                                                    </div> --}}
+                                                                    <div class="col-6">
+                                                                        <small class="text-muted d-block">Jabatan
+                                                                            Terdaftar</small>
+                                                                        <div class="d-flex flex-wrap gap-1 mt-1">
+                                                                            @forelse($item->roles as $role)
+                                                                                <span
+                                                                                    class="badge bg-primary text-white text-uppercase"
+                                                                                    style="font-size: 10px;">{{ $role->nama_role }}</span>
+                                                                            @empty
+                                                                                <span
+                                                                                    class="badge bg-secondary text-white text-uppercase"
+                                                                                    style="font-size: 10px;">ANGGOTA</span>
+                                                                            @endforelse
+                                                                        </div>
                                                                     </div>
                                                                     <div class="col-6">
                                                                         <small class="text-muted d-block">Tingkatan</small>
@@ -303,11 +318,11 @@
 
         .btn-action-edit {
             background-color: #fff8e6;
-             color: #f59e0b;
-             border: 1px solid #ffecb3;
-             border-radius: 10px;
-             transition: 0.3s;
-            }
+            color: #f59e0b;
+            border: 1px solid #ffecb3;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
 
         .btn-action-edit:hover {
             background-color: #f59e0b !important;

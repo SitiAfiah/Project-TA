@@ -55,7 +55,7 @@ class JadwalController extends Controller
         $data_kolat = Kolat::all();
 
         // Ambil Anggota yang memiliki role 'Pelatih' dan statusnya 'Aktif'
-        $data_pelatih = Anggota::whereHas('role', function($query) {
+        $data_pelatih = Anggota::whereHas('roles', function($query) {
             $query->where('nama_role', 'Pelatih');
         })
         ->where('status', 'Aktif')
@@ -98,7 +98,7 @@ class JadwalController extends Controller
         $data_kolat = Kolat::all();
 
         // Tetap filter agar hanya muncul daftar pelatih
-        $data_pelatih = Anggota::whereHas('role', function($query) {
+        $data_pelatih = Anggota::whereHas('roles', function($query) {
             $query->where('nama_role', 'Pelatih');
         })->get();
 

@@ -14,7 +14,7 @@ class PenilaianController extends Controller
     public function index()
     {
        // Mencari anggota berdasarkan relasi 'role' yang bernama 'Pelatih'
-        $data_pelatih = Anggota::whereHas('role', function ($query) {
+        $data_pelatih = Anggota::whereHas('roles', function ($query) {
                             $query->where('nama_role', 'Pelatih');
                         })
                         ->with('kolat')
@@ -151,7 +151,7 @@ class PenilaianController extends Controller
     public function indexAnggota()
     {
         // Ubah juga bagian ini menggunakan whereHas
-        $data_pelatih = Anggota::whereHas('role', function ($query) {
+        $data_pelatih = Anggota::whereHas('roles', function ($query) {
                             $query->where('nama_role', 'Pelatih');
                         })
                         ->with('kolat')

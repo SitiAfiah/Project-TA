@@ -1,12 +1,14 @@
 @php
-    // Ambil nama role user dengan logika yang sama persis seperti di Middleware
+    // LOGIKA BARU: Deteksi multi-role dari tabel perantara (pivot) roles()
     $user = auth()->user();
-    $userRole = null;
+    $userRole = 'Anggota'; // Default fallback
 
-    if ($user->role) {
-        $userRole = $user->role->nama_role;
-    } elseif ($user->anggota && $user->anggota->role) {
-        $userRole = $user->anggota->role->nama_role;
+    if ($user && $user->anggota) {
+        if ($user->anggota->roles->contains('nama_role', 'Pengurus')) {
+            $userRole = 'Pengurus';
+        } elseif ($user->anggota->roles->contains('nama_role', 'Pelatih')) {
+            $userRole = 'Pelatih';
+        }
     }
 @endphp
 
@@ -21,7 +23,7 @@
                 <!-- Link khusus untuk Anggota -->
                 <a class="nav-link {{ request()->routeIs('anggota.dashboard') ? '' : 'collapsed' }}" href="{{ route('anggota.dashboard') }}">
                     <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
+                    <span>Dashboard</span> 
                 </a>
             @else
                 <!-- Link untuk Pelatih dan Pengurus -->

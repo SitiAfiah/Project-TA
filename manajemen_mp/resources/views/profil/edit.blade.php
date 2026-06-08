@@ -409,7 +409,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold">Jabatan</label>
                         <div class="p-2 bg-light rounded text-dark fw-semibold border border-light">
-                            {{ $anggota->role->nama_role }}
+                            {{ $anggota->roles->pluck('nama_role')->join(', ') }}
                         </div>
                     </div>
                     <div class="mb-3">

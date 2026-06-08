@@ -20,17 +20,21 @@ class DashboardController extends Controller
         // // Menghitung jumlah Kolat yang terdaftar
         $total_kolat = Kolat::count();
 
-        $roleAnggota = Role::where('nama_role', 'Anggota')->first();
-        $rolePelatih = Role::where('nama_role', 'Pelatih')->first();
+        // $roleAnggota = Role::where('nama_role', 'Anggota')->first();
+        // $rolePelatih = Role::where('nama_role', 'Pelatih')->first();
 
         // 2. Hitung jumlah "Anggota" (Hanya yang ber-role 'Anggota' DAN berstatus 'Aktif')
         $total_anggota_aktif = Anggota::where('status', 'Aktif')
-            ->where('role_id', $roleAnggota->id)
+            ->whereHas('roles', function($q) {
+                $q->where('nama_role', 'Anggota');
+            })
             ->count();
 
         // 3. Hitung jumlah "Pelatih" (Hanya yang ber-role 'Pelatih' DAN berstatus 'Aktif')
         $total_pelatih = Anggota::where('status', 'Aktif')
-            ->where('role_id', $rolePelatih->id)
+            ->whereHas('roles', function($q) {
+                $q->where('nama_role', 'Pelatih');
+            })
             ->count();
 
         // Menghitung SPP yang belum lunas (Pending atau Belum Lunas)

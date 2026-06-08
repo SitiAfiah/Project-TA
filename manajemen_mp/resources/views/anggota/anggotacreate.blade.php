@@ -2,8 +2,17 @@
 
 @section('content')
 @php
-    // Ambil nama role user yang login saat ini
-    $userRole = auth()->user()->role->nama_role ?? 'Anggota';
+    // LOGIKA BARU: Ambil nama role user menggunakan relasi pivot
+    $user = auth()->user();
+    $userRole = 'Anggota';
+
+    if ($user && $user->anggota) {
+        if ($user->anggota->roles->contains('nama_role', 'Pengurus')) {
+            $userRole = 'Pengurus';
+        } elseif ($user->anggota->roles->contains('nama_role', 'Pelatih')) {
+            $userRole = 'Pelatih';
+        }
+    }
 @endphp
 
 <div class="container-fluid py-4">
@@ -120,7 +129,7 @@
                                         @endif
 
                                         <option value="{{ $role->id }}"
-                                            {{ old('role_id', $anggota->role_id ?? '') == $role->id ? 'selected' : '' }}>
+                                            {{ old('role_id', (isset($anggota) && $anggota->roles->contains('id', $role->id)) ? $role->id : '') == $role->id ? 'selected' : '' }}>
                                             {{ $role->nama_role }}
                                         </option>
                                     @endforeach
@@ -209,7 +218,7 @@
         const roleSelect = document.getElementById('roleSelect');
         const boxSK = document.getElementById('boxSK');
 
-        
+
         if (boxSK && roleSelect.selectedIndex > 0) {
             const selectedText = roleSelect.options[roleSelect.selectedIndex].text.toLowerCase();
 
