@@ -67,19 +67,19 @@ class AppServiceProvider extends ServiceProvider
 
                     // C. Kandidat Pelatih Baru (Kriteria: Usia >= 18 & Tingkatan Balik 1)
                     // Kita hitung menggunakan Carbon untuk tanggal lahir
-                    $kandidatPelatih = Anggota::where('tingkatan', 'Balik 1')
-                        ->where('status', 'Aktif')
-                        ->where('tgl_lahir', '<=', Carbon::now()->subYears(18))
-                        ->count();
+                    // $kandidatPelatih = Anggota::where('tingkatan', 'Balik 1')
+                    //     ->where('status', 'Aktif')
+                    //     ->where('tgl_lahir', '<=', Carbon::now()->subYears(18))
+                    //     ->count();
 
-                    if ($kandidatPelatih > 0) {
-                        $notifications[] = [
-                            'icon'  => 'bi-star-fill text-info',
-                            'title' => 'Kandidat Pelatih',
-                            'msg'   => "Ada $kandidatPelatih anggota Balik 1 berusia 18th siap jadi Pelatih.",
-                            'link'  => route('anggota.anggota') // Bisa diarahkan ke daftar anggota filter Balik 1
-                        ];
-                    }
+                    // if ($kandidatPelatih > 0) {
+                    //     $notifications[] = [
+                    //         'icon'  => 'bi-star-fill text-info',
+                    //         'title' => 'Kandidat Pelatih',
+                    //         'msg'   => "Ada $kandidatPelatih anggota Balik 1 berusia 18th siap jadi Pelatih.",
+                    //         'link'  => route('anggota.anggota') // Bisa diarahkan ke daftar anggota filter Balik 1
+                    //     ];
+                    // }
 
                     // D. Peringatan Saldo Kas Kritis (< 500rb)
                     $saldo = Kas::sum('nominal');

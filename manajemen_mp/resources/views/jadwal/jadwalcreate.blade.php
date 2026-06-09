@@ -46,10 +46,21 @@
 
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-bold text-dark">Pelatih Bertugas</label>
-                                <select name="pelatih_id" class="form-select @error('pelatih_id') is-invalid @enderror" required>
+                                {{-- <select name="pelatih_id" class="form-select @error('pelatih_id') is-invalid @enderror" required>
                                     <option value="" selected disabled>Pilih Pelatih</option>
                                     @foreach($data_pelatih as $pelatih)
                                         <option value="{{ $pelatih->id }}" {{ old('pelatih_id') == $pelatih->id ? 'selected' : '' }}>
+                                            {{ $pelatih->nama_lengkap }} ({{ $pelatih->no_induk }})
+                                        </option>
+                                    @endforeach
+                                </select> --}}
+                                <select name="pelatih_id" class="form-select @error('pelatih_id') is-invalid @enderror" required>
+                                    <option value="" selected disabled>Pilih Pelatih</option>
+                                    @foreach($data_pelatih as $pelatih)
+                                        {{-- Menyisipkan kumpulan ID Kolat milik pelatih ke dalam atribut data-kolats --}}
+                                        <option value="{{ $pelatih->id }}"
+                                                data-kolats="{{ json_encode($pelatih->kolatLatihan->pluck('id')->toArray()) }}"
+                                                {{ old('pelatih_id') == $pelatih->id ? 'selected' : '' }}>
                                             {{ $pelatih->nama_lengkap }} ({{ $pelatih->no_induk }})
                                         </option>
                                     @endforeach
@@ -161,4 +172,50 @@
         margin-bottom: 0.5rem;
     }
 </style>
+{{-- SCRIPT FILTER PELATIH BERDASARKAN KOLAT --}}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        const pelatihSelect = $('select[name="pelatih_id"]');
+        // Kloning seluruh elemen opsi pelatih bawaan sebagai master copy
+        const masterPelatih = pelatihSelect.find('option').clone();
+
+        $('select[name="kolat_id"]').change(function() {
+            const kolatId = $(this).val();
+
+            // Bersihkan dropdown pelatih
+            pelatihSelect.empty();
+            pelatihSelect.append('<option value="" selected disabled>Pilih Pelatih</option>');
+
+            if (kolatId) {
+                // Iterasi dan filter opsi pelatih dari master copy
+                masterPelatih.each(function() {
+                    const kolats = $(this).data('kolats'); // Membaca array dari data-kolats
+
+                    // Jika pelatih bertugas di kolat yang dipilih, lampirkan kembali opsi ke dropdown
+                    if (kolats && kolats.includes(parseInt(kolatId))) {
+                        pelatihSelect.append($(this).clone());
+                    }
+                });
+            } else {
+                // Jika pilihan kolat kosong/direset, tampilkan semua pelatih kembali
+                masterPelatih.each(function() {
+                    if ($(this).val() !== "") {
+                        pelatihSelect.append($(this).clone());
+                    }
+                });
+            }
+        });
+
+        // Trigger otomatis saat halaman dimuat (untuk old input)
+        const initialKolat = $('select[name="kolat_id"]').val();
+        if (initialKolat) {
+            const currentPelatih = "{{ old('pelatih_id') }}";
+            $('select[name="kolat_id"]').trigger('change');
+            if (currentPelatih) {
+                pelatihSelect.val(currentPelatih);
+            }
+        }
+    });
+</script>
 @endsection

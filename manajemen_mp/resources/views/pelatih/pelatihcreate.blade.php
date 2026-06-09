@@ -82,14 +82,57 @@
     </div>
 </div>
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+<style>
+    /* CUSTOM CSS UNTUK SELECT2 AGAR MELENGKUNG 12PX (Sama dengan input lain) */
+    .select2-container--bootstrap-5 .select2-selection {
+        border-radius: 12px;
+        min-height: 48px;
+        padding: 5px 10px;
+        border: 1px solid #ced4da;
+    }
+
+    /* Warna saat input di-klik (Focus) */
+    .select2-container--bootstrap-5.select2-container--focus .select2-selection {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+    }
+
+    /* Desain untuk mode "Multiple" (Banyak Kolat) */
+    .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+        background-color: #0d6efd; /* Warna biru primary */
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 2px 10px;
+        margin-top: 6px;
+    }
+    .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove {
+        color: white;
+        margin-right: 8px;
+    }
+    .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove:hover {
+        color: #ff4d4d;
+        background: none;
+    }
+
+    /* Penyesuaian tinggi teks untuk mode "Single" (Pilih Anggota) */
+    .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+        padding-top: 4px;
+    }
+</style>
+
 <!-- Tambahkan script Select2 di layout utama atau di sini -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function() {
         $('.select2').select2({
             theme: 'bootstrap-5',
-            placeholder: "Klik untuk memilih Kolat...",
+            placeholder: "Klik untuk mencari dan memilih...",
             allowClear: true,
-            width: '100%' // Memastikan dropdown memenuhi lebar kolom
+            width: '100%'
         });
     });
 </script>

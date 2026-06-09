@@ -23,7 +23,7 @@
                 <!-- Link khusus untuk Anggota -->
                 <a class="nav-link {{ request()->routeIs('anggota.dashboard') ? '' : 'collapsed' }}" href="{{ route('anggota.dashboard') }}">
                     <i class="bi bi-grid"></i>
-                    <span>Dashboard</span> 
+                    <span>Dashboard</span>
                 </a>
             @else
                 <!-- Link untuk Pelatih dan Pengurus -->
@@ -33,6 +33,17 @@
                 </a>
             @endif
         </li>
+
+
+        @if($userRole === 'Pengurus')
+        <li class="nav-item">
+            {{-- Diubah agar mengarah ke rute pengurus dan mendeteksi status aktif dengan benar --}}
+            <a class="nav-link {{ request()->routeIs('pengurus.*') ? '' : 'collapsed' }}" href="{{ route('pengurus.index') }}">
+                <i class="bi bi-shield-lock"></i>
+                <span>Data Pengurus</span>
+            </a>
+        </li>
+        @endif
 
         {{-- ======================================================== --}}
         {{-- MENU MANAJEMEN ANGGOTA (Hanya Pelatih & Pengurus)            --}}

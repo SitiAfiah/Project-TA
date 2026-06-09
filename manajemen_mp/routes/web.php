@@ -192,7 +192,7 @@ Route::middleware(['auth', 'checkrole:Pengurus'])->group(function () {
     Route::post('/pengurus/store', [PengurusController::class, 'store'])->name('pengurus.store');
     Route::get('/pengurus/{id}/edit', [PengurusController::class, 'edit'])->name('pengurus.edit');
     Route::put('/pengurus/{id}/update', [PengurusController::class, 'update'])->name('pengurus.update');
-    });
+});
 
 
 

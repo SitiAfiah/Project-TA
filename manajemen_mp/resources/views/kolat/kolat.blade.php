@@ -1,6 +1,11 @@
 @extends('layout.app')
 
 @section('content')
+    @php
+        $user = auth()->user();
+        $userRoles = $user && $user->anggota ? $user->anggota->roles->pluck('nama_role')->toArray() : [];
+        $isPengurus = in_array('Pengurus', $userRoles);
+    @endphp
     <div class="container-fluid py-4">
         <!-- Header & Breadcrumb -->
         <div class="page-header mb-4 text-start">
@@ -21,17 +26,20 @@
                         <!-- Title & Action Button -->
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <div class="text-start">
-                                <h5 class="card-title mb-0 fw-bold text-dark">Daftar Kolat Pada PPS Betako Merpati Putih</h5>
+                                <h5 class="card-title mb-0 fw-bold text-dark">Daftar Kolat Pada PPS Betako Merpati Putih
+                                </h5>
                                 <p class="text-muted small mb-0">Cabang Jember - Kelola lokasi dan unit latihan.</p>
                             </div>
-                            <a href="{{ route('kolat.create') }}" class="btn btn-primary px-4 py-2 shadow-sm"
-                                style="border-radius: 12px;">
-                                <i class="bi bi-plus-lg me-1"></i> Tambah Kolat
-                            </a>
+                            @if ($isPengurus)
+                                <a href="{{ route('kolat.create') }}" class="btn btn-primary px-4 py-2 shadow-sm"
+                                    style="border-radius: 12px;">
+                                    <i class="bi bi-plus-lg me-1"></i> Tambah Kolat
+                                </a>
+                            @endif
                         </div>
 
                         <!-- Notifikasi Alert (Opsional jika ingin pakai SweetAlert saja, ini bisa dihapus) -->
-                        @if(session('success'))
+                        @if (session('success'))
                             <div class="alert alert-success border-0 shadow-sm mb-4" style="border-radius: 12px;">
                                 <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
                             </div>
@@ -44,7 +52,9 @@
                                         <th width="80">ID</th>
                                         <th>Nama Kelompok Latihan</th>
                                         <th>Alamat Lokasi</th>
-                                        <th width="200">Aksi</th>
+                                        @if ($isPengurus)
+                                            <th width="200">Aksi</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,31 +67,35 @@
                                             </td>
                                             <td class="text-center">
                                                 <span class="text-muted small">
-                                                    <i class="bi bi-geo-alt me-1"></i> {{ $item->alamat_kolat ?? 'Alamat belum diatur' }}
+                                                    <i class="bi bi-geo-alt me-1"></i>
+                                                    {{ $item->alamat_kolat ?? 'Alamat belum diatur' }}
                                                 </span>
                                             </td>
-                                            <td class="text-center">
-                                                <div class="d-flex justify-content-center gap-2">
-                                                    <!-- Edit Button -->
-                                                    <a href="{{ route('kolat.edit', $item->id) }}"
-                                                        class="btn btn-sm btn-action-edit fw-bold px-3 shadow-xs">
-                                                        <i class="bi bi-pencil-square"></i>
-                                                    </a>
+                                            @if ($isPengurus)
+                                                <td class="text-center">
+                                                    <div class="d-flex justify-content-center gap-2">
+                                                        <a href="{{ route('kolat.edit', $item->id) }}"
+                                                            class="btn btn-sm btn-action-edit fw-bold px-3 shadow-xs">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                        </a>
 
-                                                    <!-- Delete Button dengan SweetAlert -->
-                                                    <form action="{{ route('kolat.destroy', $item->id) }}" method="POST" id="delete-form-{{ $item->id }}">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" onclick="confirmDelete({{ $item->id }})" class="btn btn-sm btn-action-delete fw-bold px-3 shadow-xs">
-                                                            <i class="bi bi-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
+                                                        <form action="{{ route('kolat.destroy', $item->id) }}"
+                                                            method="POST" id="delete-form-{{ $item->id }}">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="button"
+                                                                onclick="confirmDelete({{ $item->id }})"
+                                                                class="btn btn-sm btn-action-delete fw-bold px-3 shadow-xs">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            @endif
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="text-center py-5">
+                                            <td colspan="{{ $isPengurus ? '4' : '3' }}" class="text-center py-5">
                                                 <p class="text-muted">Belum ada data kolat yang tersedia.</p>
                                             </td>
                                         </tr>
@@ -97,7 +111,11 @@
     </div>
 
     <style>
-        .main-table { text-align: center; vertical-align: middle; }
+        .main-table {
+            text-align: center;
+            vertical-align: middle;
+        }
+
         .main-table thead th {
             background-color: #f8faff;
             padding: 18px 10px;
@@ -107,12 +125,14 @@
             text-transform: uppercase;
             border-bottom: 2px solid #edf2f9;
         }
+
         .main-table tbody td {
             padding: 20px 10px;
             border-bottom: 1px solid #f1f4f8;
             color: #495057;
             font-size: 0.9rem;
         }
+
         .btn-action-edit {
             background-color: #fff8e6;
             color: #f59e0b;
@@ -120,11 +140,13 @@
             border-radius: 10px;
             transition: 0.3s;
         }
+
         .btn-action-edit:hover {
             background-color: #f59e0b !important;
             color: white !important;
             transform: translateY(-2px);
         }
+
         .btn-action-delete {
             background-color: #fff5f5;
             color: #dc3545;
@@ -132,47 +154,51 @@
             border-radius: 10px;
             transition: 0.3s;
         }
+
         .btn-action-delete:hover {
             background-color: #dc3545 !important;
             color: white !important;
             transform: translateY(-2px);
         }
-        .shadow-xs { box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); }
+
+        .shadow-xs {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
     </style>
 
-@push('scripts')
-<script>
-    // Notifikasi Sukses Otomatis
-    @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: "{{ session('success') }}",
-            showConfirmButton: false,
-            timer: 2000,
-            borderRadius: '20px'
-        });
-    @endif
+    @push('scripts')
+        <script>
+            // Notifikasi Sukses Otomatis
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    borderRadius: '20px'
+                });
+            @endif
 
-    // Fungsi Konfirmasi Hapus
-    function confirmDelete(id) {
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            text: "Data yang dihapus tidak bisa dikembalikan!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#0d6efd',
-            cancelButtonColor: '#6c757d',
-            confirmButtonText: 'Ya, Hapus!',
-            cancelButtonText: 'Batal',
-            reverseButtons: true,
-            borderRadius: '20px'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('delete-form-' + id).submit();
+            // Fungsi Konfirmasi Hapus
+            function confirmDelete(id) {
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data yang dihapus tidak bisa dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0d6efd',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal',
+                    reverseButtons: true,
+                    borderRadius: '20px'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form-' + id).submit();
+                    }
+                })
             }
-        })
-    }
-</script>
-@endpush
+        </script>
+    @endpush
 @endsection

@@ -13,11 +13,29 @@ class KolatSeeder extends Seeder
      */
     public function run(): void
     {
+       // Menghapus data lama agar tidak bentrok saat migrate:fresh --seed
+        DB::table('kolat')->delete();
+
         DB::table('kolat')->insert([
-            'id' => 1, // Kita paksa ID 1 biar nyambung sama UserSeeder tadi
-            'nama_kolat' => 'Kolat Unej',
-            'created_at' => now(),
-            'updated_at' => now(),
+            [
+                'id'         => 1, // Wajib ID 1 agar nyambung dengan UserSeeder (Siti, Budi, Andi)
+                'nama_kolat' => 'Kolat Unej',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id'         => 2,
+                'nama_kolat' => 'Kolat Matasa',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id'         => 3,
+                'nama_kolat' => 'Kolat Ajung',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]
         ]);
+    
     }
 }

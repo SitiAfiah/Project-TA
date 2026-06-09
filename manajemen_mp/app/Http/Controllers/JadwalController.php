@@ -58,6 +58,7 @@ class JadwalController extends Controller
         $data_pelatih = Anggota::whereHas('roles', function($query) {
             $query->where('nama_role', 'Pelatih');
         })
+        ->with('kolatLatihan')
         ->where('status', 'Aktif')
         ->orderBy('nama_lengkap', 'asc')
         ->get();
@@ -100,7 +101,11 @@ class JadwalController extends Controller
         // Tetap filter agar hanya muncul daftar pelatih
         $data_pelatih = Anggota::whereHas('roles', function($query) {
             $query->where('nama_role', 'Pelatih');
-        })->get();
+        })
+        ->with('kolatLatihan')
+        ->where('status', 'Aktif')
+        ->orderBy('nama_lengkap', 'asc')
+        ->get();
 
         return view('jadwal.editjadwal', compact('jadwal', 'data_kolat', 'data_pelatih'));
     }

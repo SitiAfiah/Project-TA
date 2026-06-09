@@ -2,7 +2,9 @@
 
 @section('content')
     @php
-        $userRole = auth()->user()->role->nama_role ?? 'Anggota';
+        $user = auth()->user();
+        // Ambil semua role yang dimiliki user ke dalam bentuk array
+        $userRoles = $user && $user->anggota ? $user->anggota->roles->pluck('nama_role')->toArray() : [];
     @endphp
 
     <div class="container-fluid py-4">
@@ -14,7 +16,7 @@
             </div>
             <div class="d-flex flex-wrap gap-2">
                 {{-- HANYA PENGURUS YANG BISA GENERATE MASAL --}}
-                @if ($userRole == 'Pengurus')
+               @if (in_array('Pengurus', $userRoles))
                     <form action="{{ route('spp.generate') }}" method="POST" class="m-0" id="formGenerateSpp">
                         @csrf
                         <button type="button"
@@ -229,13 +231,26 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($spp->status == 'belum_bayar')
-                                                <form action="{{ route('spp.bayar', $spp->id) }}" method="POST"
+                                                {{-- <form action="{{ route('spp.bayar', $spp->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-sm btn-primary px-3 shadow-sm"
                                                         style="border-radius: 8px;"
                                                         onclick="return confirm('Konfirmasi pembayaran tunai untuk {{ $spp->anggota->nama_lengkap }}?')">
-                                                        @if ($userRole == 'Pelatih')
+                                                        @if (in_array('Pelatih', $userRoles))
+                                                            <i class="fas fa-hand-holding-usd me-1"></i> Terima Cash
+                                                        @else
+                                                            Bayar Tunai
+                                                        @endif
+                                                    </button>
+                                                </form> --}}
+                                                <form action="{{ route('spp.bayar', $spp->id) }}" method="POST" class="d-inline" id="formBayarTunai-{{ $spp->id }}">
+                                                    @csrf
+                                                    <button type="button" class="btn btn-sm btn-primary px-3 shadow-sm"
+                                                        style="border-radius: 8px;"
+                                                        onclick="konfirmasiBayarTunai({{ $spp->id }}, '{{ addslashes($spp->anggota->nama_lengkap) }}')">
+
+                                                        @if (in_array('Pelatih', $userRoles))
                                                             <i class="fas fa-hand-holding-usd me-1"></i> Terima Cash
                                                         @else
                                                             Bayar Tunai
@@ -252,7 +267,19 @@
                                                     </button>
 
                                                     {{-- HANYA PENGURUS YANG BISA VALIDASI STATUS PENDING --}}
-                                                    @if ($userRole == 'Pengurus')
+                                                    {{-- @if ($userRole == 'Pengurus')
+                                                        <form action="{{ route('spp.bayar', $spp->id) }}" method="POST"
+                                                            class="d-inline">
+                                                            @csrf
+                                                            <button type="submit"
+                                                                class="btn btn-sm btn-success px-2 shadow-sm"
+                                                                style="border-radius: 8px;"
+                                                                onclick="return confirm('Validasi bukti transfer dan nyatakan LUNAS?')">
+                                                                <i class="fas fa-check"></i> Validasi
+                                                            </button>
+                                                        </form>
+                                                    @endif --}}
+                                                    @if (in_array('Pengurus', $userRoles))
                                                         <form action="{{ route('spp.bayar', $spp->id) }}" method="POST"
                                                             class="d-inline">
                                                             @csrf
@@ -418,5 +445,27 @@
         @endif
 
     });
+
+
+    // Fungsi konfirmasi menggunakan SweetAlert2 untuk Bayar Tunai
+    function konfirmasiBayarTunai(id, namaAnggota) {
+        Swal.fire({
+            title: 'Konfirmasi Pembayaran?',
+            text: `Apakah Anda yakin ingin memproses pembayaran tunai untuk ${namaAnggota}?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#0d6efd',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: '<i class="fas fa-check me-1"></i> Ya, Proses!',
+            cancelButtonText: 'Batal',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Submit form spesifik berdasarkan ID
+                document.getElementById('formBayarTunai-' + id).submit();
+            }
+        });
+    }
+    
 </script>
 @endsection

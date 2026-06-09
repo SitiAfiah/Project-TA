@@ -79,7 +79,9 @@ class PelatihController extends Controller
             $updateData['foto_sk'] = $path;
         }
 
-        $anggota->roles()->syncWithoutDetaching([$rolePelatih->id]);
+        // $anggota->roles()->syncWithoutDetaching([$rolePelatih->id]);
+        // KODE BARU (Benar karena akan mengganti role Anggota menjadi murni Pelatih)
+        $anggota->roles()->sync([$rolePelatih->id]);
         $anggota->kolatLatihan()->sync($request->kolat_ids);
 
         // Eksekusi Update

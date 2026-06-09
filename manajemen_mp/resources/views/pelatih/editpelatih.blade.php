@@ -152,6 +152,8 @@
         </div>
     </div>
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <style>
         .form-control, .form-select { border-radius: 10px; padding: 10px 15px; }
         .form-control:focus { border-color: #4f46e5; box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.1); }
@@ -160,6 +162,34 @@
         .btn-cancel:hover { background-color: #6c757d; color: white; transform: translateY(-2px); }
         .btn-save { border-radius: 12px; background: linear-gradient(45deg, #4f46e5, #3730a3); border: none; transition: all 0.3s ease; }
         .btn-save:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4) !important; }
+
+        /* CUSTOM CSS UNTUK SELECT2 AGAR RAPI DAN MELENGKUNG SAMA DENGAN FORM LAIN */
+        .select2-container--bootstrap-5 .select2-selection {
+            border-radius: 10px;
+            min-height: 45px;
+            padding: 5px 10px;
+            border: 1px solid #ced4da;
+        }
+        .select2-container--bootstrap-5.select2-container--focus .select2-selection {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.1);
+        }
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 2px 10px;
+            margin-top: 5px;
+        }
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 8px;
+        }
+        .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #ff4d4d;
+            background: none;
+        }
     </style>
 
    @push('scripts')
